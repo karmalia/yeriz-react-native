@@ -138,14 +138,13 @@ const styles = StyleSheet.create({
     color: textColor,
     fontSize: 12,
 
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins",
   },
   textInput: {
     height: 52,
     backgroundColor: "white",
     paddingLeft: 34,
     fontSize: 16,
-    fontFamily: "Poppins_400Regular",
   },
 
   buttons: {
@@ -168,7 +167,7 @@ const styles = StyleSheet.create({
   btntext: {
     fontSize: 16,
     fontWeight: "400",
-    fontFamily: "Poppins_400Regular",
+    fontFamily: "Poppins",
   },
 });
 
