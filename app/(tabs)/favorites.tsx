@@ -2,15 +2,11 @@ import { StyleSheet } from "react-native";
 
 import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View } from "@/components/Themed";
-import { Link } from "expo-router";
 
-export default function TabOneScreen() {
+export default function TabTwoScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Keşfet Page</Text>
-      <Link href='/login' style={{ color: "blue" }}>
-        <Text>go login</Text>
-      </Link>
+      <Text style={styles.title}>Favoriler Page</Text>
     </View>
   );
 }
