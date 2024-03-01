@@ -9,6 +9,7 @@ import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 import IndexHeaderLogo from "@/assets/images/kesfet-logo.svg";
 import LocationLogo from "@/assets/images/location-on.svg";
 import { Text, View } from "@/components/Themed";
+import HeaderSearch from "@/components/header/header-search";
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];
@@ -39,47 +40,53 @@ export default function TabLayout() {
         name='index'
         options={{
           title: "Keşfet",
+          header: () => {
+            return (
+              <View style={tabStyles.headerWrapper}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    height: 60,
+                    gap: 10,
 
-          headerTitle(props) {
-            return <Text style={tabStyles.tabTitle}>Keşfet</Text>;
+                    width: "100%",
+                  }}
+                >
+                  <IndexHeaderLogo width={36} height={36} />
+                  <View style={tabStyles.tabIcon}>
+                    <Text style={tabStyles.tabTitle}>Hoşgeldiniz</Text>
+                  </View>
+                </View>
+                <HeaderSearch />
+              </View>
+            );
           },
+
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name='compass' color={focused ? green : secondary} />
-          ),
-          headerRight: () => (
-            <Link href='/modal' asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name='info-circle'
-                    size={25}
-                    color={Colors[colorScheme ?? "light"].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
-          headerLeft: () => (
-            <View style={tabStyles.tabIcon}>
-              <IndexHeaderLogo width={36} height={36} />
+            <View style={tabStyles.tabBarIconStyle}>
+              <TabBarIcon name='compass' color={focused ? green : secondary} />
+              <Text style={{ color: focused ? green : secondary }}>Keşfet</Text>
             </View>
           ),
         }}
       />
       <Tabs.Screen
-        name='filter'
+        name='search'
         options={{
-          title: "Filtrele",
-          headerTitle(props) {
-            return <Text style={tabStyles.tabTitle}>Filtrele</Text>;
+          title: "Ara",
+          header: () => {
+            return (
+              <View style={tabStyles.headerWrapper}>
+                <HeaderSearch />
+              </View>
+            );
           },
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name='search' color={focused ? green : secondary} />
-          ),
-          headerLeft: () => (
-            <View style={tabStyles.tabIcon}>
-              <LocationLogo width={36} height={36} />
+            <View style={tabStyles.tabBarIconStyle}>
+              <TabBarIcon name='search' color={focused ? green : secondary} />
+              <Text style={{ color: focused ? green : secondary }}>Ara</Text>
             </View>
           ),
         }}
@@ -88,15 +95,20 @@ export default function TabLayout() {
         name='favorites'
         options={{
           title: "Favoriler",
-          headerTitle(props) {
-            return <Text style={tabStyles.tabTitle}>Favoriler</Text>;
+          header: () => {
+            return (
+              <View style={tabStyles.headerWrapper}>
+                <HeaderSearch />
+              </View>
+            );
           },
+
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name='heart' color={focused ? green : secondary} />
-          ),
-          headerLeft: () => (
-            <View style={tabStyles.tabIcon}>
-              <IndexHeaderLogo width={36} height={36} />
+            <View style={tabStyles.tabBarIconStyle}>
+              <TabBarIcon name='heart' color={focused ? green : secondary} />
+              <Text style={{ color: focused ? green : secondary }}>
+                Favoriler
+              </Text>
             </View>
           ),
         }}
@@ -105,17 +117,17 @@ export default function TabLayout() {
         name='profile'
         options={{
           title: "Profil",
-          headerTitle(props) {
-            return <Text style={tabStyles.tabTitle}>Profil</Text>;
+          header: () => {
+            return (
+              <View style={tabStyles.headerWrapper}>
+                <HeaderSearch />
+              </View>
+            );
           },
           tabBarIcon: ({ color, focused }) => (
-            <View>
+            <View style={tabStyles.tabBarIconStyle}>
               <TabBarIcon name='user' color={focused ? green : secondary} />
-            </View>
-          ),
-          headerLeft: () => (
-            <View style={tabStyles.tabIcon}>
-              <IndexHeaderLogo width={36} height={36} />
+              <Text style={{ color: focused ? green : secondary }}>Profil</Text>
             </View>
           ),
         }}
@@ -129,9 +141,23 @@ const tabStyles = StyleSheet.create({
     height: 100,
   },
   tabBarStyle: {
-    height: 60,
+    height: 80,
   },
-
+  headerWrapper: {
+    justifyContent: "space-between",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    paddingHorizontal: 25,
+    backgroundColor: "white",
+    paddingTop: 20,
+  },
+  tabBarIconStyle: {
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 5,
+    width: "100%",
+    height: "100%",
+  },
   tabTitle: {
     fontSize: 20,
     fontWeight: "400",
