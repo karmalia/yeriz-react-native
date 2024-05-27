@@ -3,7 +3,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Link, Tabs } from "expo-router";
 import { Pressable, StyleSheet } from "react-native";
 
-import Colors, { green, secondary, textColor } from "@/constants/Colors";
+import Colors, { orange, secondary, textColor } from "@/constants/Colors";
 import { useColorScheme } from "@/components/useColorScheme";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 import IndexHeaderLogo from "@/assets/images/kesfet-logo.svg";
@@ -66,8 +66,10 @@ export default function TabLayout() {
 
           tabBarIcon: ({ color, focused }) => (
             <View style={tabStyles.tabBarIconStyle}>
-              <TabBarIcon name='compass' color={focused ? green : secondary} />
-              <Text style={{ color: focused ? green : secondary }}>Keşfet</Text>
+              <TabBarIcon name='compass' color={focused ? orange : secondary} />
+              <Text style={{ color: focused ? orange : secondary }}>
+                Keşfet
+              </Text>
             </View>
           ),
         }}
@@ -85,8 +87,8 @@ export default function TabLayout() {
           },
           tabBarIcon: ({ color, focused }) => (
             <View style={tabStyles.tabBarIconStyle}>
-              <TabBarIcon name='search' color={focused ? green : secondary} />
-              <Text style={{ color: focused ? green : secondary }}>Ara</Text>
+              <TabBarIcon name='search' color={focused ? orange : secondary} />
+              <Text style={{ color: focused ? orange : secondary }}>Ara</Text>
             </View>
           ),
         }}
@@ -105,8 +107,8 @@ export default function TabLayout() {
 
           tabBarIcon: ({ color, focused }) => (
             <View style={tabStyles.tabBarIconStyle}>
-              <TabBarIcon name='heart' color={focused ? green : secondary} />
-              <Text style={{ color: focused ? green : secondary }}>
+              <TabBarIcon name='heart' color={focused ? orange : secondary} />
+              <Text style={{ color: focused ? orange : secondary }}>
                 Favoriler
               </Text>
             </View>
@@ -126,8 +128,10 @@ export default function TabLayout() {
           },
           tabBarIcon: ({ color, focused }) => (
             <View style={tabStyles.tabBarIconStyle}>
-              <TabBarIcon name='user' color={focused ? green : secondary} />
-              <Text style={{ color: focused ? green : secondary }}>Profil</Text>
+              <TabBarIcon name='user' color={focused ? orange : secondary} />
+              <Text style={{ color: focused ? orange : secondary }}>
+                Profil
+              </Text>
             </View>
           ),
         }}

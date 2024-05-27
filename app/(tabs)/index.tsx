@@ -8,7 +8,7 @@ export default function TabOneScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Keşfet Page</Text>
-      <Link href='/login' style={{ color: "blue" }}>
+      <Link href={"/(login)"} style={{ color: "blue" }}>
         <Text>go login</Text>
       </Link>
     </View>
