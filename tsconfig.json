@@ -3,15 +3,26 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
-    }
+      "@/*": ["./*"]
+    },
+    "noImplicitAny": false,
+    "strictNullChecks": true, // Ensures null and undefined are handled explicitly
+    "strictFunctionTypes": true, // Ensures function type checking is more strict
+    "strictBindCallApply": true, // Ensures strict checking of the `bind`, `call`, and `apply` methods on functions
+    "strictPropertyInitialization": true, // Ensures class properties are initialized correctly
+    "noImplicitThis": true, // Ensures `this` is correctly typed
+    "alwaysStrict": true, // Parses in strict mode and emits "use strict" for each source file
+    "noUnusedLocals": true, // Reports errors on unused local variables
+    "noUnusedParameters": true, // Reports errors on unused parameters
+    "noImplicitReturns": true, // Ensures all code paths in a function return a value
+    "noFallthroughCasesInSwitch": true, // Ensures that switch statements have correct case handling
+    "forceConsistentCasingInFileNames": true, // Ensures that file names are always correctly cased
+    "jsx": "react", // Use React-specific JSX transform
+    "esModuleInterop": true, // Enables emit interoperability between CommonJS and ES Modules via `import` and `export`
+    "moduleResolution": "node", // Ensures correct resolution of modules
+    "resolveJsonModule": true, // Allows importing JSON files
+    "allowSyntheticDefaultImports": true, // Allows default imports from modules with no default export
+    "skipLibCheck": true // Skips type checking of declaration files
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }
