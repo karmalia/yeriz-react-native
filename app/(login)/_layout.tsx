@@ -1,21 +1,36 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { Link, Stack } from "expo-router";
+import { Link, Stack, useNavigation } from "expo-router";
+import { LinearGradient } from "expo-linear-gradient";
+import { primaryThree, secondaryFour } from "@/constants/colors";
 type Props = {};
 
 const LoginLayout = (props: Props) => {
-  console.log("LoginLayout");
+  const navigator = useNavigation();
+
   return (
     <Stack
-      initialRouteName='index'
+      initialRouteName="index"
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name='index' />
-      <Stack.Screen name='register' />
-      <Stack.Screen name='resetPassword' />
-      <Stack.Screen name='forgotPassword' />
+      <Stack.Screen
+        name="index"
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="register"
+        options={{
+          headerShown: true,
+          headerBlurEffect: "light",
+          headerTransparent: true,
+        }}
+      />
+      <Stack.Screen name="resetPassword" />
+      <Stack.Screen name="forgotPassword" />
     </Stack>
   );
 };

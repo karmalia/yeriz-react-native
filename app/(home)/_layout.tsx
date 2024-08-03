@@ -1,9 +1,14 @@
 import React from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Tabs } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 
-import { natural30, primaryOne, secondaryOne } from "@/constants/colors";
+import {
+  natural30,
+  natural40,
+  primaryOne,
+  secondaryOne,
+} from "@/constants/colors";
 import { useClientOnlyValue } from "@/lib/hooks/useClientOnlyValue";
 
 import HeaderSearch from "@/components/header/header-search";
@@ -170,9 +175,11 @@ const tabStyles = StyleSheet.create({
   },
   tabBarIconStyle: {
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: natural40,
     justifyContent: "center",
     gap: 5,
+    borderTopColor: primaryOne,
+    borderTopWidth: 1,
     width: "100%",
     height: "100%",
   },

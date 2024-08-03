@@ -17,9 +17,10 @@ const MapHeader = (props: Props) => {
       style={[
         styles.header,
         {
-          paddingTop: statusBarHeight + 40,
+          paddingTop: statusBarHeight + 10,
 
           backgroundColor: "#fff",
+          elevation: 2,
           borderWidth: 1,
         },
       ]}
@@ -36,7 +37,7 @@ const MapHeader = (props: Props) => {
 
         <ThemedText
           style={{
-            fontFamily: Poppins.Medium,
+            fontFamily: Poppins.Regular,
             lineHeight: 20,
             paddingTop: 8,
             fontSize: 18,
@@ -65,7 +66,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     justifyContent: "space-between",
     alignItems: "center",
-
     paddingVertical: 10,
     borderColor: natural30,
     position: "relative",

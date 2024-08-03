@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   natural10,
   natural30,
@@ -8,18 +8,26 @@ import {
 } from "@/constants/colors";
 
 import LoginLayout from "@/components/(login)/layout";
-import LoginButton from "@/components/(login)/LoginButton";
+
 import ThemedInput from "@/components/shared/themed-input/themed-input";
 import ThemedButton from "@/components/shared/themed-button/themed-button";
-import { useNavigation } from "expo-router";
+
 import Poppins from "@/constants/font";
+import { Link, useNavigation } from "expo-router";
+import Icons from "@/components/shared/icons/icons";
 
 const LoginPage = () => {
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.setOptions({ headerShown: false });
+  }, [navigation]);
+
   const [userForm, setUserForm] = React.useState({
     username: "",
     password: "",
   });
-  const { navigate } = useNavigation();
+
   const handleUsername = (text: string) => {
     setUserForm({ ...userForm, username: text });
   };
@@ -33,6 +41,10 @@ const LoginPage = () => {
       <View
         style={{
           marginTop: 80,
+          width: "80%",
+          display: "flex",
+          flexDirection: "column",
+          gap: 8,
         }}
       >
         <View style={styles.loginForm}>
@@ -70,21 +82,63 @@ const LoginPage = () => {
         <View style={styles.buttons}>
           <ThemedButton
             size="medium"
+            style={{ width: "100%" }}
             variant="secondary"
-            style={{ width: 150 }}
-            onPress={() => navigate("(demo)")}
           >
-            Kayıt Ol (demo)
+            <Link
+              href={{
+                pathname: "/register",
+                params: { from: "(login)" },
+              }}
+            >
+              Giriş Yap
+            </Link>
           </ThemedButton>
-          <ThemedButton
-            size="medium"
-            style={{ width: 150 }}
-            variant="secondary"
-            outline
-            onPress={() => navigate("(home)")}
+        </View>
+
+        {/* Horizontal */}
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+
+            width: "100%",
+          }}
+        >
+          <View
+            style={{
+              width: "40%",
+              height: 2,
+              backgroundColor: primaryOne,
+            }}
+          />
+          <Text
+            style={{
+              color: primaryOne,
+              fontSize: 16,
+              fontFamily: Poppins.Regular,
+              marginHorizontal: 10,
+            }}
           >
-            Giriş Yap (home)
-          </ThemedButton>
+            veya
+          </Text>
+          <View
+            style={{
+              width: "40%",
+              height: 2,
+              backgroundColor: primaryOne,
+            }}
+          />
+        </View>
+        {/* Login Options */}
+        <View
+          style={{
+            width: 140,
+            height: 140,
+          }}
+        >
+          <Icons.Check />
         </View>
       </View>
     </LoginLayout>
@@ -93,8 +147,8 @@ const LoginPage = () => {
 
 const styles = StyleSheet.create({
   loginForm: {
-    width: "80%",
-    rowGap: 14,
+    width: "100%",
+    rowGap: 12,
   },
 
   inputWrapper: {
@@ -106,11 +160,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   buttons: {
-    width: "80%",
+    width: "100%",
     alignItems: "center",
     flexDirection: "row",
     justifyContent: "space-evenly",
-    marginTop: 20,
   },
   textInput: {
     height: 52,

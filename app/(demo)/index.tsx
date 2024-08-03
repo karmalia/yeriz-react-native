@@ -1,4 +1,4 @@
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, Button, StyleSheet, Image } from "react-native";
 import React from "react";
 
 import ScreenWrapper from "@/components/shared/demo-wrap";
@@ -11,6 +11,15 @@ const DemoIndexPage = () => {
 
   return (
     <ScreenWrapper>
+      <Image
+        source={require("@/assets/images/favicon.png")}
+        style={{
+          width: 100,
+          height: 100,
+          alignSelf: "center",
+          marginVertical: 20,
+        }}
+      />
       <Text style={styles.headerText}>
         Bu Kısım Component demoları içindir, Hamburger menüden diğer sayfalara
         ulaşabilirsiniz.
@@ -22,16 +31,9 @@ const DemoIndexPage = () => {
           marginVertical: 20,
         }}
       >
-        <Button
-          title="Go to Login"
-          onPress={() => navigate.navigate("(login)")}
-        />
-        <Button
-          title="Go to Tabs"
-          onPress={() => navigate.navigate("(home)")}
-        />
+        <Button title="LOGIN" onPress={() => navigate.navigate("(login)")} />
+        <Button title="HOME" onPress={() => navigate.navigate("(home)")} />
       </View>
-      <Icons.Check />
     </ScreenWrapper>
   );
 };

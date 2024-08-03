@@ -1,6 +1,5 @@
 import React from "react";
 
-import Logo from "../../assets/images/YerizLogo.svg";
 import {
   primaryOne,
   primaryThree,
@@ -16,6 +15,7 @@ import {
 } from "@/constants/colors";
 import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, SafeAreaView } from "react-native";
+import Icons from "../shared/icons/icons";
 
 const LoginLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -24,7 +24,7 @@ const LoginLayout = ({ children }: { children: React.ReactNode }) => {
         colors={[white, secondaryFour, secondaryThree]}
         style={styles.wrapper}
       >
-        <Logo width={158} height={193} />
+        <Icons.YerizLogo width={158} height={193} />
         {children}
       </LinearGradient>
     </SafeAreaView>

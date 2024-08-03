@@ -1,11 +1,11 @@
 import * as React from "react";
-import { Image, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import { Link } from "expo-router";
 import Poppins from "@/constants/font";
 import ThemedText from "@/components/shared/themed-text/themed-text";
-const logo = require("@/assets/images/icon.png");
+
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
@@ -18,14 +18,6 @@ export default function HomeScreen() {
         Keşfet Page
       </ThemedText>
       <Link href={"/(login)"} style={{ color: "blue" }}>
-        <Image
-          style={{
-            width: 100,
-            height: 100,
-            resizeMode: "contain",
-          }}
-          source={{ uri: logo }}
-        />
         <ThemedText
           style={{
             fontFamily: Poppins.Regular,
