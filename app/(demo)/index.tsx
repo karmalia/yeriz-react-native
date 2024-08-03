@@ -4,7 +4,6 @@ import React from "react";
 import ScreenWrapper from "@/components/shared/demo-wrap";
 import { primaryOne } from "@/constants/colors";
 import { useNavigation } from "expo-router";
-import Icons from "@/components/shared/icons/icons";
 
 const DemoIndexPage = () => {
   const navigate = useNavigation();

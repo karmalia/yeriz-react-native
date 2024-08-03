@@ -53,9 +53,21 @@ const ThemedDropdown = (props: Props) => {
       }}
       renderRightIcon={() => {
         if (isFocus) {
-          return <Icons.ChevronDown />;
+          return (
+            <Icons.ChevronUp
+              style={{
+                color: primaryOne,
+              }}
+            />
+          );
         } else {
-          return <Icons.ChevronUp />;
+          return (
+            <Icons.ChevronDown
+              style={{
+                color: primaryOne,
+              }}
+            />
+          );
         }
       }}
       renderLeftIcon={() => <Text></Text>}
@@ -75,6 +87,7 @@ const ThemedDropdown = (props: Props) => {
               fontSize: 16,
               color: selected ? tertiaryOne : primaryOne,
               fontWeight: "500",
+              lineHeight: 24,
               fontFamily: Poppins.Regular,
             }}
           >

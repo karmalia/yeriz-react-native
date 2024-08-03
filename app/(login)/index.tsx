@@ -1,11 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { useEffect } from "react";
-import {
-  natural10,
-  natural30,
-  primaryOne,
-  textColor,
-} from "@/constants/colors";
+import { natural30, primaryOne, textColor } from "@/constants/colors";
 
 import LoginLayout from "@/components/(login)/layout";
 
@@ -132,13 +127,8 @@ const LoginPage = () => {
           />
         </View>
         {/* Login Options */}
-        <View
-          style={{
-            width: 140,
-            height: 140,
-          }}
-        >
-          <Icons.Check />
+        <View>
+          <Icons.GoogleEnglishSignIn />
         </View>
       </View>
     </LoginLayout>
