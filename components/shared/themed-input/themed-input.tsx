@@ -10,13 +10,17 @@ import { primaryOne, textColor } from "@/constants/colors";
 
 import Icons from "@/components/shared/icons/icons";
 import Poppins from "@/constants/font";
+import { useController } from "react-hook-form";
 
 interface ThemedInputProps extends TextInputProps {
   leftIcon?: keyof typeof Icons;
   rightIcon?: keyof typeof Icons;
   label?: string;
-  hasError?: boolean;
+  hasError?: string | undefined;
   style?: any;
+  control?: any;
+  name?: string;
+  value?: string;
 }
 
 const ThemedInput = ({
@@ -26,12 +30,19 @@ const ThemedInput = ({
   rightIcon,
   label,
   hasError,
+  control,
   ...props
 }: ThemedInputProps) => {
   const [rightIconName, setRightIconName] = React.useState(rightIcon);
   const [isFocused, setIsFocused] = React.useState(false);
 
-  console.log("Right Icon", rightIconName);
+  const field = control
+    ? useController({
+        name: props.name || "",
+        control: control,
+        defaultValue: props.value || "",
+      }).field
+    : { value: props.value || "", onChange: props.onChangeText || (() => {}) };
 
   const renderIcon = (iconName) => {
     const IconComponent = Icons[iconName];
@@ -64,7 +75,12 @@ const ThemedInput = ({
         style={[
           styles.inputWrapper,
           {
-            borderColor: isFocused ? primaryOne : "transparent",
+            borderColor:
+              isFocused && hasError
+                ? "red"
+                : isFocused && !hasError
+                ? primaryOne
+                : "transparent",
             borderWidth: 2,
             ...style,
           },
@@ -81,8 +97,8 @@ const ThemedInput = ({
           ]}
           selectionColor={primaryOne}
           placeholder={placeholder}
-          value={props.value}
-          onChangeText={props.onChangeText}
+          value={field?.value || ""}
+          onChangeText={field?.onChange || (() => {})}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           secureTextEntry={rightIconName === "EyeOffIcon"}
@@ -91,6 +107,9 @@ const ThemedInput = ({
 
         {rightIcon && renderIcon(rightIconName)}
       </View>
+      {hasError && (
+        <Text style={{ color: "red", fontSize: 12 }}>{hasError}</Text>
+      )}
     </View>
   );
 };
@@ -99,7 +118,7 @@ const styles = StyleSheet.create({
   inputView: {
     width: "100%",
     gap: 4,
-
+    paddingTop: 4,
     overflow: "hidden",
   },
   inputWrapper: {

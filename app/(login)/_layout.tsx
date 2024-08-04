@@ -30,7 +30,15 @@ const LoginLayout = (props: Props) => {
         }}
       />
       <Stack.Screen name="resetPassword" />
-      <Stack.Screen name="forgotPassword" />
+      <Stack.Screen
+        name="forgotPassword"
+        options={{
+          headerShown: true,
+          headerTitle: "Şifremi Unuttum",
+          headerBlurEffect: "light",
+          headerTransparent: true,
+        }}
+      />
     </Stack>
   );
 };

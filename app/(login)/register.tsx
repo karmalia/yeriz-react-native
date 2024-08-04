@@ -9,7 +9,7 @@ import { useLocalSearchParams, useNavigation } from "expo-router";
 
 type RegisterProps = {};
 
-const Register = (props: RegisterProps) => {
+const RegisterPage = (props: RegisterProps) => {
   const params = useLocalSearchParams();
   const navigation = useNavigation();
 
@@ -188,4 +188,4 @@ const styles = {
   },
 };
 
-export default Register;
+export default RegisterPage;

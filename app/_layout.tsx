@@ -12,6 +12,7 @@ import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 import MapHeader from "@/components/map/map-header";
+import ClientProvider from "@/providers/query-client";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -55,28 +56,30 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   return (
-    <Stack initialRouteName={"(demo)"}>
-      <Stack.Screen name="(login)" options={{ headerShown: false }} />
-      <Stack.Screen
-        name="(home)"
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="(demo)"
-        options={{
-          headerShown: true,
-          title: "Components",
-        }}
-      />
-      <Stack.Screen
-        name="modals/map-modal"
-        options={{
-          header: () => <MapHeader />,
-          presentation: "modal",
-        }}
-      />
-    </Stack>
+    <ClientProvider>
+      <Stack initialRouteName={"(demo)"}>
+        <Stack.Screen name="(login)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="(home)"
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="(demo)"
+          options={{
+            headerShown: true,
+            title: "Components",
+          }}
+        />
+        <Stack.Screen
+          name="modals/map-modal"
+          options={{
+            header: () => <MapHeader />,
+            presentation: "modal",
+          }}
+        />
+      </Stack>
+    </ClientProvider>
   );
 }

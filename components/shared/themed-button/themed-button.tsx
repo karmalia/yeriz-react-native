@@ -137,7 +137,6 @@ export default function ThemedButton({
         setIsFocused(false);
       }}
       onPress={() => {
-        console.log("Test", onPress);
         onPress && onPress();
       }}
     >

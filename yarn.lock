@@ -821,6 +821,13 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@dev-plugins/react-query@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@dev-plugins/react-query/-/react-query-0.0.6.tgz#bc4b15a821ed4591a3d92d40058abd0d729b4a24"
+  integrity sha512-vxddpeongPPTN3NeWRsNRxwpB+7KpL+3FUVU0PmrFpEbMsLd0zbDEM7uC7z7ZR9qFuqeIY3uvwuq3LoYHBLT4w==
+  dependencies:
+    flatted "^3.2.9"
+
 "@egjs/hammerjs@^2.0.17":
   version "2.0.17"
   resolved "https://registry.yarnpkg.com/@egjs/hammerjs/-/hammerjs-2.0.17.tgz#5dc02af75a6a06e4c2db0202cae38c9263895124"
@@ -1203,6 +1210,11 @@
   integrity sha512-foQZKJig7Ob0BMAYBfcJk8d77QtOe7Wo4ox7ff1lQYoNNAb6jwcY1ncdoy2e9wQZzvNy7ODZCYJkK8kzmcAnAg==
   dependencies:
     "@hapi/hoek" "^9.0.0"
+
+"@hookform/resolvers@^3.9.0":
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-3.9.0.tgz#cf540ac21c6c0cd24a40cf53d8e6d64391fb753d"
+  integrity sha512-bU0Gr4EepJ/EQsH/IwEzYLsT/PEj5C0ynLQ4m+GSHS+xKH4TfSelhluTgOaoc4kA5s7eCsQbM4wvZLzELmWzUg==
 
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
@@ -2039,6 +2051,18 @@
   dependencies:
     "@sinonjs/commons" "^3.0.0"
 
+"@tanstack/query-core@5.51.21":
+  version "5.51.21"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.51.21.tgz#a510469c6c30d3de2a8b8798e340169a4b0fd08f"
+  integrity sha512-POQxm42IUp6n89kKWF4IZi18v3fxQWFRolvBA6phNVmA8psdfB1MvDnGacCJdS+EOX12w/CyHM62z//rHmYmvw==
+
+"@tanstack/react-query@^5.51.21":
+  version "5.51.21"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.51.21.tgz#cdd14677bcc809a83e01b6c38842c841ce7420af"
+  integrity sha512-Q/V81x3sAYgCsxjwOkfLXfrmoG+FmDhLeHH5okC/Bp8Aaw2c33lbEo/mMcMnkxUPVtB2FLpzHT0tq3c+OlZEbw==
+  dependencies:
+    "@tanstack/query-core" "5.51.21"
+
 "@tootallnate/once@2":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-2.0.0.tgz#f544a148d3ab35801c1f633a7441fd87c2e484bf"
@@ -2511,6 +2535,15 @@ available-typed-arrays@^1.0.7:
   integrity sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==
   dependencies:
     possible-typed-array-names "^1.0.0"
+
+axios@^1.7.3:
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.7.3.tgz#a1125f2faf702bc8e8f2104ec3a76fab40257d85"
+  integrity sha512-Ar7ND9pU99eJ9GpoGQKhKf58GpUOgnzuaB7ueNQ5BMi0p+LZ5oaEnfF999fAArcTIBwXTCHAmGcHOZJaWPq9Nw==
+  dependencies:
+    follow-redirects "^1.15.6"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
 
 babel-core@^7.0.0-bridge.0:
   version "7.0.0-bridge.0"
@@ -4054,6 +4087,11 @@ find-yarn-workspace-root@~2.0.0:
   dependencies:
     micromatch "^4.0.2"
 
+flatted@^3.2.9:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.3.1.tgz#21db470729a6734d4997002f439cb308987f567a"
+  integrity sha512-X8cqMLLie7KsNUDSdzeN8FYK9rEt4Dt67OsG/DNGnYTSDBG4uFAJFBnUeiV+zCVAvwFy56IjM9sH51jVaEhNxw==
+
 flow-enums-runtime@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/flow-enums-runtime/-/flow-enums-runtime-0.0.6.tgz#5bb0cd1b0a3e471330f4d109039b7eba5cb3e787"
@@ -4063,6 +4101,11 @@ flow-parser@0.*:
   version "0.242.1"
   resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.242.1.tgz#d95977303d2cca0c1cb39394f5f5098d1ed5fc95"
   integrity sha512-E3ml21Q1S5cMAyPbtYslkvI6yZO5oCS/S2EoteeFH8Kx9iKOv/YOJ+dGd/yMf+H3YKfhMKjnOpyNwrO7NdddWA==
+
+follow-redirects@^1.15.6:
+  version "1.15.6"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.6.tgz#7f815c0cda4249c74ff09e95ef97c23b5fd0399b"
+  integrity sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==
 
 fontfaceobserver@^2.1.0:
   version "2.3.0"
@@ -6662,6 +6705,11 @@ prop-types@^15.7.2, prop-types@^15.8.1:
     object-assign "^4.1.1"
     react-is "^16.13.1"
 
+proxy-from-env@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/proxy-from-env/-/proxy-from-env-1.1.0.tgz#e102f16ca355424865755d2c9e8ea4f24d58c3e2"
+  integrity sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==
+
 psl@^1.1.33:
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/psl/-/psl-1.9.0.tgz#d0df2a137f00794565fcaf3b2c00cd09f8d5a5a7"
@@ -6762,6 +6810,11 @@ react-freeze@^1.0.0:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/react-freeze/-/react-freeze-1.0.4.tgz#cbbea2762b0368b05cbe407ddc9d518c57c6f3ad"
   integrity sha512-r4F0Sec0BLxWicc7HEyo2x3/2icUTrRmDjaaRyzzn+7aDyFZliszMDOgLVwSnQnYENOlL1o569Ze2HZefk8clA==
+
+react-hook-form@^7.52.2:
+  version "7.52.2"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.52.2.tgz#ff40f4776250b86ddfcde6be68d34aa82b1c60fe"
+  integrity sha512-pqfPEbERnxxiNMPd0bzmt1tuaPcVccywFDpyk2uV5xCIBphHV5T8SVnX9/o3kplPE1zzKt77+YIoq+EMwJp56A==
 
 "react-is@^16.12.0 || ^17.0.0 || ^18.0.0", react-is@^18.0.0, react-is@^18.2.0:
   version "18.3.1"
@@ -8610,3 +8663,8 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
+
+zod@^3.23.8:
+  version "3.23.8"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.23.8.tgz#e37b957b5d52079769fb8097099b592f0ef4067d"
+  integrity sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==
