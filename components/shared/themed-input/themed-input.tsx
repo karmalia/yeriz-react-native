@@ -6,7 +6,13 @@ import {
   TextInputProps,
 } from "react-native";
 import React from "react";
-import { primaryOne, textColor } from "@/constants/colors";
+import {
+  primaryOne,
+  secondaryFour,
+  secondaryThree,
+  secondaryTwo,
+  textColor,
+} from "@/constants/colors";
 
 import Icons from "@/components/shared/icons/icons";
 import Poppins from "@/constants/font";
@@ -95,7 +101,7 @@ const ThemedInput = ({
               paddingRight: rightIcon ? 15 : 0,
             },
           ]}
-          selectionColor={primaryOne}
+          selectionColor={secondaryFour}
           placeholder={placeholder}
           value={field?.value || ""}
           onChangeText={field?.onChange || (() => {})}
@@ -117,6 +123,7 @@ const ThemedInput = ({
 const styles = StyleSheet.create({
   inputView: {
     width: "100%",
+
     gap: 4,
     paddingTop: 4,
     overflow: "hidden",

@@ -5,8 +5,10 @@ import axios, {
 } from "axios";
 
 // Create an Axios instance
+var pc = "78";
+var laptop = "193";
 const api = axios.create({
-  baseURL: "http://192.168.1.193:3000",
+  baseURL: `http://192.168.1.${pc}:3000`,
   headers: {
     "Content-Type": "application/json",
   },

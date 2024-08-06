@@ -56,6 +56,13 @@ const LoginLayout = () => {
             title: "dropdowns",
           }}
         />
+        <Drawer.Screen
+          name="spinners" // This is the name of the page and must match the url from root
+          options={{
+            drawerLabel: "spinners",
+            title: "spinners",
+          }}
+        />
       </Drawer>
     </GestureHandlerRootView>
   );

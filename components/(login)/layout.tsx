@@ -7,7 +7,7 @@ import {
   white,
 } from "@/constants/colors";
 import { LinearGradient } from "expo-linear-gradient";
-import { StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet, View, ScrollView } from "react-native";
 import Icons from "../shared/icons/icons";
 import useKeyboardState from "@/lib/custom-hooks/useKeyboardState";
 
@@ -23,9 +23,17 @@ const LoginLayout = ({ children }: { children: React.ReactNode }) => {
       ]}
       colors={[white, secondaryFour, secondaryThree]}
     >
-      <Icons.YerizLogo width={158} height={193} />
+      <Icons.YerizLogo width={"100%"} height={193} />
 
-      {children}
+      <View
+        style={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        {children}
+      </View>
     </LinearGradient>
   );
 };
@@ -34,9 +42,8 @@ export default LoginLayout;
 const styles = StyleSheet.create({
   gradient: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-
-    gap: 40,
+    width: Dimensions.get("window").width,
+    paddingHorizontal: 40,
+    paddingTop: 60,
   },
 });

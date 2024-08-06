@@ -4,6 +4,16 @@ import React from "react";
 const useKeyboardState = () => {
   const [keyboardState, setKeyboardState] = React.useState<boolean>(false);
 
+  function hideKeyboard() {
+    Keyboard.dismiss();
+  }
+
+  function showKeyboard() {
+    Keyboard.addListener("keyboardDidShow", () => {
+      setKeyboardState(true);
+    });
+  }
+
   React.useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       "keyboardDidShow",
@@ -22,11 +32,13 @@ const useKeyboardState = () => {
       keyboardDidShowListener.remove();
       keyboardDidHideListener.remove();
     };
-  }, []);
+  }, [keyboardState]);
 
   return {
     keyboardState,
     setKeyboardState,
+    hideKeyboard,
+    showKeyboard,
   };
 };
 

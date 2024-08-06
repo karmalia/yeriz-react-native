@@ -20,6 +20,7 @@ type ThemedButtonProps = {
   style: any;
   children: React.ReactNode;
   onPress?: () => void;
+  isLoading?: boolean;
 };
 
 enum TextVariant {
@@ -115,6 +116,7 @@ export default function ThemedButton({
   outline,
   children,
   style,
+  isLoading,
   onPress,
 }: ThemedButtonProps) {
   const [isFocused, setIsFocused] = React.useState(false);
@@ -149,7 +151,7 @@ export default function ThemedButton({
           },
         ]}
       >
-        {children}
+        {isLoading ? "o" : children}
       </Text>
     </TouchableOpacity>
   );

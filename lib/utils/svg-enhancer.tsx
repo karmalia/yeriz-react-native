@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { DimensionValue, View, ViewStyle } from "react-native";
+import { Dimensions, DimensionValue, View, ViewStyle } from "react-native";
 
 interface SvgEnhancerProps {
   children: ReactNode;
@@ -11,11 +11,10 @@ interface SvgEnhancerProps {
 export default function SvgEnhancer({
   children,
   aspectRatio,
-  containerWidth,
   containerHeight,
 }: SvgEnhancerProps) {
   const containerStyle: ViewStyle = {
-    width: containerWidth || "80%",
+    width: Dimensions.get("window").width * 0.8,
     height: containerHeight || "auto",
     aspectRatio,
     margin: "auto",

@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, Keyboard } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Keyboard,
+  Dimensions,
+  ToastAndroid,
+} from "react-native";
 import React, { useEffect } from "react";
 import { natural30, primaryOne, textColor } from "@/constants/colors";
 
@@ -17,14 +24,16 @@ import {
 } from "@/lib/schemas/user-login.schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { KeyboardState } from "react-native-reanimated";
+
 import useKeyboardState from "@/lib/custom-hooks/useKeyboardState";
 import useLoginMutation from "@/api/mutations/mock-login";
+import Toast from "react-native-root-toast";
+import AnimatedSpinner from "@/components/shared/spinner/spinner";
 
 const LoginPage = () => {
   const navigation = useNavigation();
-  const { keyboardState, setKeyboardState } = useKeyboardState();
-  const { mutateAsync: login } = useLoginMutation();
+  const { hideKeyboard, keyboardState, setKeyboardState } = useKeyboardState();
+  const { mutateAsync: login, isPending } = useLoginMutation();
   const {
     control,
     handleSubmit,
@@ -34,14 +43,35 @@ const LoginPage = () => {
     resolver: zodResolver(userLoginSchema),
   });
 
-  const onSubmit = (data: TUserLoginSchema) => {
+  let toast = Toast.show("Başarılı", {
+    duration: Toast.durations.LONG,
+  });
+
+  const onSubmit = async (data: TUserLoginSchema) => {
     console.log(data);
+    hideKeyboard();
     login(data)
       .then((response) => {
         console.log("cevap: ", response);
+        // navigation.navigate("(home)");
+        setKeyboardState(false);
+        Toast.show("Başarılı", {
+          duration: Toast.durations.LONG,
+        });
       })
       .catch((error) => {
-        console.error("client error: ", error.message);
+        if (error.response.status === 401) {
+          Toast.show("Girdiğiniz bilgilerden biri yanlış", {
+            duration: Toast.durations.SHORT,
+            position: Toast.positions.BOTTOM,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0,
+          });
+        }
+
+        return error;
       });
   };
 
@@ -51,122 +81,112 @@ const LoginPage = () => {
 
   return (
     <LoginLayout>
-      <View
-        style={{
-          width: "80%",
-          display: "flex",
-          flexDirection: "column",
-          gap: 8,
-        }}
-      >
-        <View style={styles.loginForm}>
-          <ThemedInput
-            leftIcon="UserIcon"
-            placeholder="Email adresinizi giriniz"
-            label="Email"
-            name="email"
-            control={control}
-            hasError={errors.email?.message}
-          />
-          <ThemedInput
-            leftIcon="LockIcon"
-            rightIcon="EyeOffIcon"
-            placeholder="Şifrenizi giriniz"
-            label="Şifre"
-            name="password"
-            control={control}
-            hasError={errors.password?.message}
-            onSubmitEditing={handleSubmit(onSubmit)}
-          />
-          <Link
-            href={{
-              pathname: "/forgotPassword",
-              params: { from: "(login)" },
-            }}
+      <View style={styles.loginForm}>
+        <ThemedInput
+          leftIcon="UserIcon"
+          placeholder="Email adresinizi giriniz"
+          label="Email"
+          name="email"
+          control={control}
+          hasError={errors.email?.message}
+        />
+        <ThemedInput
+          leftIcon="LockIcon"
+          rightIcon="EyeOffIcon"
+          placeholder="Şifrenizi giriniz"
+          label="Şifre"
+          name="password"
+          control={control}
+          hasError={errors.password?.message}
+          onSubmitEditing={handleSubmit(onSubmit)}
+        />
+        <Link
+          href={{
+            pathname: "/forgotPassword",
+            params: { from: "(login)" },
+          }}
+          style={{
+            color: natural30,
+            paddingTop: 4,
+            alignSelf: "flex-end",
+            width: "100%",
+            textDecorationLine: "underline",
+            fontSize: 12,
+            fontFamily: Poppins.Regular,
+            textAlign: "right",
+            paddingRight: 8,
+          }}
+        >
+          Şifremi Unuttum
+        </Link>
+      </View>
+      <View style={styles.buttons}>
+        <ThemedButton
+          size="medium"
+          style={{ width: "100%" }}
+          variant="secondary"
+          isLoading={isPending}
+          onPress={handleSubmit(onSubmit)}
+        >
+          Giriş Yap
+        </ThemedButton>
+      </View>
+      {!keyboardState && (
+        <React.Fragment>
+          {/* Horizontal */}
+          <View
             style={{
-              color: natural30,
-              paddingTop: 4,
-              alignSelf: "flex-end",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+
               width: "100%",
-              textDecorationLine: "underline",
-              fontSize: 12,
-              fontFamily: Poppins.Regular,
-              textAlign: "right",
-              paddingRight: 8,
             }}
           >
-            Şifremi Unuttum
-          </Link>
-        </View>
-
-        {!keyboardState && (
-          <React.Fragment>
-            <View style={styles.buttons}>
-              <ThemedButton
-                size="medium"
-                style={{ width: "100%" }}
-                variant="secondary"
-                onPress={handleSubmit(onSubmit)}
-              >
-                Giriş Yap
-              </ThemedButton>
-            </View>
-
-            {/* Horizontal */}
             <View
               style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-
-                width: "100%",
+                width: "40%",
+                height: 2,
+                backgroundColor: primaryOne,
+              }}
+            />
+            <Text
+              style={{
+                color: primaryOne,
+                fontSize: 16,
+                fontFamily: Poppins.Regular,
+                marginHorizontal: 10,
               }}
             >
-              <View
-                style={{
-                  width: "40%",
-                  height: 2,
-                  backgroundColor: primaryOne,
-                }}
-              />
-              <Text
-                style={{
-                  color: primaryOne,
-                  fontSize: 16,
-                  fontFamily: Poppins.Regular,
-                  marginHorizontal: 10,
-                }}
-              >
-                veya
-              </Text>
-              <View
-                style={{
-                  width: "40%",
-                  height: 2,
-                  backgroundColor: primaryOne,
-                }}
-              />
-            </View>
-            {/* Login Options */}
-            <SvgEnhancer aspectRatio={3}>
-              {
-                // @ts-ignore
-                ({ width, height }) => (
-                  <Icons.GoogleEnglishSignIn width={width} height={height} />
-                )
-              }
-            </SvgEnhancer>
-            <SvgEnhancer aspectRatio={3}>
-              {
-                // @ts-ignore
-                ({ width, height }) => (
-                  <Icons.GoogleEnglishSignIn width={width} height={height} />
-                )
-              }
-            </SvgEnhancer>
-          </React.Fragment>
-        )}
-      </View>
+              veya
+            </Text>
+            <View
+              style={{
+                width: "40%",
+                height: 2,
+                backgroundColor: primaryOne,
+              }}
+            />
+          </View>
+          {/* Login Options */}
+          <SvgEnhancer aspectRatio={3}>
+            {
+              // @ts-ignore
+              ({ width, height }) => (
+                <Icons.GoogleEnglishSignIn width={width} height={height} />
+              )
+            }
+          </SvgEnhancer>
+          <SvgEnhancer aspectRatio={3}>
+            {
+              // @ts-ignore
+              ({ width, height }) => (
+                <Icons.GoogleEnglishSignIn width={width} height={height} />
+              )
+            }
+          </SvgEnhancer>
+        </React.Fragment>
+      )}
     </LoginLayout>
   );
 };

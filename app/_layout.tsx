@@ -1,8 +1,3 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import React from "react";
@@ -13,6 +8,7 @@ import "react-native-reanimated";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import MapHeader from "@/components/map/map-header";
 import ClientProvider from "@/providers/query-client";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -57,29 +53,31 @@ export default function RootLayout() {
 function RootLayoutNav() {
   return (
     <ClientProvider>
-      <Stack initialRouteName={"(demo)"}>
-        <Stack.Screen name="(login)" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="(home)"
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="(demo)"
-          options={{
-            headerShown: true,
-            title: "Components",
-          }}
-        />
-        <Stack.Screen
-          name="modals/map-modal"
-          options={{
-            header: () => <MapHeader />,
-            presentation: "modal",
-          }}
-        />
-      </Stack>
+      <RootSiblingParent>
+        <Stack initialRouteName={"(demo)"}>
+          <Stack.Screen name="(login)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="(home)"
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="(demo)"
+            options={{
+              headerShown: true,
+              title: "Components",
+            }}
+          />
+          <Stack.Screen
+            name="modals/map-modal"
+            options={{
+              header: () => <MapHeader />,
+              presentation: "modal",
+            }}
+          />
+        </Stack>
+      </RootSiblingParent>
     </ClientProvider>
   );
 }

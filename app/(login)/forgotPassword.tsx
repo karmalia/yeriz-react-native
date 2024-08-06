@@ -22,39 +22,29 @@ const ForgotPasswordPage = (props: Props) => {
     resolver: zodResolver(forgotPasswordSchema),
   });
 
-  console.log("Formstate", watch());
-
   const onSubmit = (data: TForgotPasswordSchema) => {
     console.log(data);
   };
 
   return (
     <LoginLayout>
-      <View
+      <ThemedInput
+        leftIcon="EmailIcon"
+        placeholder="Email adresinizi giriniz"
+        control={control}
+        name="email"
+        hasError={errors.email?.message}
+      />
+      <ThemedButton
         style={{
           marginTop: 20,
-          width: "80%",
         }}
+        size="medium"
+        variant="tertiary"
+        onPress={handleSubmit(onSubmit)}
       >
-        <ThemedInput
-          leftIcon="EmailIcon"
-          placeholder="Email adresinizi giriniz"
-          control={control}
-          name="email"
-          hasError={errors.email?.message}
-        />
-        <ThemedButton
-          style={{
-            marginTop: 20,
-          }}
-          size="medium"
-          variant="secondary"
-          outline
-          onPress={handleSubmit(onSubmit)}
-        >
-          Şifremi Sıfırla
-        </ThemedButton>
-      </View>
+        Şifremi Sıfırla
+      </ThemedButton>
     </LoginLayout>
   );
 };
