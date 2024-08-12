@@ -7,20 +7,41 @@ import Poppins from "@/constants/font";
 import ThemedInput from "@/components/shared/themed-input/themed-input";
 import Icons from "@/components/shared/icons/icons";
 import ThemedButton from "@/components/shared/themed-button/themed-button";
-import { useSharedValue } from "react-native-reanimated";
+import { useAnimatedReaction, useSharedValue } from "react-native-reanimated";
 import ThemedRange from "@/components/shared/themed-range/themed-range";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import GoogleMap from "@/components/map/google-map";
+import calculateDeltas from "@/lib/utils/calculateDelta";
 export default function ModalScreen() {
-  const [range, setRange] = React.useState(10);
+  const [region, setRegion] = React.useState({
+    latitude: 38.43859,
+    longitude: 27.143772,
+    ...calculateDeltas(10, 38.43859),
+  });
+
+  let data = 0;
+  // const [range, setRange] = React.useState(0);
   const progress = useSharedValue(10);
+
   const min = useSharedValue(1);
   const max = useSharedValue(25);
+
+  const derived = useAnimatedReaction(
+    () => {
+      return Math.floor(progress.value);
+    },
+    (result, previous) => {
+      data = result;
+      return result;
+    }
+  );
+
+  console.log("data", data);
   return (
     <GestureHandlerRootView style={styles.container}>
       <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
       <View style={styles.mapWrapper}>
-        <GoogleMap />
+        <GoogleMap {...region} radius={progress.value * 1000} />
       </View>
       <View style={styles.filter}>
         <View
@@ -35,10 +56,10 @@ export default function ModalScreen() {
           }}
         >
           <ThemedRange
+            setRegion={setRegion}
             progress={progress}
             min={min}
             max={max}
-            setRange={setRange}
           />
           <Text
             style={{
@@ -47,7 +68,7 @@ export default function ModalScreen() {
               color: natural10,
             }}
           >
-            {range.toFixed()} km
+            {region.latitudeDelta.toFixed(2).substring(2, 4)} km
           </Text>
         </View>
 

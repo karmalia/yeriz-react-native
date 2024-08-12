@@ -4,12 +4,21 @@ import { SharedValue } from "react-native-reanimated";
 import { Slider } from "react-native-awesome-slider";
 
 import { natural40, primaryOne, secondaryOne } from "@/constants/colors";
+import useDebounce from "@/lib/custom-hooks/useDebounce";
+import calculateDeltas from "@/lib/utils/calculateDelta";
 
 type Props = {
   progress: SharedValue<number>;
   min: SharedValue<number>;
   max: SharedValue<number>;
-  setRange: (value: number) => void;
+  setRegion: React.Dispatch<
+    React.SetStateAction<{
+      latitude: number;
+      longitude: number;
+      latitudeDelta: number;
+      longitudeDelta: number;
+    }>
+  >;
 };
 
 /*
@@ -20,7 +29,14 @@ type Props = {
 
 */
 
-const ThemedRange = ({ progress, min, max, setRange }: Props) => {
+const ThemedRange = ({ progress, min, max, setRegion }: Props) => {
+  const handleValueChange = useDebounce((value) => {
+    setRegion((prev) => ({
+      ...prev,
+      ...calculateDeltas(Math.floor(value), prev.latitude),
+    }));
+  }, 300);
+
   return (
     <Slider
       style={{
@@ -29,9 +45,7 @@ const ThemedRange = ({ progress, min, max, setRange }: Props) => {
       progress={progress}
       minimumValue={min}
       maximumValue={max}
-      onValueChange={(value) => {
-        setRange(value);
-      }}
+      onValueChange={handleValueChange}
       renderBubble={() => null}
       renderThumb={() => (
         <View

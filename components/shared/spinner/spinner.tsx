@@ -22,9 +22,14 @@ const AnimatedSpinner = ({
   variant: "primary" | "secondary";
   color: string;
 }) => {
-  const duration = 500,
-    easing = Easing.linear;
   const rotate = useSharedValue(0);
+  React.useEffect(() => {
+    rotate.value = withRepeat(
+      withTiming(360, { duration: 1000, easing: Easing.linear }),
+      -2,
+      false
+    );
+  });
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
@@ -34,17 +39,7 @@ const AnimatedSpinner = ({
       justifyContent: "center",
       transform: [
         {
-          rotate: withRepeat(
-            withSequence(
-              withTiming(360 + "deg", {
-                duration: 1000,
-                easing,
-              }),
-              withTiming(0 + "deg", { duration: 1000, easing })
-            ),
-            -1,
-            false
-          ),
+          rotateZ: `${rotate.value}deg`,
         },
       ],
     };

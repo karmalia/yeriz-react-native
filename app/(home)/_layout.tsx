@@ -159,10 +159,8 @@ export default function TabLayout() {
 const tabStyles = StyleSheet.create({
   headerStyle: {
     height: 100,
-    backgroundColor: "white",
   },
   tabBarStyle: {
-    backgroundColor: "white",
     height: 80,
   },
   headerWrapper: {
@@ -172,13 +170,15 @@ const tabStyles = StyleSheet.create({
     alignItems: "flex-start",
     paddingHorizontal: 25,
     paddingTop: 20,
+    borderBottomColor: natural40,
+    borderBottomWidth: 1,
   },
   tabBarIconStyle: {
     alignItems: "center",
-    backgroundColor: natural40,
+    backgroundColor: "white",
     justifyContent: "center",
     gap: 5,
-    borderTopColor: primaryOne,
+    borderTopColor: natural40,
     borderTopWidth: 1,
     width: "100%",
     height: "100%",

@@ -54,7 +54,7 @@ function RootLayoutNav() {
   return (
     <ClientProvider>
       <RootSiblingParent>
-        <Stack initialRouteName={"(demo)"}>
+        <Stack initialRouteName={"modals/map-modal"}>
           <Stack.Screen name="(login)" options={{ headerShown: false }} />
           <Stack.Screen
             name="(home)"

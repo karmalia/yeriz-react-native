@@ -8,7 +8,7 @@ import axios, {
 var pc = "78";
 var laptop = "193";
 const api = axios.create({
-  baseURL: `http://192.168.1.${pc}:3000`,
+  baseURL: `http://192.168.1.${laptop}:3000`,
   headers: {
     "Content-Type": "application/json",
   },

@@ -52,7 +52,6 @@ const LoginPage = () => {
     hideKeyboard();
     login(data)
       .then((response) => {
-        console.log("cevap: ", response);
         // navigation.navigate("(home)");
         setKeyboardState(false);
         Toast.show("Başarılı", {

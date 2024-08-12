@@ -1,78 +1,119 @@
 import { StyleSheet, Text, View } from "react-native";
 import MapView, { Circle, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import React from "react";
+import MapOverlay from "./map-overlay/map-overlay";
 
-type Props = {};
+type GoogleMapProps = {
+  latitude: number;
+  longitude: number;
+  latitudeDelta: string;
+  longitudeDelta: string;
+  radius: number;
+};
 
-const GoogleMap = (props: Props) => {
-  const generateRandomLocation = (
-    latitude: number,
-    longitude: number,
-    radius: number
-  ) => {
-    const r = radius / 111300; // 1 degree of latitude = 111.3 km
-    const x = latitude + Math.random() * r * 2 - r;
-    const y = longitude + Math.random() * r * 2 - r;
-    return { latitude: x, longitude: y };
-  };
+type Coordinates = {
+  latitude: number;
+  longitude: number;
+};
 
-  const generateLocations = () => {
-    const locations: { latitude: number; longitude: number }[] = [];
+const GoogleMap = ({
+  latitude,
+  longitude,
+  latitudeDelta,
+  longitudeDelta,
+}: GoogleMapProps) => {
+  function generateRandomLocations(
+    center: Coordinates,
+    numLocations: number,
+    maxDistanceKm: number
+  ): Coordinates[] {
+    const locations: Coordinates[] = [];
+    const radians = (deg: number): number => (deg * Math.PI) / 180;
 
-    for (let i = 0; i < 20; i++) {
-      let radius = 0;
-      if (i < 10) {
-        radius = 10000; // 10 km
-      } else if (i < 15) {
-        radius = 15000; // 15 km
-      } else {
-        radius = 20000; // 20 km
-      }
+    for (let i = 0; i < numLocations; i++) {
+      // Random distance and bearing
+      const distanceKm = maxDistanceKm;
+      const bearing = 360;
 
-      const location = generateRandomLocation(38.43859, 27.143772, radius);
-      locations.push(location);
+      // Convert distance to angular distance in radians
+      const angularDistance = distanceKm / 6371; // Earth's radius in km
+
+      // Convert bearing to radians
+      const bearingRad = radians(bearing);
+
+      const centerLatRad = radians(center.latitude);
+      const centerLonRad = radians(center.longitude);
+
+      // Calculate new latitude
+      const newLatRad = Math.asin(
+        Math.sin(centerLatRad) * Math.cos(angularDistance) +
+          Math.cos(centerLatRad) *
+            Math.sin(angularDistance) *
+            Math.cos(bearingRad)
+      );
+
+      // Calculate new longitude
+      const newLonRad =
+        centerLonRad +
+        Math.atan2(
+          Math.sin(bearingRad) *
+            Math.sin(angularDistance) *
+            Math.cos(centerLatRad),
+          Math.cos(angularDistance) -
+            Math.sin(centerLatRad) * Math.sin(newLatRad)
+        );
+
+      // Convert back to degrees
+      const newLatitude = newLatRad * (180 / Math.PI);
+      const newLongitude = newLonRad * (180 / Math.PI);
+
+      locations.push({
+        latitude: newLatitude,
+        longitude: newLongitude,
+      });
     }
 
     return locations;
-  };
-
-  const locations = generateLocations();
-
-  console.log(locations);
-
-  // Use the locations array in your code as needed
+  }
 
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          position: "absolute",
-          height: "100%",
-          backgroundColor: "rgba(0,0,0,0.5)",
-          width: "100%",
-          zIndex: 0,
-          top: 0,
-          left: 0,
-        }}
-      ></View>
       <MapView
         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
         style={styles.map}
         region={{
-          latitude: 38.43859,
-          longitude: 27.143772,
-          latitudeDelta: 0.015,
-          longitudeDelta: 0.0121,
+          latitude: latitude,
+          longitude: longitude,
+          latitudeDelta: latitudeDelta,
+          longitudeDelta: longitudeDelta,
         }}
         rotateEnabled={false}
         scrollEnabled={false}
         zoomEnabled={false}
       >
-        <Marker
-          coordinate={locations[0]}
-          icon={require("@/assets/images/location-on.svg")}
-        />
+        {[
+          ...generateRandomLocations(
+            {
+              latitude,
+              longitude,
+              latitudeDelta,
+              longitudeDelta,
+            },
+            20,
+            1
+          ),
+        ].map((marker, index) => {
+          return (
+            <Marker
+              key={index}
+              coordinate={marker}
+              title={"Test"}
+              description={"Test"}
+            />
+          );
+        })}
       </MapView>
+      <MapOverlay />
     </View>
   );
 };

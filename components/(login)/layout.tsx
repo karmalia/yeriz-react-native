@@ -10,6 +10,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Dimensions, StyleSheet, View, ScrollView } from "react-native";
 import Icons from "../shared/icons/icons";
 import useKeyboardState from "@/lib/custom-hooks/useKeyboardState";
+import { StatusBar } from "expo-status-bar";
+import ThemedStatusBar from "../shared/themed-status-bar/themed-status-bar";
 
 const LoginLayout = ({ children }: { children: React.ReactNode }) => {
   const { keyboardState } = useKeyboardState();
@@ -23,6 +25,7 @@ const LoginLayout = ({ children }: { children: React.ReactNode }) => {
       ]}
       colors={[white, secondaryFour, secondaryThree]}
     >
+      <ThemedStatusBar />
       <Icons.YerizLogo width={"100%"} height={193} />
 
       <View
