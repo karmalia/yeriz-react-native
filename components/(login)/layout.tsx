@@ -7,7 +7,7 @@ import {
   white,
 } from "@/constants/colors";
 import { LinearGradient } from "expo-linear-gradient";
-import { Dimensions, StyleSheet, View, ScrollView } from "react-native";
+import { Dimensions, StyleSheet, View, ScrollView, Image } from "react-native";
 import Icons from "../shared/icons/icons";
 import useKeyboardState from "@/lib/custom-hooks/useKeyboardState";
 import { StatusBar } from "expo-status-bar";
@@ -23,10 +23,25 @@ const LoginLayout = ({ children }: { children: React.ReactNode }) => {
           gap: keyboardState ? 20 : 40,
         },
       ]}
-      colors={[white, secondaryFour, secondaryThree]}
+      colors={[white, secondaryFour]}
     >
       <ThemedStatusBar />
-      <Icons.YerizLogo width={"100%"} height={193} />
+      <View
+        style={{
+          height: 193,
+          width: "100%",
+          paddingHorizontal: "auto",
+        }}
+      >
+        <Image
+          style={{
+            width: "100%",
+            height: "100%",
+          }}
+          resizeMode="contain"
+          source={require("@/assets/images/biz-yeriz-png.png")}
+        />
+      </View>
 
       <View
         style={{

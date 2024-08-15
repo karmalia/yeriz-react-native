@@ -47,37 +47,37 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
+  console.log("");
+
+  return (
+    <ClientProvider>
+      <RootLayoutNav />
+    </ClientProvider>
+  );
 }
+
+export const unstable_settings = {
+  initialRouteName: "(login)/index",
+};
 
 function RootLayoutNav() {
   return (
-    <ClientProvider>
-      <RootSiblingParent>
-        <Stack initialRouteName={"modals/map-modal"}>
-          <Stack.Screen name="(login)" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="(home)"
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen
-            name="(demo)"
-            options={{
-              headerShown: true,
-              title: "Components",
-            }}
-          />
-          <Stack.Screen
-            name="modals/map-modal"
-            options={{
-              header: () => <MapHeader />,
-              presentation: "modal",
-            }}
-          />
-        </Stack>
-      </RootSiblingParent>
-    </ClientProvider>
+    <Stack initialRouteName="(login)/index">
+      <Stack.Screen name="(login)" options={{ headerShown: false }} />
+      <Stack.Screen
+        name="(home)"
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="modals/map-modal"
+        options={{
+          header: () => <MapHeader />,
+          presentation: "modal",
+        }}
+      />
+    </Stack>
   );
 }

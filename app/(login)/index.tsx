@@ -5,9 +5,15 @@ import {
   Keyboard,
   Dimensions,
   ToastAndroid,
+  Platform,
 } from "react-native";
 import React, { useEffect } from "react";
-import { natural30, primaryOne, textColor } from "@/constants/colors";
+import {
+  natural30,
+  primaryOne,
+  secondaryOne,
+  textColor,
+} from "@/constants/colors";
 
 import LoginLayout from "@/components/(login)/layout";
 
@@ -16,63 +22,15 @@ import ThemedButton from "@/components/shared/themed-button/themed-button";
 
 import Poppins from "@/constants/font";
 import { Link, useNavigation } from "expo-router";
-import Icons from "@/components/shared/icons/icons";
-import SvgEnhancer from "@/lib/utils/svg-enhancer";
-import {
-  userLoginSchema,
-  TUserLoginSchema,
-} from "@/lib/schemas/user-login.schema";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { AppleTurkishSignIn } from "@/components/shared/icons/login.icons";
 
-import useKeyboardState from "@/lib/custom-hooks/useKeyboardState";
-import useLoginMutation from "@/api/mutations/mock-login";
-import Toast from "react-native-root-toast";
-import AnimatedSpinner from "@/components/shared/spinner/spinner";
+import GoogleLogo from "@/assets/images/login/google-tr-s.svg";
+import FacebookLogo from "@/assets/images/login/facebook-tr-s.svg";
+
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const LoginPage = () => {
   const navigation = useNavigation();
-  const { hideKeyboard, keyboardState, setKeyboardState } = useKeyboardState();
-  const { mutateAsync: login, isPending } = useLoginMutation();
-  const {
-    control,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<TUserLoginSchema>({
-    resolver: zodResolver(userLoginSchema),
-  });
-
-  let toast = Toast.show("Başarılı", {
-    duration: Toast.durations.LONG,
-  });
-
-  const onSubmit = async (data: TUserLoginSchema) => {
-    console.log(data);
-    hideKeyboard();
-    login(data)
-      .then((response) => {
-        // navigation.navigate("(home)");
-        setKeyboardState(false);
-        Toast.show("Başarılı", {
-          duration: Toast.durations.LONG,
-        });
-      })
-      .catch((error) => {
-        if (error.response.status === 401) {
-          Toast.show("Girdiğiniz bilgilerden biri yanlış", {
-            duration: Toast.durations.SHORT,
-            position: Toast.positions.BOTTOM,
-            shadow: true,
-            animation: true,
-            hideOnPress: true,
-            delay: 0,
-          });
-        }
-
-        return error;
-      });
-  };
 
   useEffect(() => {
     navigation.setOptions({ headerShown: false });
@@ -80,112 +38,57 @@ const LoginPage = () => {
 
   return (
     <LoginLayout>
-      <View style={styles.loginForm}>
-        <ThemedInput
-          leftIcon="UserIcon"
-          placeholder="Email adresinizi giriniz"
-          label="Email"
-          name="email"
-          control={control}
-          hasError={errors.email?.message}
-        />
-        <ThemedInput
-          leftIcon="LockIcon"
-          rightIcon="EyeOffIcon"
-          placeholder="Şifrenizi giriniz"
-          label="Şifre"
-          name="password"
-          control={control}
-          hasError={errors.password?.message}
-          onSubmitEditing={handleSubmit(onSubmit)}
-        />
-        <Link
-          href={{
-            pathname: "/forgotPassword",
-            params: { from: "(login)" },
-          }}
+      <View
+        style={{
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+          flexDirection: "column",
+          gap: 10,
+        }}
+      >
+        <Text
           style={{
-            color: natural30,
-            paddingTop: 4,
-            alignSelf: "flex-end",
-            width: "100%",
-            textDecorationLine: "underline",
-            fontSize: 12,
-            fontFamily: Poppins.Regular,
-            textAlign: "right",
-            paddingRight: 8,
+            color: secondaryOne,
+            fontSize: 16,
+            fontFamily: Poppins.SemiBold,
+            alignSelf: "flex-start",
           }}
         >
-          Şifremi Unuttum
-        </Link>
-      </View>
-      <View style={styles.buttons}>
-        <ThemedButton
-          size="medium"
-          style={{ width: "100%" }}
-          variant="secondary"
-          isLoading={isPending}
-          onPress={handleSubmit(onSubmit)}
+          Üye ol veya Giriş yap
+        </Text>
+        <TouchableOpacity
+          onPress={() => {
+            console.log("Google Sign In");
+            // navigation.navigate("Register");
+          }}
         >
-          Giriş Yap
-        </ThemedButton>
-      </View>
-      {!keyboardState && (
-        <React.Fragment>
-          {/* Horizontal */}
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
+          <GoogleLogo />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            console.log("Facebook Sign In");
+            // navigation.navigate("Register");
+          }}
+        >
+          <FacebookLogo />
+        </TouchableOpacity>
 
-              width: "100%",
-            }}
-          >
-            <View
-              style={{
-                width: "40%",
-                height: 2,
-                backgroundColor: primaryOne,
-              }}
-            />
-            <Text
-              style={{
-                color: primaryOne,
-                fontSize: 16,
-                fontFamily: Poppins.Regular,
-                marginHorizontal: 10,
-              }}
-            >
-              veya
-            </Text>
-            <View
-              style={{
-                width: "40%",
-                height: 2,
-                backgroundColor: primaryOne,
-              }}
-            />
-          </View>
-          {/* Login Options */}
-          <SvgEnhancer aspectRatio={3}>
-            {
-              // @ts-ignore
-              ({ width, height }) => (
-                <Icons.GoogleEnglishSignIn width={width} height={height} />
-              )
-            }
-          </SvgEnhancer>
-          <SvgEnhancer aspectRatio={3}>
-            {
-              // @ts-ignore
-              ({ width, height }) => (
-                <Icons.GoogleEnglishSignIn width={width} height={height} />
-              )
-            }
-          </SvgEnhancer>
-        </React.Fragment>
-      )}
+        {Platform.OS === "ios" && <AppleTurkishSignIn />}
+        <View
+          style={{
+            width: "100%",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 10,
+          }}
+        >
+          <View style={styles.horizontalLine} />
+          <Text style={styles.middleText}>veya</Text>
+          <View style={styles.horizontalLine} />
+        </View>
+      </View>
     </LoginLayout>
   );
 };
@@ -193,6 +96,15 @@ const LoginPage = () => {
 const styles = StyleSheet.create({
   loginForm: {
     width: "100%",
+  },
+  horizontalLine: {
+    flex: 1,
+    height: 1,
+    backgroundColor: secondaryOne,
+  },
+  middleText: {
+    color: secondaryOne,
+    fontFamily: Poppins.Regular,
   },
 
   inputWrapper: {
