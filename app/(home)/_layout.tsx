@@ -13,6 +13,13 @@ import { useClientOnlyValue } from "@/lib/hooks/useClientOnlyValue";
 
 import HeaderSearch from "@/components/header/header-search";
 import Icons from "@/components/shared/icons/icons";
+import { AnimatedTabIcon } from "@/components/shared/icons/animated-tab-icon";
+import TabHome from "@/components/shared/tabbars/tab-home";
+import TabFilter from "@/components/shared/tabbars/tab-filter";
+import TabBasket from "@/components/shared/tabbars/tab-basket";
+import TabFavorites from "@/components/shared/tabbars/tab-favorites";
+import TabProfile from "@/components/shared/tabbars/tab-profile";
+import AnimatedTab from "@/components/shared/tabbars/animated-tab";
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];
@@ -37,6 +44,35 @@ export default function TabLayout() {
         },
       }}
     >
+      <Tabs.Screen
+        name="search"
+        options={{
+          title: "Ara",
+          header: () => {
+            return (
+              <View style={tabStyles.headerWrapper}>
+                <HeaderSearch />
+              </View>
+            );
+          },
+          tabBarIcon: TabBars.search,
+        }}
+      />
+      <Tabs.Screen
+        name="favorites"
+        options={{
+          title: "Favoriler",
+          header: () => {
+            return (
+              <View style={tabStyles.headerWrapper}>
+                <HeaderSearch />
+              </View>
+            );
+          },
+
+          tabBarIcon: TabBars.favorites,
+        }}
+      />
       <Tabs.Screen
         name="index"
         options={{
@@ -66,47 +102,13 @@ export default function TabLayout() {
             );
           },
 
-          tabBarIcon: ({ color, focused }) => (
-            <View style={tabStyles.tabBarIconStyle}>
-              <TabBarIcon
-                name="compass"
-                color={focused ? primaryOne : secondaryOne}
-              />
-              <Text style={{ color: focused ? primaryOne : secondaryOne }}>
-                Keşfet
-              </Text>
-            </View>
-          ),
+          tabBarIcon: TabBars.index,
         }}
       />
       <Tabs.Screen
-        name="search"
+        name="basket"
         options={{
-          title: "Ara",
-          header: () => {
-            return (
-              <View style={tabStyles.headerWrapper}>
-                <HeaderSearch />
-              </View>
-            );
-          },
-          tabBarIcon: ({ color, focused }) => (
-            <View style={tabStyles.tabBarIconStyle}>
-              <TabBarIcon
-                name="search"
-                color={focused ? primaryOne : secondaryOne}
-              />
-              <Text style={{ color: focused ? primaryOne : secondaryOne }}>
-                Ara
-              </Text>
-            </View>
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="favorites"
-        options={{
-          title: "Favoriler",
+          title: "Sepet",
           header: () => {
             return (
               <View style={tabStyles.headerWrapper}>
@@ -115,19 +117,10 @@ export default function TabLayout() {
             );
           },
 
-          tabBarIcon: ({ color, focused }) => (
-            <View style={tabStyles.tabBarIconStyle}>
-              <TabBarIcon
-                name="heart"
-                color={focused ? primaryOne : secondaryOne}
-              />
-              <Text style={{ color: focused ? primaryOne : secondaryOne }}>
-                Favoriler
-              </Text>
-            </View>
-          ),
+          tabBarIcon: TabBars.basket,
         }}
       />
+
       <Tabs.Screen
         name="profile"
         options={{
@@ -139,22 +132,100 @@ export default function TabLayout() {
               </View>
             );
           },
-          tabBarIcon: ({ color, focused }) => (
-            <View style={tabStyles.tabBarIconStyle}>
-              <TabBarIcon
-                name="user"
-                color={focused ? primaryOne : secondaryOne}
-              />
-              <Text style={{ color: focused ? primaryOne : secondaryOne }}>
-                Profil
-              </Text>
-            </View>
-          ),
+          tabBarIcon: TabBars.profile,
         }}
       />
     </Tabs>
   );
 }
+
+const TabBars = {
+  index: () => (
+    <AnimatedTab>
+      {(isFocused) => (
+        <>
+          <Icons.TabsHome
+            width={30}
+            height={30}
+            style={{
+              color: isFocused ? "white" : secondaryOne,
+            }}
+          />
+
+          {!isFocused && <Text style={{ color: secondaryOne }}>Home</Text>}
+        </>
+      )}
+    </AnimatedTab>
+  ),
+  search: () => (
+    <AnimatedTab>
+      {(isFocused) => (
+        <>
+          <Icons.TabsFilter
+            width={30}
+            height={30}
+            style={{
+              color: isFocused ? "white" : secondaryOne,
+            }}
+          />
+
+          {!isFocused && <Text style={{ color: secondaryOne }}>Filtreler</Text>}
+        </>
+      )}
+    </AnimatedTab>
+  ),
+  basket: () => (
+    <AnimatedTab>
+      {(isFocused) => (
+        <>
+          <Icons.TabsBasket
+            width={30}
+            height={30}
+            style={{
+              color: isFocused ? "white" : secondaryOne,
+            }}
+          />
+
+          {!isFocused && <Text style={{ color: secondaryOne }}>Sepet</Text>}
+        </>
+      )}
+    </AnimatedTab>
+  ),
+  favorites: () => (
+    <AnimatedTab>
+      {(isFocused) => (
+        <>
+          <Icons.TabsFavorites
+            width={30}
+            height={30}
+            style={{
+              color: isFocused ? "white" : secondaryOne,
+            }}
+          />
+
+          {!isFocused && <Text style={{ color: secondaryOne }}>Favoriler</Text>}
+        </>
+      )}
+    </AnimatedTab>
+  ),
+  profile: () => (
+    <AnimatedTab>
+      {(isFocused) => (
+        <>
+          <Icons.TabsProfile
+            width={30}
+            height={30}
+            style={{
+              color: isFocused ? "white" : secondaryOne,
+            }}
+          />
+
+          {!isFocused && <Text style={{ color: secondaryOne }}>Profil</Text>}
+        </>
+      )}
+    </AnimatedTab>
+  ),
+};
 
 const tabStyles = StyleSheet.create({
   headerStyle: {

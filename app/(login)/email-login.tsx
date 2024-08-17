@@ -1,9 +1,9 @@
 import React from "react";
 
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import ThemedInput from "@/components/shared/themed-input/themed-input";
 import { Link, useNavigation } from "expo-router";
-import { natural30, textColor } from "@/constants/colors";
+import { natural10, natural20, natural30, textColor } from "@/constants/colors";
 import Poppins from "@/constants/font";
 import { useForm } from "react-hook-form";
 import {
@@ -14,6 +14,8 @@ import LoginLayout from "@/components/(login)/layout";
 import useKeyboardState from "@/lib/custom-hooks/useKeyboardState";
 import useLoginMutation from "@/api/mutations/mock-login";
 import { zodResolver } from "@hookform/resolvers/zod";
+import ThemedButton from "@/components/shared/themed-button/themed-button";
+import ThemedText from "@/components/shared/themed-text/themed-text";
 type Props = {};
 
 function EmailLoginPage({}: Props) {
@@ -48,7 +50,7 @@ function EmailLoginPage({}: Props) {
         <ThemedInput
           leftIcon="UserIcon"
           placeholder="Email adresinizi giriniz"
-          label="Email"
+          label="E-Posta"
           name="email"
           control={control}
           hasError={errors.email?.message}
@@ -65,7 +67,7 @@ function EmailLoginPage({}: Props) {
         />
         <Link
           href={{
-            pathname: "/forgotPassword",
+            pathname: "/(login)/forgot-password",
             params: { from: "(login)" },
           }}
           style={{
@@ -80,19 +82,46 @@ function EmailLoginPage({}: Props) {
             paddingRight: 8,
           }}
         >
-          Şifremi Unuttum
+          <ThemedText variant="primary">Şifremi Unuttum</ThemedText>
         </Link>
       </View>
       <View style={styles.buttons}>
         <ThemedButton
           size="medium"
-          style={{ width: "100%" }}
+          style={{ width: "100%", marginTop: 20 }}
           variant="secondary"
           isLoading={isPending}
           onPress={handleSubmit(onSubmit)}
         >
-          Giriş Yap
+          <ThemedText
+            style={{
+              color: "white",
+              fontWeight: "600",
+            }}
+          >
+            Giriş Yap
+          </ThemedText>
         </ThemedButton>
+      </View>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          gap: 8,
+          paddingTop: 12,
+        }}
+      >
+        <ThemedText
+          style={{
+            color: natural20,
+          }}
+        >
+          Hesabınız yok mu?
+        </ThemedText>
+        <Link href={"/(login)/register"}>
+          <ThemedText variant="primary">Üye Ol!</ThemedText>
+        </Link>
       </View>
     </LoginLayout>
   );
@@ -101,6 +130,8 @@ function EmailLoginPage({}: Props) {
 const styles = StyleSheet.create({
   loginForm: {
     width: "100%",
+    display: "flex",
+    gap: 4,
   },
 
   inputWrapper: {

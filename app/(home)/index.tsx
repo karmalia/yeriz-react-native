@@ -1,5 +1,5 @@
 import * as React from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text } from "react-native";
 
 import { View } from "react-native";
 import { Link } from "expo-router";
@@ -9,24 +9,7 @@ import ThemedText from "@/components/shared/themed-text/themed-text";
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      <ThemedText
-        style={{
-          fontFamily: Poppins.Black,
-          fontSize: 32,
-        }}
-      >
-        Keşfet Page
-      </ThemedText>
-      <Link href={"/(login)"} style={{ color: "blue" }}>
-        <ThemedText
-          style={{
-            fontFamily: Poppins.Regular,
-            fontSize: 32,
-          }}
-        >
-          Whereas disregard and contempt for human rights have resulted
-        </ThemedText>
-      </Link>
+      <Link href={"/(login)"}>Login</Link>
     </View>
   );
 }

@@ -31,16 +31,12 @@ const LoginLayout = ({ children }: { children: React.ReactNode }) => {
           height: 193,
           width: "100%",
           paddingHorizontal: "auto",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <Image
-          style={{
-            width: "100%",
-            height: "100%",
-          }}
-          resizeMode="contain"
-          source={require("@/assets/images/biz-yeriz-png.png")}
-        />
+        <Icons.BizYerizLogo />
       </View>
 
       <View

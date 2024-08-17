@@ -17,17 +17,12 @@ type ThemedButtonProps = {
   size: "small" | "medium" | "large";
   variant: "primary" | "secondary" | "tertiary";
   outline?: boolean;
-  style: any;
+  style?: any;
   children: React.ReactNode;
   onPress?: () => void;
   isLoading?: boolean;
+  disabled?: boolean;
 };
-
-enum TextVariant {
-  primary = primaryOne,
-  secondary = secondaryOne,
-  tertiary = tertiaryOne,
-}
 
 function getButtonStyles(
   variant: "primary" | "secondary" | "tertiary",
@@ -118,6 +113,7 @@ export default function ThemedButton({
   style,
   isLoading,
   onPress,
+  disabled,
 }: ThemedButtonProps) {
   const [isFocused, setIsFocused] = React.useState(false);
   return (
@@ -141,18 +137,9 @@ export default function ThemedButton({
       onPress={() => {
         onPress && onPress();
       }}
+      disabled={disabled}
     >
-      <Text
-        style={[
-          styles.buttonText,
-          {
-            textAlign: "center",
-            color: outline && !isFocused ? TextVariant[variant] : "white",
-          },
-        ]}
-      >
-        {isLoading ? "o" : children}
-      </Text>
+      {children}
     </TouchableOpacity>
   );
 }
@@ -160,7 +147,7 @@ export default function ThemedButton({
 const styles = StyleSheet.create({
   button: {
     padding: 10,
-    margin: 10,
+
     borderRadius: 5,
     borderWidth: 1,
   },

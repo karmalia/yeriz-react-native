@@ -1,5 +1,5 @@
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import React from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
@@ -57,12 +57,17 @@ export default function RootLayout() {
 }
 
 export const unstable_settings = {
-  initialRouteName: "(login)/index",
+  initialRouteName: "(home)",
 };
 
 function RootLayoutNav() {
+  const router = useRouter();
+  useEffect(() => {
+    router.navigate("/(home)");
+  }, []);
+
   return (
-    <Stack initialRouteName="(login)/index">
+    <Stack initialRouteName="(home)">
       <Stack.Screen name="(login)" options={{ headerShown: false }} />
       <Stack.Screen
         name="(home)"

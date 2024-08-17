@@ -21,21 +21,13 @@ import ThemedInput from "@/components/shared/themed-input/themed-input";
 import ThemedButton from "@/components/shared/themed-button/themed-button";
 
 import Poppins from "@/constants/font";
-import { Link, useNavigation } from "expo-router";
-import { AppleTurkishSignIn } from "@/components/shared/icons/login.icons";
+import { Link, router, useRouter } from "expo-router";
 
-import GoogleLogo from "@/assets/images/login/google-tr-s.svg";
-import FacebookLogo from "@/assets/images/login/facebook-tr-s.svg";
-
-import { TouchableOpacity } from "react-native-gesture-handler";
+import Icons from "@/components/shared/icons/icons";
+import ThemedText from "@/components/shared/themed-text/themed-text";
 
 const LoginPage = () => {
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    navigation.setOptions({ headerShown: false });
-  }, [navigation]);
-
+  const router = useRouter();
   return (
     <LoginLayout>
       <View
@@ -44,7 +36,8 @@ const LoginPage = () => {
           alignItems: "center",
           justifyContent: "center",
           flexDirection: "column",
-          gap: 10,
+          gap: 12,
+          marginTop: 40,
         }}
       >
         <Text
@@ -57,24 +50,74 @@ const LoginPage = () => {
         >
           Üye ol veya Giriş yap
         </Text>
-        <TouchableOpacity
-          onPress={() => {
-            console.log("Google Sign In");
-            // navigation.navigate("Register");
-          }}
-        >
-          <GoogleLogo />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            console.log("Facebook Sign In");
-            // navigation.navigate("Register");
-          }}
-        >
-          <FacebookLogo />
-        </TouchableOpacity>
 
-        {Platform.OS === "ios" && <AppleTurkishSignIn />}
+        <ThemedButton
+          variant="secondary"
+          outline
+          size="small"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "row",
+            gap: 10,
+            width: "100%",
+            borderWidth: 2,
+            borderRadius: 12,
+          }}
+        >
+          <Icons.GoogleLogo width={22} height={22} />
+          <ThemedText
+            style={{ color: primaryOne, fontFamily: Poppins.SemiBold }}
+          >
+            Google ile devam et
+          </ThemedText>
+        </ThemedButton>
+
+        <ThemedButton
+          variant="secondary"
+          outline
+          size="small"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "row",
+            gap: 10,
+            width: "100%",
+            borderWidth: 2,
+            borderRadius: 12,
+          }}
+        >
+          <Icons.FacebookLogo width={22} height={22} />
+
+          <Text style={{ color: primaryOne, fontFamily: Poppins.SemiBold }}>
+            Facebook ile devam et
+          </Text>
+        </ThemedButton>
+
+        {Platform.OS === "ios" && (
+          <ThemedButton
+            variant="secondary"
+            outline
+            size="small"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "row",
+              gap: 10,
+              width: "100%",
+              borderWidth: 2,
+              borderRadius: 12,
+            }}
+          >
+            <Icons.AppleLogo width={22} height={22} />
+            <Text style={{ color: primaryOne, fontFamily: Poppins.SemiBold }}>
+              AppleID ile devam et
+            </Text>
+          </ThemedButton>
+        )}
         <View
           style={{
             width: "100%",
@@ -88,6 +131,24 @@ const LoginPage = () => {
           <Text style={styles.middleText}>veya</Text>
           <View style={styles.horizontalLine} />
         </View>
+
+        <ThemedButton
+          variant="secondary"
+          size="small"
+          outline
+          style={{
+            width: "100%",
+            borderRadius: 12,
+            borderWidth: 2,
+          }}
+          onPress={() => router.navigate("/(login)/email-login")}
+        >
+          <ThemedText
+            style={{ color: primaryOne, fontFamily: Poppins.SemiBold }}
+          >
+            E-posta ile devam et
+          </ThemedText>
+        </ThemedButton>
       </View>
     </LoginLayout>
   );

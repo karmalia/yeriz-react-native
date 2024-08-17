@@ -8,8 +8,6 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 type Props = {};
 
 const Layout = (props: Props) => {
-  const navigator = useNavigation();
-
   return (
     <RootSiblingParent>
       <GestureHandlerRootView>
@@ -28,6 +26,7 @@ const Layout = (props: Props) => {
           <Stack.Screen
             name="email-login"
             options={{
+              headerTitle: "Giriş Yap",
               headerShown: true,
               headerBlurEffect: "light",
               headerTransparent: true,
@@ -37,13 +36,32 @@ const Layout = (props: Props) => {
             name="register"
             options={{
               headerShown: true,
+              headerTitle: "Kayıt Ol",
+              headerBlurEffect: "light",
+              headerTransparent: true,
+            }}
+          />
+          <Stack.Screen
+            name="enter-code"
+            options={{
+              headerShown: true,
+              headerTitle: "Doğrulama Kodu",
+              headerBlurEffect: "light",
+              headerTransparent: true,
+            }}
+          />
+          <Stack.Screen
+            name="register-two"
+            options={{
+              headerShown: true,
+              headerTitle: "Kayıt Ol",
               headerBlurEffect: "light",
               headerTransparent: true,
             }}
           />
           <Stack.Screen name="resetPassword" />
           <Stack.Screen
-            name="forgotPassword"
+            name="forgot-password"
             options={{
               headerShown: true,
               headerTitle: "Şifremi Unuttum",

@@ -1,12 +1,12 @@
 import { z } from "zod";
 
 // Define the schema
-const forgotPasswordSchema = z.object({
+const EmailSchema = z.object({
   email: z.string().email({ message: "E-mail adresi geçersiz!" }),
 });
 
 // Export the schema
-export { forgotPasswordSchema };
+export { EmailSchema };
 
 // Export the type inferred from the schema
-export type TForgotPasswordSchema = z.infer<typeof forgotPasswordSchema>;
+export type TEmailSchema = z.infer<typeof EmailSchema>;

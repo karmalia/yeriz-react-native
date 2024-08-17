@@ -146,7 +146,6 @@ const styles = StyleSheet.create({
     fontFamily: Poppins.Regular,
     fontSize: 12,
     lineHeight: 16,
-    paddingLeft: 12,
   },
   textInput: {
     flex: 1,
