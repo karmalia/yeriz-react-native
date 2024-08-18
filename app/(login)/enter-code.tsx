@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import React from "react";
 import LoginLayout from "@/components/(login)/layout";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import ThemedInput from "@/components/shared/themed-input/themed-input";
 import { natural10, natural20, natural30, natural40 } from "@/constants/colors";
 import Poppins from "@/constants/font";
@@ -11,12 +11,31 @@ import ThemedText from "@/components/shared/themed-text/themed-text";
 const EnterCodePage = () => {
   const [code, setCode] = React.useState("");
   const inputRef = React.useRef(null);
-  const router = useRouter();
+  const { navigate } = useRouter();
+  const localParams = useLocalSearchParams();
+
+  console.log("EnterCodePage -> localParams", localParams);
 
   const focusHiddenInput = () => {
     if (inputRef.current) {
       //@ts-ignore
       inputRef.current.focus();
+    }
+  };
+
+  const handleRouteChange = () => {
+    focusHiddenInput();
+    if (localParams) {
+      if (localParams.from === "forgot-password") {
+        // Eğer kişi şifremi unuttum sayfasından geldiyse
+        console.log("from forgot password");
+      }
+
+      if (localParams.from === "register") {
+        // Eğer kişi kayıt sayfasından geldiyse
+        console.log("from register");
+        navigate("/(login)/create-password");
+      }
     }
   };
 
@@ -96,7 +115,7 @@ const EnterCodePage = () => {
       <ThemedButton
         variant="secondary"
         size="medium"
-        onPress={() => router.navigate("/(home)")}
+        onPress={handleRouteChange}
         style={{ marginTop: 20 }}
       >
         <ThemedText

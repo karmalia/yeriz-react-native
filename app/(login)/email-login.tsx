@@ -2,7 +2,7 @@ import React from "react";
 
 import { StyleSheet, Text, View } from "react-native";
 import ThemedInput from "@/components/shared/themed-input/themed-input";
-import { Link, useNavigation } from "expo-router";
+import { Link, useNavigation, useRouter } from "expo-router";
 import { natural10, natural20, natural30, textColor } from "@/constants/colors";
 import Poppins from "@/constants/font";
 import { useForm } from "react-hook-form";
@@ -19,7 +19,7 @@ import ThemedText from "@/components/shared/themed-text/themed-text";
 type Props = {};
 
 function EmailLoginPage({}: Props) {
-  const navigation = useNavigation();
+  const { navigate } = useRouter();
   const { hideKeyboard, keyboardState, setKeyboardState } = useKeyboardState();
   const { mutateAsync: login, isPending } = useLoginMutation();
   const {
@@ -34,14 +34,15 @@ function EmailLoginPage({}: Props) {
   const onSubmit = async (data: TUserLoginSchema) => {
     console.log(data);
     hideKeyboard();
-    login(data)
-      .then((response) => {
-        // navigation.navigate("(home)");
-        setKeyboardState(false);
-      })
-      .catch((error) => {
-        return error;
-      });
+    // login(data)
+    //   .then((response) => {
+    //     // navigation.navigate("(home)");
+    //     setKeyboardState(false);
+    //   })
+    //   .catch((error) => {
+    //     return error;
+    //   });
+    navigate("/(home)");
   };
 
   return (

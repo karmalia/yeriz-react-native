@@ -2,6 +2,13 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import ThemedText from "@/components/shared/themed-text/themed-text";
+import {
+  natural10,
+  natural20,
+  natural30,
+  primaryOne,
+} from "@/constants/colors";
 
 const PasswordChecklist = ({ password }) => {
   const validations = [
@@ -16,12 +23,15 @@ const PasswordChecklist = ({ password }) => {
     <View style={styles.container}>
       {validations?.map((validation, index) => (
         <View key={index} style={styles.checkItem}>
-          <Ionicons
-            name={validation.isValid ? "checkmark-circle" : "close-circle"}
-            size={20}
-            color={validation.isValid ? "green" : "red"}
+          <View
+            style={{
+              backgroundColor: validation.isValid ? primaryOne : natural30,
+              borderRadius: 50,
+              padding: 5,
+              marginRight: 8,
+            }}
           />
-          <Text style={styles.checkText}>{validation.label}</Text>
+          <ThemedText style={styles.checkText}>{validation.label}</ThemedText>
         </View>
       ))}
     </View>
@@ -35,12 +45,9 @@ const styles = StyleSheet.create({
   checkItem: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 5,
   },
   checkText: {
-    marginLeft: 8,
-    fontSize: 14,
-    color: "#333",
+    color: natural20,
   },
 });
 

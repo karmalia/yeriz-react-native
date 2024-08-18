@@ -20,24 +20,18 @@ const LoginLayout = ({ children }: { children: React.ReactNode }) => {
       style={[
         styles.gradient,
         {
-          gap: keyboardState ? 20 : 40,
+          gap: keyboardState ? 0 : 40,
         },
       ]}
       colors={[white, secondaryFour]}
     >
       <ThemedStatusBar />
-      <View
+
+      <Icons.BizYerizLogo
         style={{
-          height: 193,
-          width: "100%",
-          paddingHorizontal: "auto",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          marginHorizontal: "auto",
         }}
-      >
-        <Icons.BizYerizLogo />
-      </View>
+      />
 
       <View
         style={{

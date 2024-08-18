@@ -51,10 +51,10 @@ const Layout = (props: Props) => {
             }}
           />
           <Stack.Screen
-            name="register-two"
+            name="create-password"
             options={{
               headerShown: true,
-              headerTitle: "Kayıt Ol",
+              headerTitle: "Şifre Oluştur",
               headerBlurEffect: "light",
               headerTransparent: true,
             }}

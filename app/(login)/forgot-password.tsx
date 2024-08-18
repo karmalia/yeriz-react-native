@@ -9,10 +9,12 @@ import LoginLayout from "@/components/(login)/layout";
 import { Text } from "react-native-svg";
 import ThemedText from "@/components/shared/themed-text/themed-text";
 import { natural30, primaryOne } from "@/constants/colors";
+import { useRouter } from "expo-router";
 
 type Props = {};
 
 const ForgotPasswordPage = (props: Props) => {
+  const { navigate, setParams } = useRouter();
   const {
     control,
     handleSubmit,
@@ -23,7 +25,11 @@ const ForgotPasswordPage = (props: Props) => {
   });
 
   const onSubmit = (data: TEmailSchema) => {
-    console.log(data);
+    // Will send the data to the server
+    // Mail addres will receive a six digit code
+
+    navigate("/(login)/enter-code");
+    setParams({ email: data.email, from: "forgot-password" });
   };
 
   return (
@@ -37,6 +43,7 @@ const ForgotPasswordPage = (props: Props) => {
         <ThemedInput
           leftIcon="EmailIcon"
           label="E-Posta"
+          name="email"
           control={control}
           hasError={errors.email?.message}
           placeholder="Mail adresinizi giriniz"
@@ -50,6 +57,7 @@ const ForgotPasswordPage = (props: Props) => {
             marginTop: 20,
             fontWeight: "900",
           }}
+          onPress={handleSubmit(onSubmit)}
         >
           <ThemedText>Gönder</ThemedText>
         </ThemedButton>

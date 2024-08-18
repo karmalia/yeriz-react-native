@@ -29,7 +29,8 @@ const RegisterPage = () => {
 
   const onSubmit = (data: TEmailSchema) => {
     setEmail(data.email);
-    router.navigate("/(login)/register-two");
+    router.navigate("/(login)/enter-code");
+    router.setParams({ email: data.email, from: "register" });
   };
 
   return (
