@@ -10,9 +10,10 @@ import Animated, {
   withTiming,
   Easing,
 } from "react-native-reanimated";
+import useKeyboardState from "@/lib/custom-hooks/useKeyboardState";
 
 const smallSize = 30;
-const largeSize = 57;
+let largeSize = 57;
 
 export const tabStyles = StyleSheet.create({
   tabBarIconStyle: {
@@ -28,20 +29,24 @@ export const tabStyles = StyleSheet.create({
 const AnimatedTab = ({
   children,
 }: {
-  children: (isFocused: boolean) => JSX.Element;
+  children: (focushed: boolean) => JSX.Element;
 }) => {
-  const isFocused = useIsFocused();
-
   const isFocushed = useIsFocused();
-
+  const { keyboardState } = useKeyboardState();
   const marginBottom = useSharedValue(isFocushed ? 40 : 0);
   const backgroundColor = useSharedValue(false);
   const width = useSharedValue(isFocushed ? largeSize : smallSize);
   const height = useSharedValue(isFocushed ? largeSize : smallSize);
 
+  if (keyboardState) {
+    largeSize -= 20;
+  } else {
+    largeSize = 57;
+  }
+
   // Animate on focus change
   React.useEffect(() => {
-    marginBottom.value = withTiming(isFocushed ? 40 : 0, {
+    marginBottom.value = withTiming(isFocushed && !keyboardState ? 40 : 0, {
       duration: 200,
       easing: Easing.linear,
     });
@@ -54,7 +59,7 @@ const AnimatedTab = ({
       easing: Easing.linear,
     });
     backgroundColor.value = isFocushed ? true : false;
-  }, [isFocushed]);
+  }, [isFocushed, keyboardState]);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
@@ -67,7 +72,7 @@ const AnimatedTab = ({
 
   return (
     <Animated.View style={[tabStyles.tabBarIconStyle, animatedStyle]}>
-      {children(isFocused)}
+      {children(isFocushed)}
     </Animated.View>
   );
 };

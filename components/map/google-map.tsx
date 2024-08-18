@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Dimensions, StatusBar, StyleSheet, Text, View } from "react-native";
 import MapView, { Circle, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import React from "react";
 import MapOverlay from "./map-overlay/map-overlay";
@@ -123,13 +123,15 @@ export default GoogleMap;
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    flex: 1,
-    width: "100%",
+    height: Dimensions.get("window").height * 0.6,
+    width: Dimensions.get("window").width,
     justifyContent: "flex-end",
     alignItems: "center",
-    position: "relative",
+    zIndex: -1,
+    top: Dimensions.get("window").height * 0.11,
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+    height: Dimensions.get("window").height * 0.6,
   },
 });

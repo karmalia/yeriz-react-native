@@ -78,7 +78,7 @@ function RootLayoutNav() {
       <Stack.Screen
         name="modals/map-modal"
         options={{
-          header: () => <MapHeader />,
+          headerShown: false,
           presentation: "modal",
         }}
       />

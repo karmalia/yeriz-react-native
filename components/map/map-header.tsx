@@ -1,58 +1,79 @@
-import { StatusBar, StyleSheet, Text, View } from "react-native";
+import {
+  DeviceEventEmitter,
+  Dimensions,
+  Keyboard,
+  Platform,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React from "react";
-import { natural10, natural20, natural30 } from "@/constants/colors";
+import {
+  natural10,
+  natural20,
+  natural30,
+  primaryOne,
+} from "@/constants/colors";
 import Poppins from "@/constants/font";
 import Icons from "../shared/icons/icons";
 import { useNavigation } from "expo-router";
 import ThemedText from "../shared/themed-text/themed-text";
+import ThemedInput from "../shared/themed-input/themed-input";
+import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
 
 type Props = {};
 
 const MapHeader = (props: Props) => {
   const statusBarHeight = StatusBar.currentHeight || 0;
+  StatusBar.setBackgroundColor("white");
   const navigation = useNavigation();
 
   return (
-    <View
-      style={[
-        styles.header,
-        {
-          paddingTop: statusBarHeight + 10,
-
-          backgroundColor: "#fff",
-          elevation: 2,
-          borderWidth: 1,
-        },
-      ]}
-    >
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          gap: 5,
-        }}
-      >
-        <Icons.LocationOn width={30} height={30} />
-
-        <ThemedText
+    <View style={styles.container}>
+      <View style={[styles.header]}>
+        <View
           style={{
-            fontFamily: Poppins.Regular,
-            lineHeight: 20,
-            paddingTop: 8,
-            fontSize: 18,
-            color: natural10,
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            gap: 5,
           }}
         >
-          Kıbrıs şehitleri, Alsancak
-        </ThemedText>
+          <Icons.LocationOn width={20} height={20} />
+
+          <ThemedText
+            style={{
+              fontFamily: Poppins.Regular,
+              lineHeight: 20,
+              paddingTop: 2,
+              fontSize: 16,
+              color: natural30,
+            }}
+          >
+            Kıbrıs şehitleri, Alsancak
+          </ThemedText>
+        </View>
+        <Icons.CloseIcon
+          width={20}
+          height={20}
+          style={{ color: primaryOne }}
+          onPress={() => navigation.goBack()}
+        />
       </View>
-      <Icons.CloseIcon
-        width={30}
-        height={30}
-        fill={natural30}
-        onPress={() => navigation.goBack()}
-      />
+      <View style={styles.search}>
+        <ThemedInput
+          placeholder="Konum Ara"
+          style={{
+            alignSelf: "center",
+            borderWidth: 1,
+            borderRadius: 8,
+            borderColor: primaryOne,
+            height: 40,
+          }}
+          rightIcon={"SearchIcon"}
+        />
+      </View>
     </View>
   );
 };
@@ -60,17 +81,32 @@ const MapHeader = (props: Props) => {
 export default MapHeader;
 
 const styles = StyleSheet.create({
+  container: {
+    height: 125,
+    display: "flex",
+    width: Dimensions.get("window").width,
+    flexDirection: "column",
+    justifyContent: "center",
+    paddingHorizontal: 20,
+    paddingTop: Platform.OS === "android" ? 30 : 0,
+    gap: 10,
+    backgroundColor: "white",
+    borderBottomEndRadius: 10,
+    borderBottomLeftRadius: 10,
+  },
   header: {
     display: "flex",
     flexDirection: "row",
-    paddingHorizontal: 20,
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: 10,
-    borderColor: natural30,
     position: "relative",
-    borderBottomEndRadius: 10,
-    borderBottomLeftRadius: 10,
     backgroundColor: "#fff",
+  },
+  search: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
   },
 });

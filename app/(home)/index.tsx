@@ -5,11 +5,13 @@ import { View } from "react-native";
 import { Link } from "expo-router";
 import Poppins from "@/constants/font";
 import ThemedText from "@/components/shared/themed-text/themed-text";
+import ThemedInput from "@/components/shared/themed-input/themed-input";
 
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <Link href={"/(login)"}>Login</Link>
+      <ThemedInput placeholder="Search" />
     </View>
   );
 }
