@@ -35,10 +35,8 @@ const GoogleMap = ({
       const distanceKm = maxDistanceKm;
       const bearing = 360;
 
-      // Convert distance to angular distance in radians
-      const angularDistance = distanceKm / 6371; // Earth's radius in km
+      const angularDistance = distanceKm / 6371;
 
-      // Convert bearing to radians
       const bearingRad = radians(bearing);
 
       const centerLatRad = radians(center.latitude);
@@ -132,6 +130,6 @@ const styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
-    height: Dimensions.get("window").height * 0.6,
+    height: Dimensions.get("window").height * 0.7,
   },
 });

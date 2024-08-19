@@ -21,10 +21,6 @@ import Svg, {
   TSpan,
   Use,
   Pattern,
-  Filter,
-  FeFlood,
-  FeGaussianBlur,
-  FeComposite,
   Mask,
 } from "react-native-svg";
 const Icons = {
@@ -377,6 +373,7 @@ const Icons = {
       </Svg>
     );
   },
+
   CloseIcon: (props: any) => {
     return (
       <Svg
