@@ -5,15 +5,12 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
-import { useColorScheme } from "@/lib/hooks/useColorScheme";
-import MapHeader from "@/components/map/map-header";
 import ClientProvider from "@/providers/query-client";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     PoppinsBlack: require("../assets/fonts/Poppins-Black.ttf"),
@@ -46,8 +43,6 @@ export default function RootLayout() {
     return null;
   }
 
-  console.log("");
-
   return (
     <ClientProvider>
       <RootLayoutNav />
@@ -62,11 +57,11 @@ export const unstable_settings = {
 function RootLayoutNav() {
   const router = useRouter();
   useEffect(() => {
-    router.navigate("/(home)");
+    router.navigate("/(login)");
   }, []);
 
   return (
-    <Stack initialRouteName="(home)">
+    <Stack initialRouteName="(login)">
       <Stack.Screen name="(login)" options={{ headerShown: false }} />
       <Stack.Screen
         name="(home)"

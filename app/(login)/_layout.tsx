@@ -1,13 +1,9 @@
-import { View, Text } from "react-native";
 import React from "react";
-import { Link, Stack, useNavigation } from "expo-router";
-import { LinearGradient } from "expo-linear-gradient";
-import { primaryThree, secondaryFour } from "@/constants/colors";
+import { Stack } from "expo-router";
 import { RootSiblingParent } from "react-native-root-siblings";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-type Props = {};
 
-const Layout = (props: Props) => {
+const Layout = () => {
   return (
     <RootSiblingParent>
       <GestureHandlerRootView>

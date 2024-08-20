@@ -1,27 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  Dimensions,
-  KeyboardAvoidingView,
-  Platform,
-  StyleSheet,
-} from "react-native";
+import { StyleSheet } from "react-native";
 import * as React from "react";
 import { Text, View } from "react-native";
-import {
-  natural10,
-  natural20,
-  natural40,
-  primaryOne,
-} from "@/constants/colors";
+import { natural10, natural20, primaryOne } from "@/constants/colors";
 import Poppins from "@/constants/font";
-import ThemedInput from "@/components/shared/themed-input/themed-input";
 import Icons from "@/components/shared/icons/icons";
 import ThemedButton from "@/components/shared/themed-button/themed-button";
-import {
-  KeyboardState,
-  useAnimatedReaction,
-  useSharedValue,
-} from "react-native-reanimated";
+import { useSharedValue } from "react-native-reanimated";
 import ThemedRange from "@/components/shared/themed-range/themed-range";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import GoogleMap from "@/components/map/google-map";
@@ -36,26 +21,13 @@ export default function ModalScreen() {
     ...calculateDeltas(10, 38.43859),
   });
 
-  let data = 0;
   // const [range, setRange] = React.useState(0);
   const progress = useSharedValue(10);
 
   const min = useSharedValue(1);
   const max = useSharedValue(25);
 
-  const derived = useAnimatedReaction(
-    () => {
-      return Math.floor(progress.value);
-    },
-    (result, previous) => {
-      data = result;
-      return result;
-    }
-  );
-
-  const { keyboardState, keyboardWillShow, keyboardMetrics } =
-    useKeyboardState();
-  console.log("keyboardMetrics", keyboardMetrics);
+  const { keyboardMetrics } = useKeyboardState();
   return (
     <GestureHandlerRootView style={styles.container}>
       <StatusBar

@@ -1,21 +1,13 @@
 import React from "react";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Tabs } from "expo-router";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
-import {
-  natural30,
-  natural40,
-  primaryOne,
-  secondaryOne,
-  tertiaryOne,
-} from "@/constants/colors";
+import { natural30, natural40, primaryOne } from "@/constants/colors";
 import { useClientOnlyValue } from "@/lib/hooks/useClientOnlyValue";
 
 import HeaderSearch from "@/components/header/header-search";
 import Icons from "@/components/shared/icons/icons";
 
-import AnimatedTab from "@/components/shared/tabbars/animated-tab";
 import { TabBars } from "@/components/shared/tabbars/tab-bars";
 // import { TabBarsNew } from "@/components/shared/tabbars-new/tab-bars-new";
 

@@ -2,8 +2,8 @@ import React from "react";
 
 import { StyleSheet, Text, View } from "react-native";
 import ThemedInput from "@/components/shared/themed-input/themed-input";
-import { Link, useNavigation, useRouter } from "expo-router";
-import { natural10, natural20, natural30, textColor } from "@/constants/colors";
+import { Link, useRouter } from "expo-router";
+import { natural20, natural30, textColor } from "@/constants/colors";
 import Poppins from "@/constants/font";
 import { useForm } from "react-hook-form";
 import {
@@ -103,26 +103,6 @@ function EmailLoginPage({}: Props) {
             Giriş Yap
           </ThemedText>
         </ThemedButton>
-      </View>
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          gap: 8,
-          paddingTop: 12,
-        }}
-      >
-        <ThemedText
-          style={{
-            color: natural20,
-          }}
-        >
-          Hesabınız yok mu?
-        </ThemedText>
-        <Link href={"/(login)/register"}>
-          <ThemedText variant="primary">Üye Ol!</ThemedText>
-        </Link>
       </View>
     </LoginLayout>
   );

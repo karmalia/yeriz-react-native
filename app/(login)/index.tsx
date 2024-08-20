@@ -1,15 +1,7 @@
+import { View, Text, StyleSheet, Platform } from "react-native";
+import React from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  Keyboard,
-  Dimensions,
-  ToastAndroid,
-  Platform,
-} from "react-native";
-import React, { useEffect } from "react";
-import {
-  natural30,
+  natural20,
   primaryOne,
   secondaryOne,
   textColor,
@@ -17,11 +9,10 @@ import {
 
 import LoginLayout from "@/components/(login)/layout";
 
-import ThemedInput from "@/components/shared/themed-input/themed-input";
 import ThemedButton from "@/components/shared/themed-button/themed-button";
 
 import Poppins from "@/constants/font";
-import { Link, router, useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
 import Icons from "@/components/shared/icons/icons";
 import ThemedText from "@/components/shared/themed-text/themed-text";
@@ -149,6 +140,43 @@ const LoginPage = () => {
             E-posta ile devam et
           </ThemedText>
         </ThemedButton>
+        <ThemedButton
+          variant="secondary"
+          size="small"
+          outline
+          style={{
+            width: "100%",
+            borderRadius: 12,
+            borderWidth: 2,
+          }}
+          onPress={() => router.navigate("/(login)/email-login")}
+        >
+          <ThemedText
+            style={{ color: primaryOne, fontFamily: Poppins.SemiBold }}
+          >
+            Telefon ile devam et
+          </ThemedText>
+        </ThemedButton>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            gap: 8,
+            paddingTop: 12,
+          }}
+        >
+          <ThemedText
+            style={{
+              color: natural20,
+            }}
+          >
+            Hesabınız yok mu?
+          </ThemedText>
+          <Link href={"/(login)/register"}>
+            <ThemedText variant="primary">Üye Ol!</ThemedText>
+          </Link>
+        </View>
       </View>
     </LoginLayout>
   );

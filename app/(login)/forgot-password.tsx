@@ -6,9 +6,8 @@ import ThemedButton from "@/components/shared/themed-button/themed-button";
 import { View } from "react-native";
 import ThemedInput from "@/components/shared/themed-input/themed-input";
 import LoginLayout from "@/components/(login)/layout";
-import { Text } from "react-native-svg";
 import ThemedText from "@/components/shared/themed-text/themed-text";
-import { natural30, primaryOne } from "@/constants/colors";
+import { natural30 } from "@/constants/colors";
 import { useRouter } from "expo-router";
 
 type Props = {};

@@ -1,10 +1,8 @@
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 import React from "react";
 import LoginLayout from "@/components/(login)/layout";
 
-type Props = {};
-
-const Register = (props: Props) => {
+const Register = () => {
   return (
     <LoginLayout>
       <Text>Register</Text>

@@ -3,7 +3,7 @@ import React from "react";
 import LoginLayout from "@/components/(login)/layout";
 import ThemedInput from "@/components/shared/themed-input/themed-input";
 import ThemedButton from "@/components/shared/themed-button/themed-button";
-import { Link, useNavigation, useRouter } from "expo-router";
+import { useNavigation, useRouter } from "expo-router";
 import { EmailSchema, TEmailSchema } from "@/lib/schemas/email.schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,13 +13,11 @@ import useRegisterStore from "@/stores/registerStore";
 // import useAuthStore from "@/stores/registerStore";
 
 const RegisterPage = () => {
-  const { navigate } = useNavigation();
   const router = useRouter();
 
   const {
     control,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<TEmailSchema>({
     resolver: zodResolver(EmailSchema),
