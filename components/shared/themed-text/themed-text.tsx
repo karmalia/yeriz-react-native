@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextProps, TextStyle } from "react-native";
+import { StyleSheet, Text, TextProps, TextStyle, View } from "react-native";
 import React from "react";
 import { primaryOne, secondaryOne, tertiaryOne } from "@/constants/colors";
 import Poppins from "@/constants/font";
@@ -34,15 +34,8 @@ const ThemedText = ({ children, variant, style }: ThemedTextProps) => {
 export default ThemedText;
 
 const styles = StyleSheet.create({
-  button: {
-    padding: 10,
-    margin: 10,
-    borderRadius: 5,
-    borderWidth: 1,
-  },
   buttonText: {
     color: "white",
-    lineHeight: 20,
     fontFamily: Poppins.Regular,
   },
   primary: {

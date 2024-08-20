@@ -1,11 +1,26 @@
 import { StyleSheet } from "react-native";
+import * as React from "react";
+import { View } from "react-native";
+import { useRouter } from "expo-router";
+import ThemedButton from "@/components/shared/themed-button/themed-button";
+import ThemedText from "@/components/shared/themed-text/themed-text";
 
-import { Text, View } from "react-native";
-
-export default function TabTwoScreen() {
+export default function ProfilePage() {
+  const router = useRouter();
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profil Page</Text>
+      <ThemedButton
+        size="small"
+        variant="primary"
+        onPress={() => router.navigate("/(login)")}
+      >
+        <ThemedText
+          variant="primary"
+          style={{ color: "white", textAlign: "center" }}
+        >
+          Login Page
+        </ThemedText>
+      </ThemedButton>
     </View>
   );
 }

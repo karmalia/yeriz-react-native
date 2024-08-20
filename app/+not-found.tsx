@@ -4,8 +4,8 @@ import * as React from "react";
 export default function NotFoundScreen() {
   const params = useLocalSearchParams();
   const pathname = usePathname();
-  console.log("TabTwoScreen", params);
-  console.log("TabTwoScreen", pathname);
+  console.log("NotFound params", params);
+  console.log("NotFound pathame", pathname);
 
   return (
     <>
