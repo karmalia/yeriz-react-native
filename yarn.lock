@@ -4041,10 +4041,10 @@ expo-font@~12.0.9:
   dependencies:
     fontfaceobserver "^2.1.0"
 
-expo-image@~1.12.13:
-  version "1.12.13"
-  resolved "https://registry.yarnpkg.com/expo-image/-/expo-image-1.12.13.tgz#82a8263c4c2bae3be70241e304c28e5b74956d23"
-  integrity sha512-Dmuc5qmkIsl1nFj8C3Ux3wL2bN4QYW4dM9fkGA8kYiP5Fxf1lT36ldkHk2O2lPFRSFJDvLxT8Tz+7GTko5fzwQ==
+expo-image@~1.12.14:
+  version "1.12.14"
+  resolved "https://registry.yarnpkg.com/expo-image/-/expo-image-1.12.14.tgz#8ae2e855003fa08516b32134a6a8028a5b523d7f"
+  integrity sha512-sPjinoPngbJeWPRzMiEx/iDgGytCywSrY0IDaoGBRc0gIxU9L7XtFkCWnm3OG0bZtZyU4PFiSswNVkL2zCQG8w==
 
 expo-keep-awake@~13.0.2:
   version "13.0.2"
@@ -5323,10 +5323,10 @@ jest-environment-node@^29.6.3, jest-environment-node@^29.7.0:
     jest-mock "^29.7.0"
     jest-util "^29.7.0"
 
-jest-expo@~51.0.3:
-  version "51.0.3"
-  resolved "https://registry.yarnpkg.com/jest-expo/-/jest-expo-51.0.3.tgz#db3c5c538c44cf9311e5363152c656426c80bd69"
-  integrity sha512-r49OuS9X2S/dH+lSfNmarBS2L/tgvBhzOgKHYFyDJWo+Bb5uVs7Rg/GZal/RD/NDkKFJuByGAaW1F6zHYnjZnw==
+jest-expo@~51.0.4:
+  version "51.0.4"
+  resolved "https://registry.yarnpkg.com/jest-expo/-/jest-expo-51.0.4.tgz#a780e5a2f7d3c54534f799666fd00a5a11de0ac7"
+  integrity sha512-WmlR4rUur1TNF/F14brKCmPdX3TWf7Bno/6A1PuxnflN79LEIXpXuPKMlMWwCCChTohGB5FRniknRibblWu1ug==
   dependencies:
     "@expo/config" "~9.0.0-beta.0"
     "@expo/json-file" "^8.3.0"
