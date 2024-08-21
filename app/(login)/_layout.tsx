@@ -16,7 +16,8 @@ const Layout = () => {
           <Stack.Screen
             name="index"
             options={{
-              headerShown: false,
+              headerShown: true,
+              headerTitle: "Anasayfa",
             }}
           />
           <Stack.Screen

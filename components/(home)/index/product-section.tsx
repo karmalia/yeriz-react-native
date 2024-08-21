@@ -6,14 +6,31 @@ import { natural30 } from "@/constants/colors";
 import Icons from "@/components/shared/icons/icons";
 import Poppins from "@/constants/font";
 import { TKitchenCard, TProductCard } from "@/components/cards/card.types";
+import { Link } from "expo-router";
+import ProductCard from "@/components/cards/product-card";
+import KitchenCard from "@/components/cards/kitchen-card";
 
 type TProductSection = {
   sectionTitle: string;
-  Card: React.FC<TProductCard> | React.FC<TKitchenCard>;
-  data: TProductCard[] | TKitchenCard[];
+  cardType: "product" | "kitchen";
+
+  data: TProductCard["data"][] | TKitchenCard["data"][];
+  variant: TProductCard["variant"];
 };
 
-const ProductSection = ({ sectionTitle, data, Card }: TProductSection) => {
+const CardLookUp = {
+  product: ProductCard,
+  kitchen: KitchenCard,
+};
+
+const ProductSection = ({
+  sectionTitle,
+  data,
+  cardType,
+  variant,
+}: TProductSection) => {
+  const Card = CardLookUp[cardType || "product"];
+
   return (
     <View style={styles.listWrapper}>
       <View style={styles.titleWrapper}>
@@ -27,23 +44,26 @@ const ProductSection = ({ sectionTitle, data, Card }: TProductSection) => {
             alignItems: "center",
             justifyContent: "center",
             height: "100%",
-            gap: 3,
+            gap: 4,
           }}
         >
-          <ThemedText
-            style={{
-              fontSize: 12,
-              color: natural30,
-            }}
-          >
-            Tümünü göster
-          </ThemedText>
+          <Link href={`/modals/listcards-modal?title=${sectionTitle}`}>
+            <ThemedText
+              style={{
+                fontSize: 12,
+                color: natural30,
+              }}
+            >
+              Tümünü göster
+            </ThemedText>
+          </Link>
 
           <Icons.ChevronRight
             width={14}
             height={14}
             style={{
               color: natural30,
+              marginBottom: 2,
             }}
           />
         </View>
@@ -54,8 +74,8 @@ const ProductSection = ({ sectionTitle, data, Card }: TProductSection) => {
         contentContainerStyle={styles.cardList}
       >
         {data ? (
-          data?.map((item, index) => (
-            <Card key={index + item.title} {...item} />
+          data?.map((item) => (
+            <Card key={item.id} data={item} variant={variant} />
           ))
         ) : (
           <Text>There is no product data</Text>

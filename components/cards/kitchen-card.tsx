@@ -5,7 +5,7 @@ import ThemedText from "../shared/themed-text/themed-text";
 import { TKitchenCard, blurhash } from "./card.types";
 import Poppins from "@/constants/font";
 
-const KitchenCard = ({ imageUrl, title }: TKitchenCard) => {
+const KitchenCard = ({ data }: TKitchenCard) => {
   return (
     <View
       style={{
@@ -40,7 +40,7 @@ const KitchenCard = ({ imageUrl, title }: TKitchenCard) => {
         />
         <Image
           //Require is not required when using local files
-          source={imageUrl}
+          source={data.imageUrl}
           style={{
             width: "100%",
             height: "100%",
@@ -60,7 +60,7 @@ const KitchenCard = ({ imageUrl, title }: TKitchenCard) => {
           fontFamily: Poppins.SemiBold,
         }}
       >
-        {title}
+        {data.title}
       </ThemedText>
     </View>
   );

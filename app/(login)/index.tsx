@@ -132,7 +132,9 @@ const LoginPage = () => {
             borderRadius: 12,
             borderWidth: 2,
           }}
-          onPress={() => router.navigate("/(login)/email-login")}
+          onPress={() => {
+            router.navigate("/(login)/email-login");
+          }}
         >
           <ThemedText
             style={{ color: primaryOne, fontFamily: Poppins.SemiBold }}

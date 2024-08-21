@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ThemedText from "../shared/themed-text/themed-text";
 import { natural10, natural30 } from "@/constants/colors";
@@ -7,15 +7,37 @@ import CardIcons from "../shared/icons/card.icons";
 import { Image } from "expo-image";
 import { TProductCard, blurhash } from "./card.types";
 
-const ProductCard = ({
-  title,
-  originalPrice,
-  newPrice,
-  imageUrl,
-  isFavorite,
-}: TProductCard) => {
+const getWidth = (variant: TProductCard["variant"]) => {
+  const screenWidth = Dimensions.get("window").width;
+  const isLandscape = screenWidth > Dimensions.get("window").height;
+
+  if (variant === "small") {
+    return 235;
+  } else {
+    const width = screenWidth * 0.8;
+    return isLandscape ? Math.min(width, 400) : width; // Limit width to 400 in landscape mode
+  }
+};
+
+const getHeight = (variant: TProductCard["variant"]) => {
+  if (variant === "small") {
+    return 135;
+  } else {
+    return Dimensions.get("window").height * 0.2;
+  }
+};
+
+const ProductCard = ({ data, variant }: TProductCard) => {
   return (
-    <View style={styles.card}>
+    <View
+      style={[
+        styles.card,
+        {
+          width: getWidth(variant),
+          height: getHeight(variant),
+        },
+      ]}
+    >
       <View style={styles.cardContent}>
         <ThemedText
           style={{
@@ -26,7 +48,7 @@ const ProductCard = ({
             lineHeight: 22,
           }}
         >
-          {title}
+          {data.restaurantName}
         </ThemedText>
 
         <ThemedText
@@ -42,7 +64,7 @@ const ProductCard = ({
               fontFamily: Poppins.Light,
             }}
           >
-            18:00-19:00
+            {data.time}
           </Text>
         </ThemedText>
 
@@ -54,7 +76,7 @@ const ProductCard = ({
             lineHeight: 16,
           }}
         >
-          Medovik Dilim Pasta
+          {data.foodName}
         </ThemedText>
       </View>
 
@@ -81,7 +103,7 @@ const ProductCard = ({
               lineHeight: 15,
             }}
           >
-            {originalPrice}₺
+            {data.originalPrice}₺
           </Text>
           <Text
             style={{
@@ -92,7 +114,7 @@ const ProductCard = ({
               lineHeight: 15,
             }}
           >
-            {newPrice}₺
+            {data.newPrice}₺
           </Text>
         </View>
         <View
@@ -128,14 +150,14 @@ const ProductCard = ({
           overflow: "hidden",
         }}
       />
-      {isFavorite ? (
+      {data.isFavorite ? (
         <CardIcons.FavoriteUp style={styles.badge} />
       ) : (
         <CardIcons.FavoriteDown style={styles.badge} />
       )}
       <Image
         //Require is not required when using local files
-        source={imageUrl}
+        source={data.imageUrl}
         style={{
           width: "100%",
           height: "100%",

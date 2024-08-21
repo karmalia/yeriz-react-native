@@ -1,0 +1,202 @@
+[
+  {
+    "id": "8d6f3c2b-2c58-4c93-904c-2b77a2585f9e",
+    "restaurantName": "Loccake Cafe",
+    "imageUrl": "https://beorganickw.com/cdn/shop/articles/shutterstock_2153176821_1024x1024.jpg?v=1717055137",
+    "isFavorite": true,
+    "originalPrice": "150.00",
+    "newPrice": "50.00",
+    "time": "10:00 - 22:00",
+    "foodName": "Medovik Dilim Pasta"
+  },
+  {
+    "id": "3f3c83d8-7b45-4e9d-a5cb-1d4d1eb6b8ad",
+    "restaurantName": "Pasta Mania",
+    "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9GKf3CAv4p-R3JDJ_QjN9lLFnSejCimm0ow&s",
+    "isFavorite": false,
+    "originalPrice": "120.00",
+    "newPrice": "40.00",
+    "time": "11:00 - 23:00",
+    "foodName": "Fettuccine Alfredo"
+  },
+  {
+    "id": "5d94c177-1de3-4c2b-b16d-9b8b1833b7db",
+    "restaurantName": "Pizza Palace",
+    "imageUrl": "https://media.istockphoto.com/id/521403691/photo/hot-homemade-pepperoni-pizza.jpg?s=612x612&w=0&k=20&c=PaISuuHcJWTEVoDKNnxaHy7L2BTUkyYZ06hYgzXmTbo=",
+    "isFavorite": true,
+    "originalPrice": "200.00",
+    "newPrice": "75.00",
+    "time": "10:00 - 23:00",
+    "foodName": "Pepperoni Pizza"
+  },
+  {
+    "id": "e1f91293-6b7a-4a2c-a5b7-416a76cdb4cc",
+    "restaurantName": "Burger Bonanza",
+    "imageUrl": "https://recipes.net/wp-content/uploads/2023/05/hardees-double-cheeseburger-recipe_d48b79ef43b714e98a3ad95a7ab9e12e.jpeg",
+    "isFavorite": true,
+    "originalPrice": "180.00",
+    "newPrice": "60.00",
+    "time": "12:00 - 22:00",
+    "foodName": "Double Cheeseburger"
+  },
+  {
+    "id": "1a7f2d4d-8f17-4c29-bcb5-5973ec32ec6f",
+    "restaurantName": "Taco Town",
+    "imageUrl": "https://www.onceuponachef.com/images/2023/08/Beef-Tacos.jpg",
+    "isFavorite": false,
+    "originalPrice": "100.00",
+    "newPrice": "35.00",
+    "time": "09:00 - 21:00",
+    "foodName": "Beef Tacos"
+  },
+  {
+    "id": "24516d1d-5bb4-4d1e-ae19-b6b7cc7396f0",
+    "restaurantName": "Sushi Sensation",
+    "imageUrl": "https://www.pressurecookrecipes.com/wp-content/uploads/2021/02/california-roll.jpg",
+    "isFavorite": true,
+    "originalPrice": "250.00",
+    "newPrice": "90.00",
+    "time": "10:00 - 22:00",
+    "foodName": "California Roll"
+  },
+  {
+    "id": "2fdd3f2d-26fa-4d5c-bf3b-b4e60f1076d5",
+    "restaurantName": "Salad Station",
+    "imageUrl": "https://beorganickw.com/cdn/shop/articles/shutterstock_2153176821_1024x1024.jpg?v=1717055137",
+    "isFavorite": false,
+    "originalPrice": "80.00",
+    "newPrice": "30.00",
+    "time": "08:00 - 20:00",
+    "foodName": "Greek Salad"
+  },
+  {
+    "id": "a3f57126-6b8e-4c41-8d64-86c31516d7f2",
+    "restaurantName": "Noodle Nirvana",
+    "imageUrl": "https://beorganickw.com/cdn/shop/articles/shutterstock_2153176821_1024x1024.jpg?v=1717055137",
+    "isFavorite": true,
+    "originalPrice": "110.00",
+    "newPrice": "45.00",
+    "time": "10:00 - 21:00",
+    "foodName": "Pad Thai"
+  },
+  {
+    "id": "67353f58-4bbd-47cd-9630-58da5d6fa328",
+    "restaurantName": "BBQ Bliss",
+    "imageUrl": "https://beorganickw.com/cdn/shop/articles/shutterstock_2153176821_1024x1024.jpg?v=1717055137",
+    "isFavorite": true,
+    "originalPrice": "220.00",
+    "newPrice": "85.00",
+    "time": "12:00 - 23:00",
+    "foodName": "Grilled Ribs"
+  },
+  {
+    "id": "597a84e7-bfbd-4a21-bb77-24f5a6e9144f",
+    "restaurantName": "Wrap World",
+    "imageUrl": "https://beorganickw.com/cdn/shop/articles/shutterstock_2153176821_1024x1024.jpg?v=1717055137",
+    "isFavorite": false,
+    "originalPrice": "90.00",
+    "newPrice": "35.00",
+    "time": "09:00 - 21:00",
+    "foodName": "Chicken Caesar Wrap"
+  },
+  {
+    "id": "413517e2-8cfb-45a4-87ae-0d89125c4ed8",
+    "restaurantName": "Kebab Kingdom",
+    "imageUrl": "https://beorganickw.com/cdn/shop/articles/shutterstock_2153176821_1024x1024.jpg?v=1717055137",
+    "isFavorite": true,
+    "originalPrice": "170.00",
+    "newPrice": "65.00",
+    "time": "11:00 - 23:00",
+    "foodName": "Lamb Kebab"
+  },
+  {
+    "id": "b7c16a79-4a97-4699-bb85-514a5ec3949a",
+    "restaurantName": "Curry Corner",
+    "imageUrl": "https://beorganickw.com/cdn/shop/articles/shutterstock_2153176821_1024x1024.jpg?v=1717055137",
+    "isFavorite": false,
+    "originalPrice": "130.00",
+    "newPrice": "50.00",
+    "time": "11:00 - 22:00",
+    "foodName": "Chicken Tikka Masala"
+  },
+  {
+    "id": "bb79bb1d-28b9-4bd2-8c5d-29522ffb45e4",
+    "restaurantName": "Pasta Fiesta",
+    "imageUrl": "https://beorganickw.com/cdn/shop/articles/shutterstock_2153176821_1024x1024.jpg?v=1717055137",
+    "isFavorite": true,
+    "originalPrice": "140.00",
+    "newPrice": "55.00",
+    "time": "12:00 - 23:00",
+    "foodName": "Spaghetti Carbonara"
+  },
+  {
+    "id": "bb14a1fd-0f57-490c-8b97-c6b74603c5f0",
+    "restaurantName": "Soup Symphony",
+    "imageUrl": "https://beorganickw.com/cdn/shop/articles/shutterstock_2153176821_1024x1024.jpg?v=1717055137",
+    "isFavorite": true,
+    "originalPrice": "60.00",
+    "newPrice": "25.00",
+    "time": "08:00 - 20:00",
+    "foodName": "Tomato Basil Soup"
+  },
+  {
+    "id": "0e1f1e76-b017-4c98-bb8d-b42c6b8fb39f",
+    "restaurantName": "Steakhouse Supreme",
+    "imageUrl": "https://beorganickw.com/cdn/shop/articles/shutterstock_2153176821_1024x1024.jpg?v=1717055137",
+    "isFavorite": false,
+    "originalPrice": "300.00",
+    "newPrice": "120.00",
+    "time": "12:00 - 22:00",
+    "foodName": "Ribeye Steak"
+  },
+  {
+    "id": "b0f68e53-68be-48a3-8274-4bfe88fb2ab3",
+    "restaurantName": "Burrito Barn",
+    "imageUrl": "https://beorganickw.com/cdn/shop/articles/shutterstock_2153176821_1024x1024.jpg?v=1717055137",
+    "isFavorite": true,
+    "originalPrice": "110.00",
+    "newPrice": "45.00",
+    "time": "10:00 - 21:00",
+    "foodName": "Beef Burrito"
+  },
+  {
+    "id": "75e8ef0d-31b6-4e4d-bf3b-3181d693d7e4",
+    "restaurantName": "Pizza Planet",
+    "imageUrl": "https://beorganickw.com/cdn/shop/articles/shutterstock_2153176821_1024x1024.jpg?v=1717055137",
+    "isFavorite": false,
+    "originalPrice": "180.00",
+    "newPrice": "65.00",
+    "time": "11:00 - 23:00",
+    "foodName": "Margherita Pizza"
+  },
+  {
+    "id": "703ef3b7-1748-4a98-8dc5-84aab119cb13",
+    "restaurantName": "Fish Fryers",
+    "imageUrl": "https://beorganickw.com/cdn/shop/articles/shutterstock_2153176821_1024x1024.jpg?v=1717055137",
+    "isFavorite": true,
+    "originalPrice": "200.00",
+    "newPrice": "80.00",
+    "time": "11:00 - 22:00",
+    "foodName": "Fish and Chips"
+  },
+  {
+    "id": "88de3c3f-1b59-486d-bb54-1f155b1bc117",
+    "restaurantName": "Waffle Wonder",
+    "imageUrl": "https://beorganickw.com/cdn/shop/articles/shutterstock_2153176821_1024x1024.jpg?v=1717055137",
+    "isFavorite": false,
+    "originalPrice": "130.00",
+    "newPrice": "50.00",
+    "time": "09:00 - 21:00",
+    "foodName": "Belgian Waffles"
+  },
+  {
+    "id": "3207ef3e-bfed-47f9-a418-fb76a2f77c5c",
+    "restaurantName": "Panini Paradise",
+    "imageUrl": "https://beorganickw.com/cdn/shop/articles/shutterstock_2153176821_1024x1024.jpg?v=1717055137",
+    "isFavorite": true,
+    "originalPrice": "100.00",
+    "newPrice": "40.00",
+    "time": "10:00 - 22:00",
+    "foodName": "Chicken Pesto Panini"
+  }
+]

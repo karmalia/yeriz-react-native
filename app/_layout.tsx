@@ -51,17 +51,17 @@ export default function RootLayout() {
 }
 
 export const unstable_settings = {
-  initialRouteName: "(home)",
+  initialRouteName: "modals/listcards-modal",
 };
 
 function RootLayoutNav() {
   const router = useRouter();
   useEffect(() => {
-    router.navigate("/(login)");
+    router.navigate("/modals/listcards-modal?title=test");
   }, []);
 
   return (
-    <Stack initialRouteName="(login)">
+    <Stack initialRouteName="modals/listcards-modal">
       <Stack.Screen name="(login)" options={{ headerShown: false }} />
       <Stack.Screen
         name="(home)"
@@ -74,6 +74,15 @@ function RootLayoutNav() {
         name="modals/map-modal"
         options={{
           headerShown: false,
+          presentation: "modal",
+        }}
+      />
+      <Stack.Screen
+        name="modals/listcards-modal"
+        options={{
+          headerShown: false,
+          headerTitle: "",
+
           presentation: "modal",
         }}
       />

@@ -3,7 +3,7 @@ import React from "react";
 import LoginLayout from "@/components/(login)/layout";
 import ThemedInput from "@/components/shared/themed-input/themed-input";
 import ThemedButton from "@/components/shared/themed-button/themed-button";
-import { useNavigation, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { EmailSchema, TEmailSchema } from "@/lib/schemas/email.schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

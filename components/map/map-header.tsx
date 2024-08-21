@@ -21,11 +21,10 @@ import { useNavigation } from "expo-router";
 import ThemedText from "../shared/themed-text/themed-text";
 import ThemedInput from "../shared/themed-input/themed-input";
 import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
-
+import Constants from "expo-constants";
 type Props = {};
 
 const MapHeader = (props: Props) => {
-  const statusBarHeight = StatusBar.currentHeight || 0;
   StatusBar.setBackgroundColor("white");
   const navigation = useNavigation();
 
@@ -88,7 +87,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     paddingHorizontal: 20,
-    paddingTop: Platform.OS === "android" ? 30 : 0,
+    paddingTop: Constants.statusBarHeight,
     gap: 10,
     backgroundColor: "white",
     borderBottomEndRadius: 10,

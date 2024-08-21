@@ -1,14 +1,22 @@
 export type TKitchenCard = {
-  imageUrl: string;
-  title: string;
+  data: {
+    imageUrl: string;
+    title: string;
+  };
 };
 
 export type TProductCard = {
-  title: string;
-  originalPrice: string;
-  newPrice: string;
-  imageUrl: string;
-  isFavorite: boolean;
+  data: {
+    id: number | string;
+    restaurantName: string;
+    imageUrl: string;
+    isFavorite: boolean;
+    originalPrice: string;
+    newPrice: string;
+    time: string;
+    foodName: string;
+  };
+  variant: "small" | "large";
 };
 
 export const blurhash =
