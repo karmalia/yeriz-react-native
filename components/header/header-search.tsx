@@ -1,8 +1,7 @@
-import { View, Text, useColorScheme, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import Colors, { natural10, natural30 } from "@/constants/colors";
+import { natural20, primaryOne } from "@/constants/colors";
 import { Link } from "expo-router";
-import { FontAwesome } from "@expo/vector-icons";
 import Icons from "../shared/icons/icons";
 
 type Props = {
@@ -10,7 +9,6 @@ type Props = {
 };
 
 const HeaderSearch = ({ currentLocation }: Props) => {
-  const colorScheme = useColorScheme();
   return (
     <Link
       href="/modals/map-modal"
@@ -40,7 +38,7 @@ const HeaderSearch = ({ currentLocation }: Props) => {
           <Text
             style={{
               // color: Colors[colorScheme ?? "light"].text,
-              color: natural30,
+              color: natural20,
               fontSize: 18,
 
               fontWeight: "600",
@@ -50,7 +48,14 @@ const HeaderSearch = ({ currentLocation }: Props) => {
               "Kıbrıs Şehitleri, Alsancak"}
           </Text>
         </View>
-        <Icons.ChevronDown width={30} height={30} />
+
+        <Icons.ChevronDown
+          style={{
+            color: primaryOne,
+          }}
+          width={34}
+          height={34}
+        />
       </TouchableOpacity>
     </Link>
   );

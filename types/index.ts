@@ -1,14 +1,26 @@
-export enum EBoxType {
-  "Lezzet Kutusu",
-  "İzmir Kutusu",
+export interface TFood {
+  id: string;
+  companyName: string;
+  name: string;
+  description: string;
+  originalPrice: number;
+  discountedPrice: number;
+  availableFrom: number;
+  availableUntil: number;
+  stock: number;
+  starRating: number;
+  ratingCount: number;
+  isActive: boolean;
+  isDeleted: boolean;
+  foodImage: Array<TFoodImage>;
+  foodCategory: string;
+  isFavorite: boolean;
 }
 
-export type TFoodCard = {
-  title: string;
-  id: string;
-  image: string;
-  boxType: string;
-  time: string;
-  price: string;
-  point: string;
+type TFoodImage = {
+  name: string;
+  imageUrl: string;
+  isCoverPhoto: boolean;
+  isActive: boolean;
+  isDeleted: boolean;
 };

@@ -9,11 +9,12 @@ import { TKitchenCard, TProductCard } from "@/components/cards/card.types";
 import { Link } from "expo-router";
 import ProductCard from "@/components/cards/product-card";
 import KitchenCard from "@/components/cards/kitchen-card";
+import { FlatList, GestureHandlerRootView } from "react-native-gesture-handler";
 
 type TProductSection = {
   sectionTitle: string;
   cardType: "product" | "kitchen";
-
+  hasLink?: boolean | undefined;
   data: TProductCard["data"][] | TKitchenCard["data"][];
   variant: TProductCard["variant"];
 };
@@ -28,60 +29,71 @@ const ProductSection = ({
   data,
   cardType,
   variant,
+  hasLink,
 }: TProductSection) => {
   const Card = CardLookUp[cardType || "product"];
-
+  console.log("data");
   return (
-    <View style={styles.listWrapper}>
+    <GestureHandlerRootView style={styles.listWrapper}>
       <View style={styles.titleWrapper}>
         <ThemedText style={styles.title}>
           {sectionTitle || "Error: Section Title is missing"}
         </ThemedText>
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "100%",
-            gap: 4,
-          }}
-        >
+
+        {hasLink && (
           <Link href={`/modals/listcards-modal?title=${sectionTitle}`}>
-            <ThemedText
+            <View
               style={{
-                fontSize: 12,
-                color: natural30,
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "100%",
+                gap: 4,
               }}
             >
-              Tümünü göster
-            </ThemedText>
+              <ThemedText
+                style={{
+                  fontSize: 12,
+                  color: natural30,
+                }}
+              >
+                Tümünü göster
+              </ThemedText>
+              <Icons.ChevronRight
+                width={14}
+                height={14}
+                style={{
+                  color: natural30,
+                  marginBottom: 2,
+                }}
+              />
+            </View>
           </Link>
-
-          <Icons.ChevronRight
-            width={14}
-            height={14}
-            style={{
-              color: natural30,
-              marginBottom: 2,
-            }}
-          />
-        </View>
+        )}
       </View>
-      <ScrollView
+      <FlatList
         horizontal
+        data={data}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.cardList}
-      >
-        {data ? (
-          data?.map((item) => (
-            <Card key={item.id} data={item} variant={variant} />
-          ))
-        ) : (
-          <Text>There is no product data</Text>
-        )}
-      </ScrollView>
-    </View>
+        renderItem={({ item }) => {
+          return (
+            <View
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-start",
+                height: "100%",
+              }}
+            >
+              <Card data={item} variant={variant} />
+            </View>
+          );
+        }}
+        keyExtractor={(item) => item.id + "productSection"}
+      />
+    </GestureHandlerRootView>
   );
 };
 
@@ -90,32 +102,27 @@ export default ProductSection;
 const styles = StyleSheet.create({
   listWrapper: {
     gap: 12,
-    height: Dimensions.get("window").height * 0.3,
+    height: "100%",
     display: "flex",
     paddingTop: 10,
-    maxHeight: 200,
 
-    // borderWidth: 2,
-    // borderColor: "red",
+    maxHeight: Dimensions.get("window").height * 0.25,
+  },
+  titleWrapper: {
+    display: "flex",
+    flexDirection: "row",
+    paddingHorizontal: 12,
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   cardList: {
     gap: 16,
     alignItems: "center",
-
+    height: 150,
     paddingLeft: 10,
-    // borderWidth: 2,
-    // borderColor: "green",
+    borderColor: "green",
   },
 
-  titleWrapper: {
-    display: "flex",
-    flexDirection: "row",
-    paddingHorizontal: 20,
-    justifyContent: "space-between",
-    alignItems: "center",
-    // borderWidth: 2,
-    // borderColor: "blue",
-  },
   title: {
     fontSize: 20,
     fontWeight: "bold",

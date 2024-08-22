@@ -21,7 +21,6 @@ const useKeyboardState = () => {
     const keyboardWillShowListener = DeviceEventEmitter.addListener(
       "keyboardWillShow",
       () => {
-        console.log("keyboardWillShow");
         setKeyboardWillShow(true);
       }
     );
@@ -29,7 +28,6 @@ const useKeyboardState = () => {
     const keyboardWillHideListener = DeviceEventEmitter.addListener(
       "keyboardWillHide",
       () => {
-        console.log("keyboardWillHide");
         setKeyboardWillShow(false);
       }
     );

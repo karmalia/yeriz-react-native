@@ -1,21 +1,15 @@
+import { TFood } from "@/types";
+
 export type TKitchenCard = {
   data: {
+    id: string;
     imageUrl: string;
     title: string;
   };
 };
 
 export type TProductCard = {
-  data: {
-    id: number | string;
-    restaurantName: string;
-    imageUrl: string;
-    isFavorite: boolean;
-    originalPrice: string;
-    newPrice: string;
-    time: string;
-    foodName: string;
-  };
+  data: TFood;
   variant: "small" | "large";
 };
 

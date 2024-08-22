@@ -22,7 +22,7 @@ const PasswordChecklist = ({ password }) => {
   return (
     <View style={styles.container}>
       {validations?.map((validation, index) => (
-        <View key={index} style={styles.checkItem}>
+        <View key={index + "val"} style={styles.checkItem}>
           <View
             style={{
               backgroundColor: validation.isValid ? primaryOne : natural30,

@@ -27,7 +27,6 @@ const SearchBar = (props: Props) => {
           margin: 12,
         }}
         placeholder="Ara..."
-        onChangeText={(text) => console.log(text)}
       />
       <View>
         <FontAwesome name="search" size={24} color="white" />

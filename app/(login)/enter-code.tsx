@@ -103,7 +103,7 @@ const EnterCodePage = () => {
           return (
             <TextInput
               keyboardType="number-pad"
-              key={index}
+              key={index + "code"}
               onFocus={focusHiddenInput}
               style={styles.input}
               value={code[index]}

@@ -2,8 +2,6 @@ import * as React from "react";
 import { StyleSheet } from "react-native";
 import { View } from "react-native";
 import ProductSection from "@/components/(home)/index/product-section";
-import ProductCard from "@/components/cards/product-card";
-import KitchenCard from "@/components/cards/kitchen-card";
 
 import dummyDataProduct from "../../dummy-datas/dummyDataProduct.json";
 import dummyDataProduct2 from "../../dummy-datas/dummyDataProduct2.json";
@@ -17,6 +15,7 @@ export default function HomeScreen() {
         data={dummyDataProduct as TProductCard["data"][]}
         variant="small"
         cardType="product"
+        hasLink
       />
       <ProductSection
         sectionTitle="Mutfak"
@@ -24,11 +23,13 @@ export default function HomeScreen() {
         variant="small"
         cardType="kitchen"
       />
+
       <ProductSection
         sectionTitle="Senin için önerilenler"
         data={dummyDataProduct2 as TProductCard["data"][]}
         variant="small"
         cardType="product"
+        hasLink
       />
     </View>
   );

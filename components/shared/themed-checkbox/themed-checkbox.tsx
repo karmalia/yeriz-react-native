@@ -49,7 +49,7 @@ const ThemedCheckbox = (props: ThemedCheckboxProps) => {
           lineHeight: props.height || 25,
           marginLeft: -10,
           display: "flex",
-          fontFamily: Poppins.Black,
+          fontFamily: Poppins.Regular,
           fontSize: props.fontSize || 16,
           color: props.color || primaryOne,
         }}

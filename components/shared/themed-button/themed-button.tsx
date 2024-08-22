@@ -146,8 +146,6 @@ export default function ThemedButton({
 
 const styles = StyleSheet.create({
   button: {
-    padding: 10,
-
     borderRadius: 5,
     borderWidth: 1,
   },

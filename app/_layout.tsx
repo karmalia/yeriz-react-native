@@ -51,17 +51,18 @@ export default function RootLayout() {
 }
 
 export const unstable_settings = {
-  initialRouteName: "modals/listcards-modal",
+  initialRouteName: "/(home)/search",
 };
 
 function RootLayoutNav() {
   const router = useRouter();
+
   useEffect(() => {
-    router.navigate("/modals/listcards-modal?title=test");
+    router.navigate("/(home)/search");
   }, []);
 
   return (
-    <Stack initialRouteName="modals/listcards-modal">
+    <Stack initialRouteName="(home)/search">
       <Stack.Screen name="(login)" options={{ headerShown: false }} />
       <Stack.Screen
         name="(home)"
