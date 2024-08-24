@@ -13,26 +13,25 @@ const EnterCodePage = () => {
   const { navigate } = useRouter();
   const localParams = useLocalSearchParams();
 
+  console.log("Code", code);
   console.log("EnterCodePage -> localParams", localParams);
 
   const focusHiddenInput = () => {
     if (inputRef.current) {
+      console.log("Focushed");
       //@ts-ignore
       inputRef.current.focus();
     }
   };
 
   const handleRouteChange = () => {
-    focusHiddenInput();
     if (localParams) {
       if (localParams.from === "forgot-password") {
         // Eğer kişi şifremi unuttum sayfasından geldiyse
-        console.log("from forgot password");
       }
 
       if (localParams.from === "register") {
         // Eğer kişi kayıt sayfasından geldiyse
-        console.log("from register");
         navigate("/(login)/create-password");
       }
     }
@@ -85,7 +84,14 @@ const EnterCodePage = () => {
         ref={inputRef}
         maxLength={6}
         placeholder="Kodunuzu giriniz"
-        style={{ display: "none" }}
+        style={{
+          height: 50,
+          opacity: 0,
+          position: "absolute",
+          zIndex: -1,
+          top: -100,
+          left: -100,
+        }}
         value={code}
         onChangeText={setCode}
         keyboardType="number-pad"
@@ -99,17 +105,20 @@ const EnterCodePage = () => {
           justifyContent: "space-between",
         }}
       >
-        {Array.from({ length: 6 }).map((_, index) => {
-          return (
-            <TextInput
-              keyboardType="number-pad"
-              key={index + "code"}
-              onFocus={focusHiddenInput}
-              style={styles.input}
-              value={code[index]}
-            />
-          );
-        })}
+        {Array.from({ length: 6 })
+          .fill(0)
+          .map((_, index) => {
+            return (
+              <TextInput
+                keyboardType="number-pad"
+                key={index + "code"}
+                onFocus={focusHiddenInput}
+                style={styles.input}
+                value={code[index]}
+                onPress={focusHiddenInput}
+              />
+            );
+          })}
       </View>
       <ThemedButton
         variant="secondary"

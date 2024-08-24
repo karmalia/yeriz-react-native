@@ -14,7 +14,7 @@ interface ThemedTextProps extends TextProps {
   variant?: keyof typeof TextVariant;
 }
 
-const ThemedText = ({ children, variant, style }: ThemedTextProps) => {
+const ThemedText = ({ children, variant, style, ...dist }: ThemedTextProps) => {
   return (
     <Text
       style={[
@@ -25,6 +25,7 @@ const ThemedText = ({ children, variant, style }: ThemedTextProps) => {
         },
         style,
       ]}
+      {...dist}
     >
       {children}
     </Text>

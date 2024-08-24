@@ -16,6 +16,7 @@ import Icons from "@/components/shared/icons/icons";
 import {
   primaryOne,
   secondary,
+  secondaryFour,
   secondaryOne,
   statusWarning,
   tertiaryOne,
@@ -111,7 +112,7 @@ const ListcardModals = () => {
               position: "absolute",
               top: -6,
               right: -6,
-              backgroundColor: statusWarning,
+              backgroundColor: secondaryFour,
               height: 13,
               width: 13,
               zIndex: 1,

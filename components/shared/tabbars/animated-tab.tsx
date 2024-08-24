@@ -14,6 +14,7 @@ import useKeyboardState from "@/lib/custom-hooks/useKeyboardState";
 
 const smallSize = 30;
 let largeSize = 57;
+let constantMarginBottom = 25;
 
 export const tabStyles = StyleSheet.create({
   tabBarIconStyle: {
@@ -33,7 +34,7 @@ const AnimatedTab = ({
 }) => {
   const isFocushed = useIsFocused();
   const { keyboardState } = useKeyboardState();
-  const marginBottom = useSharedValue(isFocushed ? 40 : 0);
+  const marginBottom = useSharedValue(isFocushed ? constantMarginBottom : 0);
   const backgroundColor = useSharedValue(false);
   const width = useSharedValue(isFocushed ? largeSize : smallSize);
   const height = useSharedValue(isFocushed ? largeSize : smallSize);
@@ -46,10 +47,13 @@ const AnimatedTab = ({
 
   // Animate on focus change
   React.useEffect(() => {
-    marginBottom.value = withTiming(isFocushed && !keyboardState ? 40 : 0, {
-      duration: 200,
-      easing: Easing.linear,
-    });
+    marginBottom.value = withTiming(
+      isFocushed && !keyboardState ? constantMarginBottom : 0,
+      {
+        duration: 200,
+        easing: Easing.linear,
+      }
+    );
     width.value = withTiming(isFocushed ? largeSize : smallSize, {
       duration: 200,
       easing: Easing.linear,

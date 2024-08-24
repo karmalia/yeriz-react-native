@@ -33,14 +33,14 @@ const getHeight = (variant: TProductCard["variant"]) => {
 };
 
 const ProductCard = ({ data, variant }: TProductCard) => {
-  const { addItem, items } = useBasketStore();
-  console.log("ProductCard -> data", data.id, "\n");
+  const { addItem, basketItems } = useBasketStore();
 
   return (
     <GestureHandlerRootView>
       <View
         style={[
           styles.card,
+          styles.cardShadow,
           {
             width: getWidth(variant),
             height: getHeight(variant),
@@ -133,15 +133,17 @@ const ProductCard = ({ data, variant }: TProductCard) => {
               justifyContent: "center",
               padding: 20,
               alignItems: "center",
-              backgroundColor: items.find((item) => item.id === data.id)
+              backgroundColor: basketItems.find((item) => item.id === data.id)
                 ? secondaryOne
                 : "white",
               height: 40,
               borderTopLeftRadius: 20,
             }}
-            disabled={items.find((item) => item.id === data.id) ? true : false}
+            disabled={
+              basketItems.find((item) => item.id === data.id) ? true : false
+            }
             onPress={() => {
-              if (items.find((item) => item.id === data.id)) {
+              if (basketItems.find((item) => item.id === data.id)) {
                 return;
               } else {
                 addItem(data);
@@ -150,7 +152,7 @@ const ProductCard = ({ data, variant }: TProductCard) => {
           >
             <CardIcons.PlusIcon
               style={{
-                color: items.find((item) => item.id === data.id)
+                color: basketItems.find((item) => item.id === data.id)
                   ? "white"
                   : natural10,
               }}
@@ -215,6 +217,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
 
     // shadow
+  },
+  cardShadow: {
     shadowColor: "black",
     shadowOffset: {
       width: 0,

@@ -51,18 +51,18 @@ export default function RootLayout() {
 }
 
 export const unstable_settings = {
-  initialRouteName: "/(home)/search",
+  initialRouteName: "/(home)/profile",
 };
 
 function RootLayoutNav() {
   const router = useRouter();
 
   useEffect(() => {
-    router.navigate("/(home)/search");
+    router.navigate("/(home)/profile");
   }, []);
 
   return (
-    <Stack initialRouteName="(home)/search">
+    <Stack initialRouteName="(home)/profile">
       <Stack.Screen name="(login)" options={{ headerShown: false }} />
       <Stack.Screen
         name="(home)"

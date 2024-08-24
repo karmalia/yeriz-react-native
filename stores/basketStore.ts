@@ -6,54 +6,63 @@ interface BasketItem extends TFood {
 }
 
 interface BasketState {
-  items: BasketItem[];
+  basketItems: BasketItem[];
   addItem: (item: any) => void;
+  deleteItem: (item: any) => void;
   increaseItem: (item: any) => void;
   decreaseItem: (item: any) => void;
   resetBasket: () => void;
 }
 
 const useBasketStore = create<BasketState>((set) => ({
-  items: [],
+  basketItems: [],
   addItem: (item) =>
     set((state) => {
-      const index = state.items.findIndex(
-        (i) => i.companyId === item.companyId
-      );
+      const index = state.basketItems.findIndex((i) => i.id === item.id);
 
       // Check if item is from a different company
-      const hasDifferentCompany = state.items.some(
-        (i) => i.companyId !== item.companyId
+      const hasDifferentCompany = state.basketItems.some(
+        (i) => i.id !== item.id
       );
       console.log("index", index);
       if (index === -1 && !hasDifferentCompany) {
-        return { items: [...state.items, item] };
+        return {
+          basketItems: [...state.basketItems, { ...item, quantity: 1 }],
+        };
       } else {
-        return { items: [...state.items] };
+        return { basketItems: [...state.basketItems] };
       }
     }),
-  resetBasket: () => set({ items: [] }),
+  deleteItem: (item) =>
+    set((state) => {
+      const index = state.basketItems.findIndex((i) => i.id === item.id);
+      if (index === -1) {
+        return { basketItems: [...state.basketItems] };
+      }
+      const newItems = [...state.basketItems];
+      newItems.splice(index, 1);
+      return { basketItems: newItems };
+    }),
+  resetBasket: () => set({ basketItems: [] }),
   increaseItem: (item) =>
     set((state) => {
-      const index = state.items.findIndex(
-        (i) => i.companyId === item.companyId
-      );
+      const index = state.basketItems.findIndex((i) => i.id === item.id);
       if (index === -1) {
-        return { items: [...state.items, item] };
+        return {
+          basketItems: [...state.basketItems, { ...item, quantity: 1 }],
+        };
       }
-      const newItems = [...state.items];
+      const newItems = [...state.basketItems];
       newItems[index].quantity += 1;
       return { items: newItems };
     }),
   decreaseItem: (item) =>
     set((state) => {
-      const index = state.items.findIndex(
-        (i) => i.companyId === item.companyId
-      );
+      const index = state.basketItems.findIndex((i) => i.id === item.id);
       if (index === -1) {
-        return { items: [...state.items] };
+        return { basketItems: [...state.basketItems] };
       }
-      const newItems = [...state.items];
+      const newItems = [...state.basketItems];
       newItems[index].quantity -= 1;
       if (newItems[index].quantity === 0) {
         newItems.splice(index, 1);
