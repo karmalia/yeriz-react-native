@@ -13,6 +13,8 @@ todos.md
 /android
 /ios
 eas.json
+.env
+.env.local
 
 # macOS
 .DS_Store
