@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
 import {
   primaryOne,
@@ -12,8 +12,17 @@ import Icons from "../shared/icons/icons";
 
 import { KeyboardAvoidingView } from "react-native-keyboard-controller";
 import { StatusBar } from "expo-status-bar";
+import useCheckIfElementCoveredByKeyboard from "@/lib/utils/useCheckIfElementCoveredByKeyboard";
+
+const KeyboardDetecter = forwardRef((props, ref) => {
+  return (
+    <View ref={ref} style={{ height: 1, backgroundColor: "transparent" }} />
+  );
+});
 
 const LoginLayout = ({ children }: { children: React.ReactNode }) => {
+  const touchCheckRef = React.useRef(null);
+  const touchOn = useCheckIfElementCoveredByKeyboard(touchCheckRef);
   return (
     <View
       style={{
@@ -36,9 +45,12 @@ const LoginLayout = ({ children }: { children: React.ReactNode }) => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              borderWidth: 1,
             }}
           >
             <Icons.BizYerizLogo
+              width={touchOn ? 100 : 150}
+              height={touchOn ? 100 : 150}
               style={{
                 marginHorizontal: "auto",
               }}
@@ -51,6 +63,7 @@ const LoginLayout = ({ children }: { children: React.ReactNode }) => {
             }}
           >
             {children}
+            <KeyboardDetecter ref={touchCheckRef} />
           </View>
         </KeyboardAvoidingView>
       </LinearGradient>

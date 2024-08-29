@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 
 import { StyleSheet, Text, View } from "react-native";
 import ThemedInput from "@/components/shared/themed-input/themed-input";
@@ -16,9 +16,8 @@ import useLoginMutation from "@/api/mutations/mock-login";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ThemedButton from "@/components/shared/themed-button/themed-button";
 import ThemedText from "@/components/shared/themed-text/themed-text";
-type Props = {};
 
-function EmailLoginPage({}: Props) {
+const EmailLoginPage = forwardRef<React.ReactNode, any>((props, ref) => {
   const { navigate } = useRouter();
   const { hideKeyboard, keyboardState, setKeyboardState } = useKeyboardState();
   const { mutateAsync: login, isPending } = useLoginMutation();
@@ -83,9 +82,7 @@ function EmailLoginPage({}: Props) {
             paddingRight: 8,
           }}
         >
-          {!keyboardState && (
-            <ThemedText variant="primary">Şifremi Unuttum</ThemedText>
-          )}
+          <ThemedText variant="primary">Şifremi Unuttum</ThemedText>
         </Link>
       </View>
       <View style={styles.buttons}>
@@ -95,6 +92,7 @@ function EmailLoginPage({}: Props) {
           variant="secondary"
           isLoading={isPending}
           onPress={handleSubmit(onSubmit)}
+          ref={ref} // Forward the ref here
         >
           <ThemedText
             style={{
@@ -108,7 +106,7 @@ function EmailLoginPage({}: Props) {
       </View>
     </LoginLayout>
   );
-}
+});
 
 const styles = StyleSheet.create({
   loginForm: {

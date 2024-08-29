@@ -63,7 +63,7 @@ function RootLayoutNav() {
   const router = useRouter();
 
   useEffect(() => {
-    router.navigate("/(home)/search");
+    router.navigate("/(login)/email-login");
   }, []);
 
   return (

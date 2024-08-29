@@ -14,24 +14,9 @@ const EnterCodePage = () => {
   const inputRef = React.useRef(null);
   const { navigate } = useRouter();
   const localParams = useLocalSearchParams();
-  const [keyboardHeight, setKeyboardHeight] = React.useState(0);
+
   const buttonRef = React.useRef(null);
-  const touchOn = useCheckIfElementCoveredByKeyboard(keyboardHeight, buttonRef);
-
-  React.useEffect(() => {
-    const show = KeyboardEvents.addListener("keyboardDidShow", (e) => {
-      setKeyboardHeight(e.height);
-    });
-
-    const close = KeyboardEvents.addListener("keyboardDidHide", (e) => {
-      setKeyboardHeight(0);
-    });
-
-    return () => {
-      show.remove();
-      close.remove();
-    };
-  }, []);
+  const touchOn = useCheckIfElementCoveredByKeyboard(buttonRef);
 
   const focusHiddenInput = () => {
     if (inputRef.current) {

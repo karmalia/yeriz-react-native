@@ -1,11 +1,26 @@
 import React from "react";
 import { Dimensions } from "react-native";
+import { KeyboardEvents } from "react-native-keyboard-controller";
 
 function useCheckIfElementCoveredByKeyboard(
-  keyboardHeight: number,
   elementRef: React.MutableRefObject<any>
-): boolean {
+) {
   const [isCovered, setIsCovered] = React.useState(false);
+  const [keyboardHeight, setKeyboardHeight] = React.useState(0);
+  React.useEffect(() => {
+    const show = KeyboardEvents.addListener("keyboardDidShow", (e) => {
+      setKeyboardHeight(e.height);
+    });
+
+    const close = KeyboardEvents.addListener("keyboardDidHide", (e) => {
+      setKeyboardHeight(0);
+    });
+
+    return () => {
+      show.remove();
+      close.remove();
+    };
+  }, []);
 
   React.useEffect(() => {
     if (!elementRef?.current) return;
