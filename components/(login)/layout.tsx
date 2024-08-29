@@ -7,42 +7,54 @@ import {
   white,
 } from "@/constants/colors";
 import { LinearGradient } from "expo-linear-gradient";
-import { Dimensions, StyleSheet, View, ScrollView, Image } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import Icons from "../shared/icons/icons";
-import useKeyboardState from "@/lib/custom-hooks/useKeyboardState";
+
+import { KeyboardAvoidingView } from "react-native-keyboard-controller";
 import { StatusBar } from "expo-status-bar";
-import ThemedStatusBar from "../shared/themed-status-bar/themed-status-bar";
 
 const LoginLayout = ({ children }: { children: React.ReactNode }) => {
-  const { keyboardState } = useKeyboardState();
   return (
-    <LinearGradient
-      style={[
-        styles.gradient,
-        {
-          gap: keyboardState ? 0 : 40,
-        },
-      ]}
-      colors={[white, secondaryFour]}
+    <View
+      style={{
+        flex: 1,
+        display: "flex",
+      }}
     >
-      <ThemedStatusBar />
-
-      <Icons.BizYerizLogo
-        style={{
-          marginHorizontal: "auto",
-        }}
-      />
-
-      <View
-        style={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        {children}
-      </View>
-    </LinearGradient>
+      <LinearGradient style={[styles.gradient]} colors={[white, secondaryFour]}>
+        <StatusBar style="auto" />
+        <KeyboardAvoidingView
+          style={{
+            width: "100%",
+            display: "flex",
+            flex: 1,
+            flexDirection: "column",
+          }}
+        >
+          <View
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Icons.BizYerizLogo
+              style={{
+                marginHorizontal: "auto",
+              }}
+            />
+          </View>
+          <View
+            style={{
+              display: "flex",
+              flex: 1,
+            }}
+          >
+            {children}
+          </View>
+        </KeyboardAvoidingView>
+      </LinearGradient>
+    </View>
   );
 };
 
@@ -52,6 +64,5 @@ const styles = StyleSheet.create({
     flex: 1,
     width: Dimensions.get("window").width,
     paddingHorizontal: 40,
-    paddingTop: 60,
   },
 });

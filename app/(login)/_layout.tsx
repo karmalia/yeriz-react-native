@@ -7,17 +7,13 @@ const Layout = () => {
   return (
     <RootSiblingParent>
       <GestureHandlerRootView>
-        <Stack
-          initialRouteName="index"
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
+        <Stack initialRouteName="index">
           <Stack.Screen
             name="index"
             options={{
               headerShown: true,
-              headerTitle: "Anasayfa",
+              headerTitle: "",
+              headerShadowVisible: false,
             }}
           />
           <Stack.Screen
@@ -26,7 +22,7 @@ const Layout = () => {
               headerTitle: "Giriş Yap",
               headerShown: true,
               headerBlurEffect: "light",
-              headerTransparent: true,
+              headerShadowVisible: false,
             }}
           />
           <Stack.Screen
@@ -35,7 +31,7 @@ const Layout = () => {
               headerShown: true,
               headerTitle: "Kayıt Ol",
               headerBlurEffect: "light",
-              headerTransparent: true,
+              headerShadowVisible: false,
             }}
           />
           <Stack.Screen
@@ -44,7 +40,7 @@ const Layout = () => {
               headerShown: true,
               headerTitle: "Doğrulama Kodu",
               headerBlurEffect: "light",
-              headerTransparent: true,
+              headerShadowVisible: false,
             }}
           />
           <Stack.Screen
@@ -53,7 +49,7 @@ const Layout = () => {
               headerShown: true,
               headerTitle: "Şifre Oluştur",
               headerBlurEffect: "light",
-              headerTransparent: true,
+              headerShadowVisible: false,
             }}
           />
           <Stack.Screen name="resetPassword" />
@@ -63,7 +59,7 @@ const Layout = () => {
               headerShown: true,
               headerTitle: "Şifremi Unuttum",
               headerBlurEffect: "light",
-              headerTransparent: true,
+              headerShadowVisible: false,
             }}
           />
         </Stack>

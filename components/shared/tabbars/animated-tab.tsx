@@ -3,7 +3,7 @@ import React from "react";
 import { AnimatedTabIcon } from "../icons/animated-tab-icon";
 import Icons from "../icons/icons";
 import { useIsFocused } from "@react-navigation/native";
-import { primaryOne, secondaryOne } from "@/constants/colors";
+import { primaryOne, primaryTwo, secondaryOne } from "@/constants/colors";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -14,7 +14,7 @@ import useKeyboardState from "@/lib/custom-hooks/useKeyboardState";
 
 const smallSize = 30;
 let largeSize = 57;
-let constantMarginBottom = 25;
+let constantMarginBottom = 12;
 
 export const tabStyles = StyleSheet.create({
   tabBarIconStyle: {

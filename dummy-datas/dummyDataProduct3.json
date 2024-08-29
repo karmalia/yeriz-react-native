@@ -1,0 +1,272 @@
+[
+  {
+    "id": "8d6f3c2b-2c58-4c93-904c-2b77a2585f9e",
+    "companyName": "Loccake Cafe",
+    "name": "Medovik Dilim Pasta",
+    "description": "A traditional layered honey cake, rich and creamy.",
+    "originalPrice": 150.0,
+    "discountedPrice": 50.0,
+    "availableFrom": 10,
+    "availableUntil": 22,
+    "stock": 100,
+    "starRating": 4.8,
+    "ratingCount": 250,
+    "isActive": true,
+    "isDeleted": false,
+    "foodImage": [
+      {
+        "name": "Medovik Image",
+        "imageUrl": "https://beorganickw.com/cdn/shop/articles/shutterstock_2153176821_1024x1024.jpg?v=1717055137",
+        "isCoverPhoto": true,
+        "isActive": true,
+        "isDeleted": false
+      }
+    ],
+    "foodCategory": "Dessert",
+    "foodType": "Tatlılar",
+    "isFavorite": true
+  },
+  {
+    "id": "3f3c83d8-7b45-4e9d-a5cb-1d4d1eb6b8ad",
+    "companyName": "Pasta Mania",
+    "name": "Fettuccine Alfredo",
+    "description": "Creamy pasta with a rich Alfredo sauce.",
+    "originalPrice": 120.0,
+    "discountedPrice": 40.0,
+    "availableFrom": 11,
+    "availableUntil": 23,
+    "stock": 80,
+    "starRating": 4.5,
+    "ratingCount": 180,
+    "isActive": true,
+    "isDeleted": false,
+    "foodImage": [
+      {
+        "name": "Fettuccine Image",
+        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9GKf3CAv4p-R3JDJ_QjN9lLFnSejCimm0ow&s",
+        "isCoverPhoto": true,
+        "isActive": true,
+        "isDeleted": false
+      }
+    ],
+    "foodCategory": "Pasta",
+    "foodType": "Ana Yemekler",
+    "isFavorite": false
+  },
+  {
+    "id": "5d94c177-1de3-4c2b-b16d-9b8b1833b7db",
+    "companyName": "Pizza Palace",
+    "name": "Pepperoni Pizza",
+    "description": "Classic pizza topped with spicy pepperoni.",
+    "originalPrice": 200.0,
+    "discountedPrice": 75.0,
+    "availableFrom": 10,
+    "availableUntil": 23,
+    "stock": 50,
+    "starRating": 4.7,
+    "ratingCount": 300,
+    "isActive": true,
+    "isDeleted": false,
+    "foodImage": [
+      {
+        "name": "Pepperoni Pizza Image",
+        "imageUrl": "https://media.istockphoto.com/id/521403691/photo/hot-homemade-pepperoni-pizza.jpg?s=612x612&w=0&k=20&c=PaISuuHcJWTEVoDKNnxaHy7L2BTUkyYZ06hYgzXmTbo=",
+        "isCoverPhoto": true,
+        "isActive": true,
+        "isDeleted": false
+      }
+    ],
+    "foodCategory": "Pizza",
+    "foodType": "Ana Yemekler",
+    "isFavorite": true
+  },
+  {
+    "id": "e1f91293-6b7a-4a2c-a5b7-416a76cdb4cc",
+    "companyName": "Burger Bonanza",
+    "name": "Double Cheeseburger",
+    "description": "Juicy double beef patties with melted cheese.",
+    "originalPrice": 180.0,
+    "discountedPrice": 60.0,
+    "availableFrom": 12,
+    "availableUntil": 22,
+    "stock": 60,
+    "starRating": 4.6,
+    "ratingCount": 220,
+    "isActive": true,
+    "isDeleted": false,
+    "foodImage": [
+      {
+        "name": "Double Cheeseburger Image",
+        "imageUrl": "https://recipes.net/wp-content/uploads/2023/05/hardees-double-cheeseburger-recipe_d48b79ef43b714e98a3ad95a7ab9e12e.jpeg",
+        "isCoverPhoto": true,
+        "isActive": true,
+        "isDeleted": false
+      }
+    ],
+    "foodCategory": "Burger",
+    "foodType": "Ana Yemekler",
+    "isFavorite": true
+  },
+  {
+    "id": "1a7f2d4d-8f17-4c29-bcb5-5973ec32ec6f",
+    "companyName": "Taco Town",
+    "name": "Beef Tacos",
+    "description": "Flavorful beef tacos with fresh toppings.",
+    "originalPrice": 100.0,
+    "discountedPrice": 35.0,
+    "availableFrom": 9,
+    "availableUntil": 21,
+    "stock": 70,
+    "starRating": 4.4,
+    "ratingCount": 190,
+    "isActive": true,
+    "isDeleted": false,
+    "foodImage": [
+      {
+        "name": "Beef Tacos Image",
+        "imageUrl": "https://www.onceuponachef.com/images/2023/08/Beef-Tacos.jpg",
+        "isCoverPhoto": true,
+        "isActive": true,
+        "isDeleted": false
+      }
+    ],
+    "foodCategory": "Mexican",
+    "foodType": "Ana Yemekler",
+    "isFavorite": false
+  },
+  {
+    "id": "24516d1d-5bb4-4d1e-ae19-b6b7cc7396f0",
+    "companyName": "Sushi Sensation",
+    "name": "California Roll",
+    "description": "Fresh sushi roll with crab and avocado.",
+    "originalPrice": 250.0,
+    "discountedPrice": 90.0,
+    "availableFrom": 10,
+    "availableUntil": 22,
+    "stock": 30,
+    "starRating": 4.9,
+    "ratingCount": 350,
+    "isActive": true,
+    "isDeleted": false,
+    "foodImage": [
+      {
+        "name": "California Roll Image",
+        "imageUrl": "https://www.pressurecookrecipes.com/wp-content/uploads/2021/02/california-roll.jpg",
+        "isCoverPhoto": true,
+        "isActive": true,
+        "isDeleted": false
+      }
+    ],
+    "foodCategory": "Sushi",
+    "foodType": "Deniz Ürünleri",
+    "isFavorite": true
+  },
+  {
+    "id": "2fdd3f2d-26fa-4d5c-bf3b-b4e60f1076d5",
+    "companyName": "Salad Station",
+    "name": "Greek Salad",
+    "description": "Fresh and healthy salad with feta cheese.",
+    "originalPrice": 80.0,
+    "discountedPrice": 30.0,
+    "availableFrom": 8,
+    "availableUntil": 20,
+    "stock": 90,
+    "starRating": 4.2,
+    "ratingCount": 120,
+    "isActive": true,
+    "isDeleted": false,
+    "foodImage": [
+      {
+        "name": "Greek Salad Image",
+        "imageUrl": "https://beorganickw.com/cdn/shop/articles/shutterstock_2153176821_1024x1024.jpg?v=1717055137",
+        "isCoverPhoto": true,
+        "isActive": true,
+        "isDeleted": false
+      }
+    ],
+    "foodCategory": "Salad",
+    "foodType": "Salatalar ve Soğuk Yemekler",
+    "isFavorite": false
+  },
+  {
+    "id": "a3f57126-6b8e-4c41-8d64-86c31516d7f2",
+    "companyName": "Noodle Nirvana",
+    "name": "Pad Thai",
+    "description": "Classic Thai stir-fried noodles.",
+    "originalPrice": 110.0,
+    "discountedPrice": 45.0,
+    "availableFrom": 10,
+    "availableUntil": 21,
+    "stock": 85,
+    "starRating": 4.7,
+    "ratingCount": 260,
+    "isActive": true,
+    "isDeleted": false,
+    "foodImage": [
+      {
+        "name": "Pad Thai Image",
+        "imageUrl": "https://beorganickw.com/cdn/shop/articles/shutterstock_2153176821_1024x1024.jpg?v=1717055137",
+        "isCoverPhoto": true,
+        "isActive": true,
+        "isDeleted": false
+      }
+    ],
+    "foodCategory": "Asian",
+    "foodType": "Ana Yemekler",
+    "isFavorite": true
+  },
+  {
+    "id": "67353f58-4bbd-47cd-9630-58da5d6fa328",
+    "companyName": "BBQ Bliss",
+    "name": "Grilled Ribs",
+    "description": "Tender grilled ribs with BBQ sauce.",
+    "originalPrice": 220.0,
+    "discountedPrice": 85.0,
+    "availableFrom": 12,
+    "availableUntil": 23,
+    "stock": 40,
+    "starRating": 4.8,
+    "ratingCount": 290,
+    "isActive": true,
+    "isDeleted": false,
+    "foodImage": [
+      {
+        "name": "Grilled Ribs Image",
+        "imageUrl": "https://beorganickw.com/cdn/shop/articles/shutterstock_2153176821_1024x1024.jpg?v=1717055137",
+        "isCoverPhoto": true,
+        "isActive": true,
+        "isDeleted": false
+      }
+    ],
+    "foodCategory": "BBQ",
+    "foodType": "Ana Yemekler",
+    "isFavorite": true
+  },
+  {
+    "id": "597a84e7-bfbd-4a21-bb77-24f5a6e9144f",
+    "companyName": "Wrap World",
+    "name": "Chicken Caesar Wrap",
+    "description": "Healthy wrap with grilled chicken and Caesar dressing.",
+    "originalPrice": 90.0,
+    "discountedPrice": 35.0,
+    "availableFrom": 9,
+    "availableUntil": 21,
+    "stock": 75,
+    "starRating": 4.3,
+    "ratingCount": 150,
+    "isActive": true,
+    "isDeleted": false,
+    "foodImage": [
+      {
+        "name": "Chicken Caesar Wrap Image",
+        "imageUrl": "https://beorganickw.com/cdn/shop/articles/shutterstock_2153176821_1024x1024.jpg?v=1717055137",
+        "isCoverPhoto": true,
+        "isActive": true,
+        "isDeleted": false
+      }
+    ],
+    "foodCategory": "Wrap",
+    "foodType": "Ana Yemekler",
+    "isFavorite": false
+  }
+]

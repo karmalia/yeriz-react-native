@@ -15,7 +15,7 @@ type TProductSection = {
   sectionTitle: string;
   cardType: "product" | "kitchen";
   hasLink?: boolean | undefined;
-  data: TProductCard["data"][] | TKitchenCard["data"][];
+  data: TProductCard["data"] | TKitchenCard["data"];
   variant: TProductCard["variant"];
 };
 
@@ -35,43 +35,6 @@ const ProductSection = ({
   console.log("data");
   return (
     <GestureHandlerRootView style={styles.listWrapper}>
-      <View style={styles.titleWrapper}>
-        <ThemedText style={styles.title}>
-          {sectionTitle || "Error: Section Title is missing"}
-        </ThemedText>
-
-        {hasLink && (
-          <Link href={`/modals/listcards-modal?title=${sectionTitle}`}>
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "100%",
-                gap: 4,
-              }}
-            >
-              <ThemedText
-                style={{
-                  fontSize: 12,
-                  color: natural30,
-                }}
-              >
-                Tümünü göster
-              </ThemedText>
-              <Icons.ChevronRight
-                width={14}
-                height={14}
-                style={{
-                  color: natural30,
-                  marginBottom: 2,
-                }}
-              />
-            </View>
-          </Link>
-        )}
-      </View>
       <FlatList
         horizontal
         data={data}
@@ -108,26 +71,13 @@ const styles = StyleSheet.create({
 
     maxHeight: Dimensions.get("window").height * 0.25,
   },
-  titleWrapper: {
-    display: "flex",
-    flexDirection: "row",
-    paddingHorizontal: 12,
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
+
   cardList: {
     gap: 16,
     alignItems: "center",
     height: 150,
     paddingLeft: 10,
     borderColor: "green",
-  },
-
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "black",
-    fontFamily: Poppins.Regular,
-    height: 24,
+    borderWidth: 2,
   },
 });

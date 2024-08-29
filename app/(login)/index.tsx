@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Platform } from "react-native";
+import { View, Text, StyleSheet, Platform, Dimensions } from "react-native";
 import React from "react";
 import {
   natural20,
@@ -23,18 +23,19 @@ const LoginPage = () => {
     <LoginLayout>
       <View
         style={{
+          flex: 1,
           width: "100%",
           alignItems: "center",
           justifyContent: "center",
           flexDirection: "column",
           gap: 12,
-          marginTop: 40,
+          marginTop: Dimensions.get("window").height * 0.04,
         }}
       >
         <Text
           style={{
             color: secondaryOne,
-            fontSize: 16,
+            fontSize: Dimensions.get("window").width * 0.04,
             fontFamily: Poppins.SemiBold,
             alignSelf: "flex-start",
           }}
@@ -57,12 +58,19 @@ const LoginPage = () => {
             borderRadius: 12,
           }}
         >
-          <Icons.GoogleLogo width={22} height={22} />
-          <ThemedText
-            style={{ color: primaryOne, fontFamily: Poppins.SemiBold }}
+          <Icons.GoogleLogo
+            width={Dimensions.get("window").width * 0.05}
+            height={Dimensions.get("window").width * 0.05}
+          />
+          <Text
+            style={{
+              color: primaryOne,
+              fontFamily: Poppins.SemiBold,
+              fontSize: Dimensions.get("window").width * 0.03,
+            }}
           >
             Google ile devam et
-          </ThemedText>
+          </Text>
         </ThemedButton>
 
         <ThemedButton
@@ -80,9 +88,18 @@ const LoginPage = () => {
             borderRadius: 12,
           }}
         >
-          <Icons.FacebookLogo width={22} height={22} />
+          <Icons.FacebookLogo
+            width={Dimensions.get("window").width * 0.05}
+            height={Dimensions.get("window").width * 0.05}
+          />
 
-          <Text style={{ color: primaryOne, fontFamily: Poppins.SemiBold }}>
+          <Text
+            style={{
+              color: primaryOne,
+              fontFamily: Poppins.SemiBold,
+              fontSize: Dimensions.get("window").width * 0.03,
+            }}
+          >
             Facebook ile devam et
           </Text>
         </ThemedButton>
@@ -103,7 +120,10 @@ const LoginPage = () => {
               borderRadius: 12,
             }}
           >
-            <Icons.AppleLogo width={22} height={22} />
+            <Icons.AppleLogo
+              width={Dimensions.get("window").width * 0.05}
+              height={Dimensions.get("window").width * 0.05}
+            />
             <Text style={{ color: primaryOne, fontFamily: Poppins.SemiBold }}>
               AppleID ile devam et
             </Text>
@@ -136,33 +156,23 @@ const LoginPage = () => {
             router.navigate("/(login)/email-login");
           }}
         >
-          <ThemedText
-            style={{ color: primaryOne, fontFamily: Poppins.SemiBold }}
+          <Text
+            style={{
+              textAlign: "center",
+              color: primaryOne,
+              fontFamily: Poppins.SemiBold,
+              fontSize: Dimensions.get("window").width * 0.03,
+            }}
           >
             E-posta ile devam et
-          </ThemedText>
+          </Text>
         </ThemedButton>
-        <ThemedButton
-          variant="secondary"
-          size="small"
-          outline
-          style={{
-            width: "100%",
-            borderRadius: 12,
-            borderWidth: 2,
-          }}
-          onPress={() => router.navigate("/(login)/email-login")}
-        >
-          <ThemedText
-            style={{ color: primaryOne, fontFamily: Poppins.SemiBold }}
-          >
-            Telefon ile devam et
-          </ThemedText>
-        </ThemedButton>
+
         <View
           style={{
             display: "flex",
-            flexDirection: "row",
+            flexDirection: "column",
+            alignItems: "center",
             justifyContent: "center",
             gap: 8,
             paddingTop: 12,
@@ -185,9 +195,6 @@ const LoginPage = () => {
 };
 
 const styles = StyleSheet.create({
-  loginForm: {
-    width: "100%",
-  },
   horizontalLine: {
     flex: 1,
     height: 1,
@@ -197,26 +204,10 @@ const styles = StyleSheet.create({
     color: secondaryOne,
     fontFamily: Poppins.Regular,
   },
-
-  inputWrapper: {
+  button: {
     width: "100%",
-    position: "relative",
-  },
-  text: {
-    color: textColor,
-    fontSize: 12,
-  },
-  buttons: {
-    width: "100%",
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-  },
-  textInput: {
-    height: 52,
-    backgroundColor: "white",
-    paddingLeft: 34,
-    fontSize: 16,
+    borderRadius: 12,
+    borderWidth: 2,
   },
 });
 

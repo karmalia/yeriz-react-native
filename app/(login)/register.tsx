@@ -47,6 +47,8 @@ const RegisterPage = () => {
           hasError={errors.email?.message}
           placeholder="Mail adresinizi giriniz"
           placeholderTextColor={natural30}
+          onSubmitEditing={handleSubmit(onSubmit)}
+          style={{}}
         />
 
         <ThemedButton

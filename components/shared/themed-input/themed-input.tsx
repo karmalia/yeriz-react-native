@@ -125,7 +125,6 @@ const styles = StyleSheet.create({
     width: "100%",
 
     gap: 4,
-    paddingTop: 4,
     overflow: "hidden",
   },
   inputWrapper: {

@@ -26,6 +26,7 @@ import BasketCard from "@/components/cards/basket-card";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ThemedText from "@/components/shared/themed-text/themed-text";
 import useBasketStore from "@/stores/basketStore";
+import { StatusBar } from "expo-status-bar";
 
 export default function Favorites() {
   const [stage, setStage] = React.useState(1);
@@ -33,6 +34,7 @@ export default function Favorites() {
 
   return (
     <GestureHandlerRootView style={styles.container}>
+      <StatusBar backgroundColor="white" />
       <SafeAreaView>
         <View
           style={{
@@ -76,5 +78,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     gap: 10,
+    backgroundColor: "white",
   },
 });

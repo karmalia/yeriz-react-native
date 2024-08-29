@@ -635,5 +635,22 @@ const Icons = {
       </Svg>
     );
   },
+  ExitIcon: (props: any) => {
+    return (
+      <Svg
+        width="28"
+        height="28"
+        viewBox="0 0 28 28"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+      >
+        <Path
+          d="M7 23C6.45 23 5.97933 22.8043 5.588 22.413C5.19667 22.0217 5.00067 21.5507 5 21V7C5 6.45 5.196 5.97933 5.588 5.588C5.98 5.19667 6.45067 5.00067 7 5H14V7H7V21H14V23H7ZM18 19L16.625 17.55L19.175 15H11V13H19.175L16.625 10.45L18 9L23 14L18 19Z"
+          fill="#FFC700"
+        />
+      </Svg>
+    );
+  },
 };
 export default Icons;

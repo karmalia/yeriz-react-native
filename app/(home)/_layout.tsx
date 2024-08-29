@@ -7,8 +7,9 @@ import { useClientOnlyValue } from "@/lib/hooks/useClientOnlyValue";
 
 import HeaderSearch from "@/components/header/header-search";
 import Icons from "@/components/shared/icons/icons";
-
+import Constants from "expo-constants";
 import { TabBars } from "@/components/shared/tabbars/tab-bars";
+import { StatusBar } from "expo-status-bar";
 // import { TabBarsNew } from "@/components/shared/tabbars-new/tab-bars-new";
 
 export default function TabLayout() {
@@ -18,7 +19,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: primaryOne,
         headerShown: useClientOnlyValue(false, true),
         tabBarShowLabel: false,
-        headerStyle: tabStyles.headerStyle,
+
         tabBarStyle: tabStyles.tabBarStyle,
         headerLeftContainerStyle: {
           paddingLeft: 15,
@@ -39,6 +40,7 @@ export default function TabLayout() {
           },
 
           tabBarIcon: TabBars.favorites,
+          tabBarAccessibilityLabel: "Favoriler",
         }}
       />
 
@@ -54,12 +56,14 @@ export default function TabLayout() {
             );
           },
           tabBarIcon: TabBars.search,
+          tabBarAccessibilityLabel: "Ara",
         }}
       />
       <Tabs.Screen
         name="index"
         options={{
           title: "Keşfet",
+          tabBarAccessibilityLabel: "Keşfet",
           header: () => {
             return (
               <View style={tabStyles.headerWrapper}>
@@ -93,6 +97,7 @@ export default function TabLayout() {
         name="basket"
         options={{
           title: "Sepet",
+          tabBarAccessibilityLabel: "Sepet",
           header: () => {
             return (
               <View style={tabStyles.headerWrapper}>
@@ -109,6 +114,7 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: "Profil",
+          tabBarAccessibilityLabel: "Profil",
           header: () => {
             return (
               <View style={tabStyles.headerWrapper}>
@@ -124,12 +130,10 @@ export default function TabLayout() {
 }
 
 const tabStyles = StyleSheet.create({
-  headerStyle: {
-    height: 100,
-  },
   tabBarStyle: {
     height: 60,
     paddingHorizontal: 20,
+
     // new
     // backgroundColor: tertiaryOne,
     // borderRadius: 50,
@@ -145,10 +149,8 @@ const tabStyles = StyleSheet.create({
     justifyContent: "space-between",
     flexDirection: "column",
     alignItems: "flex-start",
-    paddingHorizontal: 25,
-    paddingTop: 20,
-    borderBottomColor: natural40,
-    borderBottomWidth: 1,
+    paddingHorizontal: 24,
+    marginTop: Constants.statusBarHeight,
   },
 
   tabTitle: {

@@ -1,6 +1,7 @@
 import React from "react";
 import {
   primaryOne,
+  primaryThree,
   secondaryFour,
   statusWarning,
   tertiaryOne,

@@ -3,6 +3,7 @@ import React from "react";
 import { natural20, primaryOne } from "@/constants/colors";
 import { Link } from "expo-router";
 import Icons from "../shared/icons/icons";
+import { StatusBar } from "expo-status-bar";
 
 type Props = {
   currentLocation?: string;

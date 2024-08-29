@@ -14,6 +14,10 @@ export const white = "#fff";
 export const primaryOne = "#3D9970";
 export const primaryTwo = "#55D29A";
 export const primaryThree = "#64FFBA";
+export const primaryFour = "#2AE391";
+export const primaryFive = "#E5FFF4";
+
+export const productCardBackground = "#F7F8FA";
 
 export const secondaryOne = "#FFC700";
 export const secondaryTwo = "#FCD139";

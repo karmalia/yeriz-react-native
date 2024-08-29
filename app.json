@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "bizyeriz",
+    "name": "BizYeriz",
     "slug": "bizyeriz-app",
     "version": "0.0.2",
     "orientation": "portrait",
@@ -20,7 +20,8 @@
         "foregroundImage": "./assets/images/icon-android.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.bizyerizapp"
+      "package": "com.anonymous.bizyerizapp",
+      "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
       "bundler": "metro",

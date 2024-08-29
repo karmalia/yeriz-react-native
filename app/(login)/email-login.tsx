@@ -83,13 +83,15 @@ function EmailLoginPage({}: Props) {
             paddingRight: 8,
           }}
         >
-          <ThemedText variant="primary">Şifremi Unuttum</ThemedText>
+          {!keyboardState && (
+            <ThemedText variant="primary">Şifremi Unuttum</ThemedText>
+          )}
         </Link>
       </View>
       <View style={styles.buttons}>
         <ThemedButton
           size="medium"
-          style={{ width: "100%", marginTop: 20 }}
+          style={{ width: "100%" }}
           variant="secondary"
           isLoading={isPending}
           onPress={handleSubmit(onSubmit)}

@@ -20,7 +20,6 @@ const ThemedText = ({ children, variant, style, ...dist }: ThemedTextProps) => {
       style={[
         styles.buttonText,
         {
-          textAlign: "center",
           color: variant ? TextVariant[variant] : "white",
         },
         style,

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Dimensions, StyleSheet, Text, TextInput, View } from "react-native";
 import React from "react";
 import LoginLayout from "@/components/(login)/layout";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -6,15 +6,32 @@ import { natural20, natural30, natural40 } from "@/constants/colors";
 import Poppins from "@/constants/font";
 import ThemedButton from "@/components/shared/themed-button/themed-button";
 import ThemedText from "@/components/shared/themed-text/themed-text";
+import { KeyboardEvents } from "react-native-keyboard-controller";
+import useCheckIfElementCoveredByKeyboard from "@/lib/utils/useCheckIfElementCoveredByKeyboard";
 
 const EnterCodePage = () => {
   const [code, setCode] = React.useState("");
   const inputRef = React.useRef(null);
   const { navigate } = useRouter();
   const localParams = useLocalSearchParams();
+  const [keyboardHeight, setKeyboardHeight] = React.useState(0);
+  const buttonRef = React.useRef(null);
+  const touchOn = useCheckIfElementCoveredByKeyboard(keyboardHeight, buttonRef);
 
-  console.log("Code", code);
-  console.log("EnterCodePage -> localParams", localParams);
+  React.useEffect(() => {
+    const show = KeyboardEvents.addListener("keyboardDidShow", (e) => {
+      setKeyboardHeight(e.height);
+    });
+
+    const close = KeyboardEvents.addListener("keyboardDidHide", (e) => {
+      setKeyboardHeight(0);
+    });
+
+    return () => {
+      show.remove();
+      close.remove();
+    };
+  }, []);
 
   const focusHiddenInput = () => {
     if (inputRef.current) {
@@ -44,13 +61,13 @@ const EnterCodePage = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          paddingBottom: 24,
+          paddingBottom: touchOn ? 4 : 14,
         }}
       >
         <Text
           style={{
             color: natural30,
-            fontSize: 14,
+            fontSize: touchOn ? 10 : 14,
             fontFamily: Poppins.Regular,
             textAlign: "center",
           }}
@@ -58,26 +75,40 @@ const EnterCodePage = () => {
           Lütfen mail adresinize gönderdiğimiz 6 haneli doğrulama kodunu
           giriniz.
         </Text>
-        <Text
+        <View
           style={{
-            color: natural20,
-            fontSize: 16,
-            fontFamily: Poppins.SemiBold,
-            textAlign: "center",
+            display: "flex",
+            flexDirection: touchOn ? "row" : "column",
+            justifyContent: "center",
+            width: "100%",
+            gap: 5,
           }}
         >
-          Kalan Süre
-        </Text>
-        <Text
-          style={{
-            color: natural20,
-            fontSize: 16,
-            fontFamily: Poppins.SemiBold,
-            textAlign: "center",
-          }}
-        >
-          180 sn
-        </Text>
+          <ThemedText
+            style={{
+              color: natural20,
+              fontSize: touchOn ? 10 : 14,
+              fontFamily: Poppins.SemiBold,
+              textAlign: "center",
+
+              lineHeight: 18,
+            }}
+          >
+            Kalan Süre
+          </ThemedText>
+          <ThemedText
+            style={{
+              color: natural20,
+              fontSize: touchOn ? 10 : 14,
+              fontFamily: Poppins.SemiBold,
+              textAlign: "center",
+
+              lineHeight: 18,
+            }}
+          >
+            180 sn
+          </ThemedText>
+        </View>
       </View>
 
       <TextInput
@@ -95,14 +126,18 @@ const EnterCodePage = () => {
         value={code}
         onChangeText={setCode}
         keyboardType="number-pad"
+        autoCorrect={false} // Disable auto-correction
+        autoCapitalize="none"
+        spellCheck={false}
+        onSubmitEditing={handleRouteChange}
       />
       <View
         style={{
           display: "flex",
           width: "100%",
           flexDirection: "row",
-
-          justifyContent: "space-between",
+          paddingBottom: touchOn ? 6 : 14,
+          justifyContent: "space-around",
         }}
       >
         {Array.from({ length: 6 })
@@ -110,10 +145,19 @@ const EnterCodePage = () => {
           .map((_, index) => {
             return (
               <TextInput
+                autoCorrect={false} // Disable auto-correction
+                autoCapitalize="none"
+                spellCheck={false}
                 keyboardType="number-pad"
                 key={index + "code"}
                 onFocus={focusHiddenInput}
-                style={styles.input}
+                style={[
+                  styles.input,
+                  {
+                    height: touchOn ? 32 : 42,
+                    width: touchOn ? 32 : 42,
+                  },
+                ]}
                 value={code[index]}
                 onPress={focusHiddenInput}
               />
@@ -122,9 +166,9 @@ const EnterCodePage = () => {
       </View>
       <ThemedButton
         variant="secondary"
-        size="medium"
+        size={touchOn ? "small" : "medium"}
         onPress={handleRouteChange}
-        style={{ marginTop: 20 }}
+        ref={buttonRef}
       >
         <ThemedText
           style={{
@@ -142,13 +186,12 @@ const EnterCodePage = () => {
 
 export const styles = StyleSheet.create({
   input: {
-    height: 42,
-    width: 42,
     textAlign: "center",
     backgroundColor: "white",
-    borderWidth: 1,
+
     borderColor: natural40,
     fontSize: 20,
+    color: natural20,
   },
 });
 

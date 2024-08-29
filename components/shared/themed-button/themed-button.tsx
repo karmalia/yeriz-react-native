@@ -9,8 +9,8 @@ import {
 } from "@/constants/colors";
 import Poppins from "@/constants/font";
 import { ButtonTextSizes } from "@/constants/fontsizes";
-import React from "react";
-import { StyleSheet, Text } from "react-native";
+import React, { forwardRef } from "react";
+import { Dimensions, StyleSheet, useWindowDimensions } from "react-native";
 import { TouchableOpacity } from "react-native";
 
 type ThemedButtonProps = {
@@ -24,13 +24,14 @@ type ThemedButtonProps = {
   disabled?: boolean;
 };
 
-function getButtonStyles(
-  variant: "primary" | "secondary" | "tertiary",
-  size: "small" | "medium" | "large",
+const useStyles = (
+  variant: ThemedButtonProps["variant"],
+  size: ThemedButtonProps["size"],
   outline: boolean | undefined,
   isFocused: boolean
-) {
+) => {
   let buttonStyles = {};
+  const { width, height } = useWindowDimensions();
   switch (variant) {
     case "primary":
       if (outline) {
@@ -79,51 +80,43 @@ function getButtonStyles(
       break;
   }
 
-  switch (size) {
-    case "small":
-      buttonStyles = {
-        ...buttonStyles,
-        paddingVertical: 12,
-        fontSize: ButtonTextSizes.small,
-      };
-      break;
-    case "medium":
-      buttonStyles = {
-        ...buttonStyles,
-        paddingVertical: 16,
-        fontSize: ButtonTextSizes.medium,
-      };
-      break;
-    case "large":
-      buttonStyles = {
-        ...buttonStyles,
-        paddingVertical: 20,
-        fontSize: ButtonTextSizes.large,
-      };
-  }
+  return StyleSheet.create({
+    button: {
+      borderRadius: 5,
+      borderWidth: 1,
+      height: height * 0.06,
+      maxHeight: 50,
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      ...buttonStyles,
+    },
+  });
+};
 
-  return buttonStyles;
-}
-
-export default function ThemedButton({
-  size,
-  variant,
-  outline,
-  children,
-  style,
-  isLoading,
-  onPress,
-  disabled,
-}: ThemedButtonProps) {
+export default forwardRef(function ThemedButton(
+  props: ThemedButtonProps,
+  ref: any
+) {
   const [isFocused, setIsFocused] = React.useState(false);
+  const {
+    size,
+    variant,
+    outline,
+    children,
+    style,
+    isLoading,
+    onPress,
+    disabled,
+  } = props;
+
+  const styles = useStyles(variant, size, outline, isFocused);
   return (
     <TouchableOpacity
       activeOpacity={1}
       style={[
         styles.button,
-        {
-          ...getButtonStyles(variant, size, outline, isFocused),
-        },
+
         {
           ...style,
         },
@@ -138,32 +131,9 @@ export default function ThemedButton({
         onPress && onPress();
       }}
       disabled={disabled}
+      ref={ref}
     >
       {children}
     </TouchableOpacity>
   );
-}
-
-const styles = StyleSheet.create({
-  button: {
-    borderRadius: 5,
-    borderWidth: 1,
-  },
-  buttonText: {
-    color: "white",
-    lineHeight: 20,
-    fontFamily: Poppins.Regular,
-  },
-  primary: {
-    backgroundColor: primaryOne,
-    borderColor: "blue",
-  },
-  secondary: {
-    backgroundColor: secondaryOne,
-    borderColor: "green",
-  },
-  tertiary: {
-    backgroundColor: tertiaryOne,
-    borderColor: "red",
-  },
 });

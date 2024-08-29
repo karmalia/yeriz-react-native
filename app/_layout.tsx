@@ -6,6 +6,9 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 import ClientProvider from "@/providers/query-client";
+import { Text, View } from "react-native";
+import LoginHeader from "@/components/modals/login/login-header";
+import { KeyboardProvider } from "react-native-keyboard-controller";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -45,24 +48,26 @@ export default function RootLayout() {
 
   return (
     <ClientProvider>
-      <RootLayoutNav />
+      <KeyboardProvider>
+        <RootLayoutNav />
+      </KeyboardProvider>
     </ClientProvider>
   );
 }
 
 export const unstable_settings = {
-  initialRouteName: "/(home)/profile",
+  initialRouteName: "/modals/login-modal",
 };
 
 function RootLayoutNav() {
   const router = useRouter();
 
   useEffect(() => {
-    router.navigate("/(home)/profile");
+    router.navigate("/(home)/search");
   }, []);
 
   return (
-    <Stack initialRouteName="(home)/profile">
+    <Stack initialRouteName="modals/login-modal">
       <Stack.Screen name="(login)" options={{ headerShown: false }} />
       <Stack.Screen
         name="(home)"
@@ -83,6 +88,15 @@ function RootLayoutNav() {
         options={{
           headerShown: false,
           headerTitle: "",
+
+          presentation: "modal",
+        }}
+      />
+      <Stack.Screen
+        name="modals/login-modal"
+        options={{
+          headerShown: true,
+          header: () => <LoginHeader />,
 
           presentation: "modal",
         }}

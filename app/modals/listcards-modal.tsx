@@ -31,7 +31,6 @@ const ListcardModals = () => {
 
   const router = useRouter();
   const params = useLocalSearchParams();
-  console.log("ListcardModals -> params", params);
   let data = [] as any;
   switch (params.title) {
     case "Popüler Ürünler":
