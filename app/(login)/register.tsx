@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { natural30 } from "@/constants/colors";
 import ThemedText from "@/components/shared/themed-text/themed-text";
 import useRegisterStore from "@/stores/registerStore";
+import useKeyboardStore from "@/stores/keyboardStore";
 // import useAuthStore from "@/stores/registerStore";
 
 const RegisterPage = () => {
@@ -22,7 +23,7 @@ const RegisterPage = () => {
   } = useForm<TEmailSchema>({
     resolver: zodResolver(EmailSchema),
   });
-
+  const { isCovered } = useKeyboardStore();
   const { setEmail } = useRegisterStore();
 
   const onSubmit = (data: TEmailSchema) => {
@@ -37,6 +38,7 @@ const RegisterPage = () => {
         style={{
           display: "flex",
           gap: 12,
+          marginTop: isCovered.on ? 40 : 0,
         }}
       >
         <ThemedInput

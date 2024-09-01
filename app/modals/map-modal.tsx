@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import * as React from "react";
 import { Text, View } from "react-native";
 import { natural10, natural20, primaryOne } from "@/constants/colors";
-import Poppins from "@/constants/font";
+import Mulish from "@/constants/font";
 import Icons from "@/components/shared/icons/icons";
 import ThemedButton from "@/components/shared/themed-button/themed-button";
 import { useSharedValue } from "react-native-reanimated";
@@ -65,7 +65,7 @@ export default function ModalScreen() {
           />
           <Text
             style={{
-              fontFamily: Poppins.Regular,
+              fontFamily: Mulish.Regular,
               fontSize: 14,
               color: natural10,
             }}
@@ -131,14 +131,14 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontFamily: Poppins.Regular,
+    fontFamily: Mulish.Regular,
     fontSize: 14,
     color: natural20,
   },
 
   title: {
     fontSize: 20,
-    fontFamily: Poppins.Black,
+    fontFamily: Mulish.Black,
     color: primaryOne,
   },
   separator: {

@@ -66,7 +66,9 @@ export default function Favorites() {
             }}
           >
             {basketItems.length !== 0 &&
-              basketItems.map((basketItem) => <BasketCard {...basketItem} />)}
+              basketItems.map((basketItem) => (
+                <BasketCard key={basketItem.id} {...basketItem} />
+              ))}
           </ScrollView>
         </View>
       </SafeAreaView>

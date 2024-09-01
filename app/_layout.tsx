@@ -15,25 +15,22 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-    PoppinsBlack: require("../assets/fonts/Poppins-Black.ttf"),
-    PoppinsBlackItalic: require("../assets/fonts/Poppins-BlackItalic.ttf"),
-    PoppinsBold: require("../assets/fonts/Poppins-Bold.ttf"),
-    PoppinsBoldItalic: require("../assets/fonts/Poppins-BoldItalic.ttf"),
-    PoppinsExtraBold: require("../assets/fonts/Poppins-ExtraBold.ttf"),
-    PoppinsExtraBoldItalic: require("../assets/fonts/Poppins-ExtraBoldItalic.ttf"),
-    PoppinsExtraLight: require("../assets/fonts/Poppins-ExtraLight.ttf"),
-    PoppinsExtraLightItalic: require("../assets/fonts/Poppins-ExtraLightItalic.ttf"),
-    PoppinsItalic: require("../assets/fonts/Poppins-Italic.ttf"),
-    PoppinsLight: require("../assets/fonts/Poppins-Light.ttf"),
-    PoppinsLightItalic: require("../assets/fonts/Poppins-LightItalic.ttf"),
-    PoppinsMedium: require("../assets/fonts/Poppins-Medium.ttf"),
-    PoppinsMediumItalic: require("../assets/fonts/Poppins-MediumItalic.ttf"),
-    PoppinsRegular: require("../assets/fonts/Poppins-Regular.ttf"),
-    PoppinsSemiBold: require("../assets/fonts/Poppins-SemiBold.ttf"),
-    PoppinsSemiBoldItalic: require("../assets/fonts/Poppins-SemiBoldItalic.ttf"),
-    PoppinsThin: require("../assets/fonts/Poppins-Thin.ttf"),
-    PoppinsThinItalic: require("../assets/fonts/Poppins-ThinItalic.ttf"),
+    MulishBlack: require("../assets/fonts/Mulish/Mulish-Black.ttf"),
+    MulishBlackItalic: require("../assets/fonts/Mulish/Mulish-BlackItalic.ttf"),
+    MulishBold: require("../assets/fonts/Mulish/Mulish-Bold.ttf"),
+    MulishBoldItalic: require("../assets/fonts/Mulish/Mulish-BoldItalic.ttf"),
+    MulishExtraBold: require("../assets/fonts/Mulish/Mulish-ExtraBold.ttf"),
+    MulishExtraBoldItalic: require("../assets/fonts/Mulish/Mulish-ExtraBoldItalic.ttf"),
+    MulishExtraLight: require("../assets/fonts/Mulish/Mulish-ExtraLight.ttf"),
+    MulishExtraLightItalic: require("../assets/fonts/Mulish/Mulish-ExtraLightItalic.ttf"),
+    MulishItalic: require("../assets/fonts/Mulish/Mulish-Italic.ttf"),
+    MulishLight: require("../assets/fonts/Mulish/Mulish-Light.ttf"),
+    MulishLightItalic: require("../assets/fonts/Mulish/Mulish-LightItalic.ttf"),
+    MulishMedium: require("../assets/fonts/Mulish/Mulish-Medium.ttf"),
+    MulishMediumItalic: require("../assets/fonts/Mulish/Mulish-MediumItalic.ttf"),
+    MulishRegular: require("../assets/fonts/Mulish/Mulish-Regular.ttf"),
+    MulishSemiBold: require("../assets/fonts/Mulish/Mulish-SemiBold.ttf"),
+    MulishSemiBoldItalic: require("../assets/fonts/Mulish/Mulish-SemiBoldItalic.ttf"),
   });
 
   useEffect(() => {
@@ -63,7 +60,7 @@ function RootLayoutNav() {
   const router = useRouter();
 
   useEffect(() => {
-    router.navigate("/(login)/email-login");
+    router.navigate("/(home)/search");
   }, []);
 
   return (

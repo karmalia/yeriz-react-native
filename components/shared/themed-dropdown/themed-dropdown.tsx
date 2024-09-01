@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Dropdown } from "react-native-element-dropdown";
 import { primaryOne, secondaryOne, tertiaryOne } from "@/constants/colors";
 import Icons from "@/components/shared/icons/icons";
-import Poppins from "@/constants/font";
+import Mulish from "@/constants/font";
 type Props = {
   list: Array<any>;
   value: { label: string; value: string } | null;
@@ -88,7 +88,7 @@ const ThemedDropdown = (props: Props) => {
               color: selected ? tertiaryOne : primaryOne,
               fontWeight: "500",
               lineHeight: 24,
-              fontFamily: Poppins.Regular,
+              fontFamily: Mulish.Regular,
             }}
           >
             {item.label}
@@ -124,13 +124,13 @@ const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: 16,
-    fontFamily: Poppins.Regular,
+    fontFamily: Mulish.Regular,
     color: primaryOne,
     fontWeight: "500",
   },
   selectedTextStyle: {
     fontSize: 16,
-    fontFamily: Poppins.Regular,
+    fontFamily: Mulish.Regular,
     color: primaryOne,
     fontWeight: "500",
   },

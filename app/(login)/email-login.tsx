@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import ThemedInput from "@/components/shared/themed-input/themed-input";
 import { Link, useRouter } from "expo-router";
 import { natural20, natural30, textColor } from "@/constants/colors";
-import Poppins from "@/constants/font";
+import Mulish from "@/constants/font";
 import { useForm } from "react-hook-form";
 import {
   TUserLoginSchema,
@@ -77,7 +77,7 @@ const EmailLoginPage = forwardRef<React.ReactNode, any>((props, ref) => {
             width: "100%",
             textDecorationLine: "underline",
             fontSize: 12,
-            fontFamily: Poppins.Regular,
+            fontFamily: Mulish.Regular,
             textAlign: "right",
             paddingRight: 8,
           }}

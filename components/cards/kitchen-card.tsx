@@ -3,7 +3,7 @@ import React from "react";
 import { Image } from "expo-image";
 import ThemedText from "../shared/themed-text/themed-text";
 import { TKitchenCard, blurhash } from "./card.types";
-import Poppins from "@/constants/font";
+import Mulish from "@/constants/font";
 
 const KitchenCard = ({ data }: TKitchenCard) => {
   return (
@@ -57,7 +57,7 @@ const KitchenCard = ({ data }: TKitchenCard) => {
           color: "black",
           textAlign: "left",
           fontSize: 13,
-          fontFamily: Poppins.SemiBold,
+          fontFamily: Mulish.SemiBold,
         }}
       >
         {data.title}

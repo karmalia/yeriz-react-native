@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TextProps, TextStyle, View } from "react-native";
 import React from "react";
 import { primaryOne, secondaryOne, tertiaryOne } from "@/constants/colors";
-import Poppins from "@/constants/font";
+import Mulish from "@/constants/font";
 
 enum TextVariant {
   primary = primaryOne,
@@ -36,7 +36,7 @@ export default ThemedText;
 const styles = StyleSheet.create({
   buttonText: {
     color: "white",
-    fontFamily: Poppins.Regular,
+    fontFamily: Mulish.Regular,
   },
   primary: {
     backgroundColor: primaryOne,

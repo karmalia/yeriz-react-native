@@ -15,6 +15,7 @@ import {
   TConfirmPasswordSchema,
 } from "@/lib/schemas/register.schemas/confirm-password.schema";
 import PasswordChecklist from "@/components/(login)/password-checklist/password-checklist";
+import useKeyboardStore from "@/stores/keyboardStore";
 
 const CreatePasswordPage = () => {
   const { navigate } = useRouter();
@@ -28,6 +29,7 @@ const CreatePasswordPage = () => {
   });
 
   const { setPassword } = useAuthStore();
+  const { isCovered } = useKeyboardStore();
 
   const onSubmit = (data: TConfirmPasswordSchema) => {
     setPassword(data.password);
@@ -46,43 +48,44 @@ const CreatePasswordPage = () => {
           gap: 4,
         }}
       >
-        <KeyboardAvoidingView>
-          <ThemedInput
-            leftIcon="LockIcon"
-            rightIcon="EyeOffIcon"
-            label="Şifre"
-            control={control}
-            name="password"
-            hasError={errors.password?.message}
-            placeholder="Şifrenizi giriniz"
-            placeholderTextColor={natural30}
-          />
+        <ThemedInput
+          leftIcon="LockIcon"
+          rightIcon="EyeOffIcon"
+          label="Şifre"
+          control={control}
+          name="password"
+          hasError={""}
+          placeholder="Şifrenizi giriniz"
+          placeholderTextColor={natural30}
+        />
 
-          <PasswordChecklist password={watch("password") || ""} />
+        <PasswordChecklist
+          password={watch("password") || ""}
+          errors={errors.password}
+        />
 
-          <ThemedInput
-            leftIcon="LockIcon"
-            label="Şifre Tekrar"
-            rightIcon="EyeOffIcon"
-            control={control}
-            name="confirmPassword"
-            hasError={errors.confirmPassword?.message}
-            placeholder="Şifrenizi tekrar giriniz"
-            placeholderTextColor={natural30}
-            onSubmitEditing={handleSubmit(onSubmit)}
-          />
-          <ThemedButton
-            variant="secondary"
-            size="small"
-            style={{
-              marginTop: 20,
-              fontWeight: "900",
-            }}
-            onPress={handleSubmit(onSubmit)}
-          >
-            <ThemedText>Kayıt Ol</ThemedText>
-          </ThemedButton>
-        </KeyboardAvoidingView>
+        <ThemedInput
+          leftIcon="LockIcon"
+          label="Şifre Tekrar"
+          rightIcon="EyeOffIcon"
+          control={control}
+          name="confirmPassword"
+          hasError={errors.confirmPassword?.message}
+          placeholder="Şifrenizi tekrar giriniz"
+          placeholderTextColor={natural30}
+          onSubmitEditing={handleSubmit(onSubmit)}
+        />
+        <ThemedButton
+          variant="secondary"
+          size="small"
+          style={{
+            marginTop: isCovered.on ? 0 : 20,
+            fontWeight: "900",
+          }}
+          onPress={handleSubmit(onSubmit)}
+        >
+          <ThemedText>Kayıt Ol</ThemedText>
+        </ThemedButton>
       </View>
     </LoginLayout>
   );

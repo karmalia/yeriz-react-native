@@ -14,8 +14,9 @@ import {
   white,
   primaryFive,
   productCardBackground,
+  natural40,
 } from "@/constants/colors";
-import Poppins from "@/constants/font";
+import Mulish from "@/constants/font";
 import CardIcons from "../shared/icons/card.icons";
 import { Image } from "expo-image";
 import { TNewProductCard, TProductCard, blurhash } from "./card.types";
@@ -112,7 +113,7 @@ const NewProductCard = ({ data }: TNewProductCard) => {
               <ThemedText
                 style={{
                   fontSize: 14,
-                  fontFamily: Poppins.Bold,
+                  fontFamily: Mulish.Bold,
                   color: primaryOne,
                 }}
               >
@@ -121,7 +122,7 @@ const NewProductCard = ({ data }: TNewProductCard) => {
               <ThemedText
                 style={{
                   fontSize: 12,
-                  fontFamily: Poppins.Regular,
+                  fontFamily: Mulish.Regular,
                   color: primaryOne,
                 }}
               >
@@ -133,6 +134,7 @@ const NewProductCard = ({ data }: TNewProductCard) => {
                   flexDirection: "row",
                   alignItems: "center",
                   gap: 5,
+                  paddingVertical: 4,
                 }}
               >
                 <CardIcons.ClockIcon
@@ -145,7 +147,7 @@ const NewProductCard = ({ data }: TNewProductCard) => {
                   style={{
                     color: primaryOne,
                     fontSize: 12,
-                    fontFamily: Poppins.Bold,
+                    fontFamily: Mulish.Bold,
                   }}
                 >
                   Bugün
@@ -154,7 +156,7 @@ const NewProductCard = ({ data }: TNewProductCard) => {
                   style={{
                     fontSize: 12,
                     color: primaryOne,
-                    fontFamily: Poppins.Regular,
+                    fontFamily: Mulish.Regular,
                   }}
                 >
                   {data.availableFrom}:00 - {data.availableUntil}:00
@@ -175,21 +177,21 @@ const NewProductCard = ({ data }: TNewProductCard) => {
                   fontSize: 12,
 
                   lineHeight: 16,
-                  fontFamily: Poppins.Regular,
+                  fontFamily: Mulish.Regular,
                   color: natural30,
                   textDecorationLine: "line-through",
                 }}
               >
-                {data.originalPrice} TL
+                {data.originalPrice}.00 TL
               </ThemedText>
               <ThemedText
                 style={{
                   fontSize: 18,
-                  fontFamily: Poppins.Bold,
+                  fontFamily: Mulish.Bold,
                   color: primaryOne,
                 }}
               >
-                {data.discountedPrice} TL
+                {data.discountedPrice}.00 TL
               </ThemedText>
             </View>
           </View>
@@ -200,7 +202,7 @@ const NewProductCard = ({ data }: TNewProductCard) => {
           }}
           style={{
             backgroundColor: isActive ? primaryFour : "white",
-            borderColor: primaryFour,
+            borderColor: isActive ? primaryFour : natural40,
             borderWidth: 1,
             height: 40,
             width: 40,
@@ -255,8 +257,8 @@ export default NewProductCard;
 const styles = StyleSheet.create({
   badge: {
     position: "absolute",
-    top: 4,
-    right: 4,
+    top: 6,
+    right: 8,
     zIndex: 2,
     width: 10,
     height: 10,

@@ -14,7 +14,7 @@ import useKeyboardState from "@/lib/custom-hooks/useKeyboardState";
 
 const smallSize = 30;
 let largeSize = 57;
-let constantMarginBottom = 12;
+let constantMarginBottom = 35;
 
 export const tabStyles = StyleSheet.create({
   tabBarIconStyle: {

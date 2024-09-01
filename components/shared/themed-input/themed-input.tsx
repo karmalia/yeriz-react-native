@@ -15,7 +15,7 @@ import {
 } from "@/constants/colors";
 
 import Icons from "@/components/shared/icons/icons";
-import Poppins from "@/constants/font";
+import Mulish from "@/constants/font";
 import { useController } from "react-hook-form";
 
 interface ThemedInputProps extends TextInputProps {
@@ -142,15 +142,13 @@ const styles = StyleSheet.create({
   },
   text: {
     color: textColor,
-    fontFamily: Poppins.Regular,
+    fontFamily: Mulish.Regular,
     fontSize: 12,
-    lineHeight: 16,
   },
   textInput: {
     flex: 1,
-    fontFamily: Poppins.Regular,
+    fontFamily: Mulish.Regular,
     fontSize: 16,
-    paddingTop: 6,
     color: textColor,
   },
 });

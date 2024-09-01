@@ -3,7 +3,7 @@ import { View, Text, TextInputProps, StyleSheet } from "react-native";
 import RadioButton from "react-native-animated-radio-button";
 import React, { useState } from "react";
 import { primaryOne } from "@/constants/colors";
-import Poppins from "@/constants/font";
+import Mulish from "@/constants/font";
 
 interface ThemedRadioProps {
   label?: string;
@@ -48,7 +48,7 @@ const ThemedRadio = (props: ThemedRadioProps) => {
           marginLeft: 10,
           display: "flex",
           textAlignVertical: "center",
-          fontFamily: Poppins.Regular,
+          fontFamily: Mulish.Regular,
           fontSize: props.fontSize || 16,
           color: props.color || primaryOne,
         }}

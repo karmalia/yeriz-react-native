@@ -4,7 +4,7 @@ import ThemedText from "@/components/shared/themed-text/themed-text";
 import { natural30 } from "@/constants/colors";
 
 import Icons from "@/components/shared/icons/icons";
-import Poppins from "@/constants/font";
+import Mulish from "@/constants/font";
 import { TKitchenCard, TProductCard } from "@/components/cards/card.types";
 import { Link } from "expo-router";
 import ProductCard from "@/components/cards/product-card";

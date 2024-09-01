@@ -11,7 +11,7 @@ import LoginLayout from "@/components/(login)/layout";
 
 import ThemedButton from "@/components/shared/themed-button/themed-button";
 
-import Poppins from "@/constants/font";
+import Mulish from "@/constants/font";
 import { Link, useRouter } from "expo-router";
 
 import Icons from "@/components/shared/icons/icons";
@@ -36,7 +36,7 @@ const LoginPage = () => {
           style={{
             color: secondaryOne,
             fontSize: Dimensions.get("window").width * 0.04,
-            fontFamily: Poppins.SemiBold,
+            fontFamily: Mulish.SemiBold,
             alignSelf: "flex-start",
           }}
         >
@@ -65,7 +65,7 @@ const LoginPage = () => {
           <Text
             style={{
               color: primaryOne,
-              fontFamily: Poppins.SemiBold,
+              fontFamily: Mulish.SemiBold,
               fontSize: Dimensions.get("window").width * 0.03,
             }}
           >
@@ -96,7 +96,7 @@ const LoginPage = () => {
           <Text
             style={{
               color: primaryOne,
-              fontFamily: Poppins.SemiBold,
+              fontFamily: Mulish.SemiBold,
               fontSize: Dimensions.get("window").width * 0.03,
             }}
           >
@@ -124,7 +124,7 @@ const LoginPage = () => {
               width={Dimensions.get("window").width * 0.05}
               height={Dimensions.get("window").width * 0.05}
             />
-            <Text style={{ color: primaryOne, fontFamily: Poppins.SemiBold }}>
+            <Text style={{ color: primaryOne, fontFamily: Mulish.SemiBold }}>
               AppleID ile devam et
             </Text>
           </ThemedButton>
@@ -160,7 +160,7 @@ const LoginPage = () => {
             style={{
               textAlign: "center",
               color: primaryOne,
-              fontFamily: Poppins.SemiBold,
+              fontFamily: Mulish.SemiBold,
               fontSize: Dimensions.get("window").width * 0.03,
             }}
           >
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   },
   middleText: {
     color: secondaryOne,
-    fontFamily: Poppins.Regular,
+    fontFamily: Mulish.Regular,
   },
   button: {
     width: "100%",

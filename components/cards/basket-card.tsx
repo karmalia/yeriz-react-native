@@ -3,9 +3,14 @@ import React from "react";
 import { Image } from "expo-image";
 import { blurhash, TProductCard } from "./card.types";
 import ThemedText from "../shared/themed-text/themed-text";
-import { natural10, natural20, primaryOne } from "@/constants/colors";
+import {
+  natural10,
+  natural20,
+  natural30,
+  primaryOne,
+} from "@/constants/colors";
 import CardIcons from "../shared/icons/card.icons";
-import Poppins from "@/constants/font";
+import Mulish from "@/constants/font";
 import useBasketStore from "@/stores/basketStore";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { TFood } from "@/types";
@@ -22,36 +27,71 @@ const BasketCard = (data: BasketProps) => {
 
   return (
     <View style={[styles.card, styles.shadow]}>
-      <Image
-        //Require is not required when using local files
-        source={data.foodImage[0].imageUrl}
+      <View
         style={{
           width: "33%",
           height: "100%",
+          position: "relative",
           borderRadius: 12,
         }}
-        placeholder={{ blurhash }}
-      />
+      >
+        <Image
+          //Require is not required when using local files
+          source={data.foodImage[0].imageUrl}
+          style={{
+            width: "100%",
+            borderRadius: 12,
+            height: "100%",
+          }}
+          placeholder={{ blurhash }}
+        />
+        <View
+          style={{
+            position: "absolute",
+            top: 0,
+            borderRadius: 12,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0,0,0,0.3)",
+          }}
+        />
+      </View>
+
       <View
         style={{
           flex: 1,
-          paddingTop: 2,
           paddingLeft: 8,
+          gap: 4,
         }}
       >
         <ThemedText
           style={{
             fontSize: 14,
-            fontWeight: "bold",
-            color: natural20,
+            height: 16,
+            fontFamily: Mulish.SemiBold,
+            color: primaryOne,
             textAlign: "left",
             width: "100%",
-            paddingBottom: 4,
           }}
           numberOfLines={1}
           ellipsizeMode="tail"
         >
           {data.name}
+        </ThemedText>
+        <ThemedText
+          style={{
+            fontSize: 12,
+            height: 14,
+            fontWeight: "bold",
+            color: primaryOne,
+            textAlign: "left",
+            width: "100%",
+          }}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
+          {data.companyName}
         </ThemedText>
         <View
           style={{
@@ -62,16 +102,18 @@ const BasketCard = (data: BasketProps) => {
           }}
         >
           <CardIcons.ClockIcon
+            width={12}
+            height={12}
             style={{
               color: primaryOne,
             }}
           />
           <ThemedText
             style={{
-              fontSize: 14,
-              color: natural20,
+              fontSize: 12,
+              color: primaryOne,
               textAlign: "left",
-              height: 20,
+              height: 14,
             }}
           >
             {data.availableFrom}:00 - {data.availableUntil}:00
@@ -86,16 +128,28 @@ const BasketCard = (data: BasketProps) => {
             alignItems: "flex-end",
           }}
         >
-          <ThemedText
-            style={{
-              fontSize: 22,
-
-              fontFamily: Poppins.Bold,
-            }}
-            variant="primary"
-          >
-            {data.discountedPrice} TL
-          </ThemedText>
+          <View style={{}}>
+            <ThemedText
+              style={{
+                height: 14,
+                fontSize: 12,
+                color: natural30,
+                fontFamily: Mulish.Medium,
+              }}
+            >
+              {data.originalPrice} TL
+            </ThemedText>
+            <ThemedText
+              style={{
+                fontSize: 18,
+                height: 20,
+                fontFamily: Mulish.Bold,
+              }}
+              variant="primary"
+            >
+              {data.discountedPrice} TL
+            </ThemedText>
+          </View>
           <View
             style={{
               display: "flex",
@@ -112,7 +166,6 @@ const BasketCard = (data: BasketProps) => {
               <CardIcons.DecreaseIcon
                 style={{
                   color: primaryOne,
-                  marginBottom: 4,
                 }}
               />
             </TouchableOpacity>
@@ -120,10 +173,9 @@ const BasketCard = (data: BasketProps) => {
             <ThemedText
               style={{
                 fontSize: 22,
+                height: 24,
                 color: natural20,
-                fontFamily: Poppins.Bold,
-
-                width: 20,
+                fontFamily: Mulish.Bold,
               }}
             >
               {data.quantity || 0}
@@ -136,7 +188,6 @@ const BasketCard = (data: BasketProps) => {
               <CardIcons.IncreaseIcon
                 style={{
                   color: primaryOne,
-                  marginBottom: 4,
                 }}
               />
             </TouchableOpacity>
@@ -152,20 +203,11 @@ export default BasketCard;
 const styles = StyleSheet.create({
   card: {
     padding: 10,
-    height: 135,
+    height: 125,
     width: "100%",
-    backgroundColor: "white",
+    backgroundColor: "#F7F8FA",
     borderRadius: 12,
     flexDirection: "row",
   },
-  shadow: {
-    shadowColor: "black",
-    shadowOffset: {
-      width: 2,
-      height: 2,
-    },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-    elevation: 4,
-  },
+  shadow: {},
 });

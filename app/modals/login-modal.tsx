@@ -22,7 +22,7 @@ import HeaderSearch from "@/components/header/header-search";
 import Icons from "@/components/shared/icons/icons";
 
 import { TabBars } from "@/components/shared/tabbars/tab-bars";
-import Poppins from "@/constants/font";
+import Mulish from "@/constants/font";
 import LoginLayout from "@/components/(login)/layout";
 import ThemedButton from "@/components/shared/themed-button/themed-button";
 import ThemedText from "@/components/shared/themed-text/themed-text";
@@ -74,14 +74,13 @@ const LoginPageModal = () => {
           justifyContent: "flex-start",
           flexDirection: "column",
           gap: 8,
-          height: "100%",
         }}
       >
         <ThemedText
           style={{
             color: secondaryOne,
             fontSize: 18,
-            fontFamily: Poppins.SemiBold,
+            fontFamily: Mulish.SemiBold,
             alignSelf: "flex-start",
             marginTop: 20,
             marginBottom: 4,
@@ -113,7 +112,7 @@ const LoginPageModal = () => {
                   style={{
                     textAlign: "center",
                     color: primaryOne,
-                    fontFamily: Poppins.SemiBold,
+                    fontFamily: Mulish.SemiBold,
                     fontSize: width * 0.035,
                   }}
                 >
@@ -150,7 +149,7 @@ const LoginPageModal = () => {
               style={{
                 textAlign: "center",
                 color: primaryOne,
-                fontFamily: Poppins.SemiBold,
+                fontFamily: Mulish.SemiBold,
                 fontSize: Dimensions.get("window").width * 0.03,
               }}
             >
@@ -197,8 +196,7 @@ const styles = StyleSheet.create({
     height: "100%",
     color: secondaryOne,
     fontSize: 14,
-    fontFamily: Poppins.Medium,
-    marginBottom: 4,
+    fontFamily: Mulish.Medium,
     lineHeight: 14,
   },
   button: {

@@ -15,7 +15,7 @@ import {
   natural30,
   primaryOne,
 } from "@/constants/colors";
-import Poppins from "@/constants/font";
+import Mulish from "@/constants/font";
 import Icons from "../shared/icons/icons";
 import { useNavigation } from "expo-router";
 import ThemedText from "../shared/themed-text/themed-text";
@@ -43,7 +43,7 @@ const MapHeader = (props: Props) => {
 
           <ThemedText
             style={{
-              fontFamily: Poppins.Regular,
+              fontFamily: Mulish.Regular,
               lineHeight: 20,
               paddingTop: 2,
               fontSize: 16,

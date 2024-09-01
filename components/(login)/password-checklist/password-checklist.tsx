@@ -9,18 +9,25 @@ import {
   natural30,
   primaryOne,
 } from "@/constants/colors";
+import useKeyboardStore from "@/stores/keyboardStore";
 
-const PasswordChecklist = ({ password }) => {
+const PasswordChecklist = ({ password, errors }) => {
+  const { isCovered } = useKeyboardStore();
+
+  console.log("Errors", errors);
   const validations = [
     { label: "En az 8 karakter", isValid: password.length >= 8 },
     { label: "En az bir büyük harf", isValid: /[A-Z]/.test(password) },
     { label: "En az bir küçük harf", isValid: /[a-z]/.test(password) },
     { label: "En az bir rakam", isValid: /\d/.test(password) },
-    { label: "En az bir özel karakter", isValid: /[@$!%*?&]/.test(password) },
   ];
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        marginVertical: isCovered.on ? 4 : 10,
+      }}
+    >
       {validations?.map((validation, index) => (
         <View key={index + "val"} style={styles.checkItem}>
           <View
@@ -29,6 +36,7 @@ const PasswordChecklist = ({ password }) => {
               borderRadius: 50,
               padding: 5,
               marginRight: 8,
+              marginBottom: 2,
             }}
           />
           <ThemedText style={styles.checkText}>{validation.label}</ThemedText>
@@ -39,15 +47,13 @@ const PasswordChecklist = ({ password }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 10,
-  },
   checkItem: {
     flexDirection: "row",
     alignItems: "center",
   },
   checkText: {
     color: natural20,
+    fontSize: 12,
   },
 });
 

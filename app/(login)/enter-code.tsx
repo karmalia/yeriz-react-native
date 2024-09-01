@@ -3,7 +3,7 @@ import React from "react";
 import LoginLayout from "@/components/(login)/layout";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { natural20, natural30, natural40 } from "@/constants/colors";
-import Poppins from "@/constants/font";
+import Mulish from "@/constants/font";
 import ThemedButton from "@/components/shared/themed-button/themed-button";
 import ThemedText from "@/components/shared/themed-text/themed-text";
 import { KeyboardEvents } from "react-native-keyboard-controller";
@@ -46,14 +46,14 @@ const EnterCodePage = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          paddingBottom: touchOn ? 4 : 14,
+          paddingBottom: touchOn.on ? 4 : 14,
         }}
       >
         <Text
           style={{
             color: natural30,
-            fontSize: touchOn ? 10 : 14,
-            fontFamily: Poppins.Regular,
+            fontSize: touchOn.on ? 10 : 14,
+            fontFamily: Mulish.Regular,
             textAlign: "center",
           }}
         >
@@ -63,7 +63,7 @@ const EnterCodePage = () => {
         <View
           style={{
             display: "flex",
-            flexDirection: touchOn ? "row" : "column",
+            flexDirection: touchOn.on ? "row" : "column",
             justifyContent: "center",
             width: "100%",
             gap: 5,
@@ -72,8 +72,8 @@ const EnterCodePage = () => {
           <ThemedText
             style={{
               color: natural20,
-              fontSize: touchOn ? 10 : 14,
-              fontFamily: Poppins.SemiBold,
+              fontSize: touchOn.on ? 10 : 14,
+              fontFamily: Mulish.SemiBold,
               textAlign: "center",
 
               lineHeight: 18,
@@ -84,8 +84,8 @@ const EnterCodePage = () => {
           <ThemedText
             style={{
               color: natural20,
-              fontSize: touchOn ? 10 : 14,
-              fontFamily: Poppins.SemiBold,
+              fontSize: touchOn.on ? 10 : 14,
+              fontFamily: Mulish.SemiBold,
               textAlign: "center",
 
               lineHeight: 18,
@@ -151,7 +151,7 @@ const EnterCodePage = () => {
       </View>
       <ThemedButton
         variant="secondary"
-        size={touchOn ? "small" : "medium"}
+        size={touchOn.on ? "small" : "medium"}
         onPress={handleRouteChange}
         ref={buttonRef}
       >

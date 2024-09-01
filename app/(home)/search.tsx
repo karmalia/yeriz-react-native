@@ -19,12 +19,13 @@ import dummyData from "@/dummy-datas/dummyDataProduct3.json";
 import ProductCard from "@/components/cards/product-card";
 import ThemedCheckbox from "@/components/shared/themed-checkbox/themed-checkbox";
 import ThemedText from "@/components/shared/themed-text/themed-text";
-import Poppins from "@/constants/font";
+import Mulish from "@/constants/font";
 import ThemedButton from "@/components/shared/themed-button/themed-button";
 import { useNavigation } from "expo-router";
 import NewProductCard from "@/components/cards/new-product-card";
 import { StatusBar } from "expo-status-bar";
 import FilterList from "@/components/(search)/FilterList";
+import FilterSidebar from "@/components/(home)/search/filter-sidebar";
 
 const initialInputHeight = 60;
 
@@ -32,18 +33,11 @@ export default function SearchPage() {
   const [isFilterOpen, setIsFilterOpen] = React.useState(false);
   const [searchBar, setSearchBar] = React.useState(true);
 
-  const windowWidth = Dimensions.get("window").width;
-  const translateX = useSharedValue(isFilterOpen ? 0 : -windowWidth);
   const height = useSharedValue(initialInputHeight);
   const positionY = useSharedValue(0);
   const navigation = useNavigation();
 
   React.useEffect(() => {
-    translateX.value = withTiming(isFilterOpen ? 0 : -windowWidth, {
-      duration: 300,
-      easing: Easing.ease,
-    });
-
     const onBlur = navigation.addListener("blur", () => {
       setIsFilterOpen(false);
     });
@@ -51,7 +45,7 @@ export default function SearchPage() {
     return () => {
       navigation.removeListener("blur", onBlur);
     };
-  }, [isFilterOpen, windowWidth]);
+  }, [isFilterOpen]);
 
   React.useEffect(() => {
     if (searchBar) {
@@ -78,12 +72,6 @@ export default function SearchPage() {
       });
     }
   }, [searchBar]);
-
-  const filterStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateX: translateX.value }],
-    };
-  });
 
   const inputStyle = useAnimatedStyle(() => {
     return {
@@ -117,7 +105,11 @@ export default function SearchPage() {
           }}
           onPress={() => setIsFilterOpen((prev) => !prev)}
         >
-          <Icons.FilterIcon width={40} height={40} />
+          {isFilterOpen ? (
+            <Icons.FilterIconActive width={40} height={40} />
+          ) : (
+            <Icons.FilterIconPassive width={40} height={40} />
+          )}
         </TouchableOpacity>
         <View
           style={{
@@ -146,84 +138,10 @@ export default function SearchPage() {
       >
         <FilterList data={dummyData} setFilterState={setSearchBar} />
 
-        <Animated.View style={[styles.filterModal, filterStyle]}>
-          <View
-            style={{
-              flex: 1,
-              position: "relative",
-            }}
-          >
-            <SectionList
-              sections={[
-                {
-                  title: "Kategoriler",
-                  data: [
-                    "Ana Yemek",
-                    "Çorba",
-                    "Sebze Yemekleri",
-                    "Tatlı",
-                    "Fırın / Pastane Ürünleri",
-                  ],
-                },
-                {
-                  title: "Diyet Türü",
-                  data: ["Vegan", "Vejetaryen", "Glutensiz"],
-                },
-              ]}
-              contentContainerStyle={{
-                backgroundColor: "white",
-                position: "absolute",
-              }}
-              renderItem={({ item }) => (
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "flex-start",
-                    paddingLeft: 24,
-                    paddingBottom: 10,
-                  }}
-                >
-                  <ThemedCheckbox label={item} value={item} />
-                </View>
-              )}
-              renderSectionHeader={({ section }) => (
-                <View>
-                  <ThemedText
-                    style={{
-                      fontSize: 20,
-                      paddingLeft: 24,
-                      textAlign: "left",
-                      fontFamily: Poppins.Medium,
-                      color: primaryOne,
-                    }}
-                  >
-                    {section.title}
-                  </ThemedText>
-                </View>
-              )}
-              keyExtractor={(item, index) => item + index}
-              SectionSeparatorComponent={() => <View style={{ height: 10 }} />}
-            />
-
-            <TouchableOpacity
-              onPress={() => setIsFilterOpen((prev) => !prev)}
-              style={{
-                height: 40,
-                width: 40,
-
-                position: "absolute",
-                top: 30,
-                zIndex: 12,
-                right: 0,
-                backgroundColor: "black",
-              }}
-            >
-              <Icons.CloseIcon width={20} height={20} />
-            </TouchableOpacity>
-          </View>
-        </Animated.View>
+        <FilterSidebar
+          isFilterOpen={isFilterOpen}
+          setFilterIsOpen={setIsFilterOpen}
+        />
       </View>
     </GestureHandlerRootView>
   );

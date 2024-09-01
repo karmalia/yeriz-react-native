@@ -12,7 +12,7 @@ import AnimatedTab from "./animated-tab";
 import { Text, View } from "react-native";
 import useBasketStore from "@/stores/basketStore";
 
-const IconSize = 20;
+const IconSize = 24;
 
 export const TabBars = {
   index: ({ focused }) => {
@@ -29,7 +29,6 @@ export const TabBars = {
             />
           )}
         </AnimatedTab>
-        <Text style={{ color: primaryOne }}>Ana Sayfa</Text>
       </>
     );
   },
@@ -47,7 +46,6 @@ export const TabBars = {
             />
           )}
         </AnimatedTab>
-        <Text style={{ color: primaryOne }}>Ara</Text>
       </>
     );
   },
@@ -86,15 +84,14 @@ export const TabBars = {
                 )}
 
                 <Icons.TabsBasket
-                  width={22}
-                  height={22}
+                  width={IconSize}
+                  height={IconSize}
                   style={{ color: isFocused ? "white" : primaryOne }}
                 />
               </View>
             </>
           )}
         </AnimatedTab>
-        <Text style={{ color: primaryOne }}>Sepet</Text>
       </>
     );
   },
@@ -112,7 +109,6 @@ export const TabBars = {
             />
           )}
         </AnimatedTab>
-        <Text style={{ color: primaryOne }}>Favoriler</Text>
       </>
     );
   },
@@ -130,7 +126,6 @@ export const TabBars = {
             />
           )}
         </AnimatedTab>
-        <Text style={{ color: primaryOne }}>Profil</Text>
       </>
     );
   },

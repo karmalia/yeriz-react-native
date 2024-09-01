@@ -1,30 +1,27 @@
-const Poppins = {
-  Thin: "PoppinsThin",
-  ThinItalic: "PoppinsThinItalic",
+const Mulish = {
+  ExtraLight: "MulishExtraLight",
+  ExtraLightItalic: "MulishExtraLightItalic",
 
-  ExtraLight: "PoppinsExtraLight",
-  ExtraLightItalic: "PoppinsExtraLightItalic",
+  Light: "MulishLight",
+  LightItalic: "MulishLightItalic",
 
-  Light: "PoppinsLight",
-  LightItalic: "PoppinsLightItalic",
+  Regular: "MulishRegular",
+  RegularItalic: "MulishRegularItalic",
 
-  Regular: "PoppinsRegular",
-  RegularItalic: "PoppinsRegularItalic",
+  Medium: "MulishMedium",
+  MediumItalic: "MulishMediumItalic",
 
-  Medium: "PoppinsMedium",
-  MediumItalic: "PoppinsMediumItalic",
+  SemiBold: "MulishSemiBold",
+  SemiBoldItalic: "Mulish600SemiBoldItalic",
 
-  SemiBold: "PoppinsSemiBold",
-  SemiBoldItalic: "Poppins600SemiBoldItalic",
+  Bold: "MulishBold",
+  BoldItalic: "MulishBoldItalic",
 
-  Bold: "PoppinsBold",
-  BoldItalic: "PoppinsBoldItalic",
+  ExtraBold: "MulishExtraBold",
+  ExtraBoldItalic: "MulishExtraBoldItalic",
 
-  ExtraBold: "PoppinsExtraBold",
-  ExtraBoldItalic: "PoppinsExtraBoldItalic",
-
-  Black: "PoppinsBlack",
-  BlackItalic: "PoppinsBlackItalic",
+  Black: "MulishBlack",
+  BlackItalic: "MulishBlackItalic",
 };
 
-export default Poppins;
+export default Mulish;

@@ -1,8 +1,14 @@
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ThemedText from "../shared/themed-text/themed-text";
-import { natural10, natural30, secondaryOne } from "@/constants/colors";
-import Poppins from "@/constants/font";
+import {
+  natural10,
+  natural30,
+  secondaryOne,
+  tertiaryOne,
+  tertiaryThree,
+} from "@/constants/colors";
+import Mulish from "@/constants/font";
 import CardIcons from "../shared/icons/card.icons";
 import { Image } from "expo-image";
 import { TProductCard, blurhash } from "./card.types";
@@ -50,11 +56,10 @@ const ProductCard = ({ data, variant }: TProductCard) => {
         <View style={styles.cardContent}>
           <ThemedText
             style={{
-              fontSize: 18,
-              fontWeight: "semibold",
+              fontSize: 20,
+              fontFamily: Mulish.SemiBold,
               textDecorationLine: "underline",
               textAlign: "left",
-              lineHeight: 22,
             }}
           >
             {data.companyName}
@@ -64,13 +69,13 @@ const ProductCard = ({ data, variant }: TProductCard) => {
             style={{
               fontSize: 12,
               textAlign: "left",
-              lineHeight: 16,
+              fontFamily: Mulish.SemiBold,
             }}
           >
             Bugün al{" "}
             <Text
               style={{
-                fontFamily: Poppins.Light,
+                fontFamily: Mulish.Medium,
               }}
             >
               {data.availableFrom}:00 - {data.availableUntil}:00
@@ -82,7 +87,6 @@ const ProductCard = ({ data, variant }: TProductCard) => {
               fontSize: 12,
               fontWeight: "600",
               textAlign: "left",
-              lineHeight: 16,
             }}
           >
             {data.name}
@@ -97,33 +101,31 @@ const ProductCard = ({ data, variant }: TProductCard) => {
               alignItems: "center",
               backgroundColor: "white",
               height: 40,
-              width: "40%",
+              width: "30%",
               borderTopRightRadius: 20,
               paddingTop: 4,
             }}
           >
             <Text
               style={{
-                fontSize: 14,
+                fontSize: 10,
                 color: natural30,
                 textDecorationLine: "line-through",
-                fontFamily: Poppins.MediumItalic,
+                fontFamily: Mulish.MediumItalic,
                 textAlignVertical: "bottom",
-                lineHeight: 15,
               }}
             >
-              {data.originalPrice}₺
+              {data.originalPrice}.00₺
             </Text>
             <Text
               style={{
                 fontSize: 14,
                 textAlignVertical: "bottom",
                 color: natural10,
-                fontFamily: Poppins.Regular,
-                lineHeight: 15,
+                fontFamily: Mulish.Regular,
               }}
             >
-              {data.discountedPrice}₺
+              {data.discountedPrice}.00₺
             </Text>
           </View>
           <TouchableOpacity
@@ -154,7 +156,7 @@ const ProductCard = ({ data, variant }: TProductCard) => {
               style={{
                 color: basketItems.find((item) => item.id === data.id)
                   ? "white"
-                  : natural10,
+                  : tertiaryOne,
               }}
             />
           </TouchableOpacity>
@@ -174,9 +176,23 @@ const ProductCard = ({ data, variant }: TProductCard) => {
           }}
         />
         {data.isActive ? (
-          <CardIcons.FavoriteUp style={styles.badge} />
+          <CardIcons.FavoriteUp
+            style={[
+              styles.badge,
+              {
+                color: tertiaryThree,
+              },
+            ]}
+          />
         ) : (
-          <CardIcons.FavoriteDown style={styles.badge} />
+          <CardIcons.FavoriteDown
+            style={[
+              styles.badge,
+              {
+                color: tertiaryThree,
+              },
+            ]}
+          />
         )}
         <Image
           //Require is not required when using local files
@@ -235,7 +251,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     flex: 1,
-    padding: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
     borderRadius: 20,
   },
   cardBottom: {

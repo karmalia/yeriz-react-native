@@ -7,7 +7,7 @@ import {
   tertiaryTwo,
   white,
 } from "@/constants/colors";
-import Poppins from "@/constants/font";
+import Mulish from "@/constants/font";
 import { ButtonTextSizes } from "@/constants/fontsizes";
 import React, { forwardRef } from "react";
 import { Dimensions, StyleSheet, useWindowDimensions } from "react-native";
@@ -84,7 +84,7 @@ const useStyles = (
     button: {
       borderRadius: 5,
       borderWidth: 1,
-      height: height * 0.06,
+      height: height * 0.075,
       maxHeight: 50,
       display: "flex",
       justifyContent: "center",

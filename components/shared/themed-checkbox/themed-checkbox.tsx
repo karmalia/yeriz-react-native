@@ -2,7 +2,7 @@ import { View, Text, TextInputProps, StyleSheet } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import React, { useState } from "react";
 import { primaryOne } from "@/constants/colors";
-import Poppins from "@/constants/font";
+import Mulish from "@/constants/font";
 
 interface ThemedCheckboxProps extends TextInputProps {
   label?: string;
@@ -35,7 +35,7 @@ const ThemedCheckbox = (props: ThemedCheckboxProps) => {
           borderRadius: 5,
         }}
         textStyle={{
-          fontFamily: Poppins.Black,
+          fontFamily: Mulish.Black,
           fontSize: props.fontSize || 16,
           color: props.color || primaryOne,
         }}
@@ -49,7 +49,7 @@ const ThemedCheckbox = (props: ThemedCheckboxProps) => {
           lineHeight: props.height || 25,
           marginLeft: -10,
           display: "flex",
-          fontFamily: Poppins.Regular,
+          fontFamily: Mulish.Regular,
           fontSize: props.fontSize || 16,
           color: props.color || primaryOne,
         }}

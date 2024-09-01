@@ -10,7 +10,7 @@ import {
 } from "react-native-gesture-handler";
 import ProductCard from "@/components/cards/product-card";
 import ThemedText from "@/components/shared/themed-text/themed-text";
-import Poppins from "@/constants/font";
+import Mulish from "@/constants/font";
 import Constants from "expo-constants";
 import Icons from "@/components/shared/icons/icons";
 import {
@@ -53,7 +53,7 @@ const ListcardModals = () => {
         style={{
           marginTop: Constants.statusBarHeight,
           height: 60,
-          backgroundColor: "transparent",
+          backgroundColor: "white",
           display: "flex",
           justifyContent: "space-between",
           paddingHorizontal: 20,
@@ -81,7 +81,7 @@ const ListcardModals = () => {
             style={{
               fontSize: 22,
               textAlign: "left",
-              fontFamily: Poppins.SemiBold,
+              fontFamily: Mulish.SemiBold,
               color: "black",
               paddingHorizontal: 20,
             }}
