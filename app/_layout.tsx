@@ -9,28 +9,30 @@ import ClientProvider from "@/providers/query-client";
 import { Text, View } from "react-native";
 import LoginHeader from "@/components/modals/login/login-header";
 import { KeyboardProvider } from "react-native-keyboard-controller";
+import { StatusBar } from "expo-status-bar";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded] = useFonts({
-    MulishBlack: require("../assets/fonts/Mulish/Mulish-Black.ttf"),
-    MulishBlackItalic: require("../assets/fonts/Mulish/Mulish-BlackItalic.ttf"),
-    MulishBold: require("../assets/fonts/Mulish/Mulish-Bold.ttf"),
-    MulishBoldItalic: require("../assets/fonts/Mulish/Mulish-BoldItalic.ttf"),
-    MulishExtraBold: require("../assets/fonts/Mulish/Mulish-ExtraBold.ttf"),
-    MulishExtraBoldItalic: require("../assets/fonts/Mulish/Mulish-ExtraBoldItalic.ttf"),
-    MulishExtraLight: require("../assets/fonts/Mulish/Mulish-ExtraLight.ttf"),
-    MulishExtraLightItalic: require("../assets/fonts/Mulish/Mulish-ExtraLightItalic.ttf"),
-    MulishItalic: require("../assets/fonts/Mulish/Mulish-Italic.ttf"),
-    MulishLight: require("../assets/fonts/Mulish/Mulish-Light.ttf"),
-    MulishLightItalic: require("../assets/fonts/Mulish/Mulish-LightItalic.ttf"),
-    MulishMedium: require("../assets/fonts/Mulish/Mulish-Medium.ttf"),
-    MulishMediumItalic: require("../assets/fonts/Mulish/Mulish-MediumItalic.ttf"),
-    MulishRegular: require("../assets/fonts/Mulish/Mulish-Regular.ttf"),
-    MulishSemiBold: require("../assets/fonts/Mulish/Mulish-SemiBold.ttf"),
-    MulishSemiBoldItalic: require("../assets/fonts/Mulish/Mulish-SemiBoldItalic.ttf"),
+    MulishBlack: require("@/assets/fonts/Mulish/Mulish-Black.ttf"),
+    MulishBlackItalic: require("@/assets/fonts/Mulish/Mulish-BlackItalic.ttf"),
+    MulishBold: require("@/assets/fonts/Mulish/Mulish-Bold.ttf"),
+    MulishBoldItalic: require("@/assets/fonts/Mulish/Mulish-BoldItalic.ttf"),
+    MulishExtraBold: require("@/assets/fonts/Mulish/Mulish-ExtraBold.ttf"),
+    MulishExtraBoldItalic: require("@/assets/fonts/Mulish/Mulish-ExtraBoldItalic.ttf"),
+    MulishExtraLight: require("@/assets/fonts/Mulish/Mulish-ExtraLight.ttf"),
+    MulishExtraLightItalic: require("@/assets/fonts/Mulish/Mulish-ExtraLightItalic.ttf"),
+    MulishItalic: require("@/assets/fonts/Mulish/Mulish-Italic.ttf"),
+    MulishLight: require("@/assets/fonts/Mulish/Mulish-Light.ttf"),
+    MulishLightItalic: require("@/assets/fonts/Mulish/Mulish-LightItalic.ttf"),
+    MulishMedium: require("@/assets/fonts/Mulish/Mulish-Medium.ttf"),
+    MulishMediumItalic: require("@/assets/fonts/Mulish/Mulish-MediumItalic.ttf"),
+    MulishRegular: require("@/assets/fonts/Mulish/Mulish-Regular.ttf"),
+    MulishSemiBold: require("@/assets/fonts/Mulish/Mulish-SemiBold.ttf"),
+    MulishSemiBoldItalic: require("@/assets/fonts/Mulish/Mulish-SemiBoldItalic.ttf"),
   });
 
   useEffect(() => {
@@ -44,27 +46,19 @@ export default function RootLayout() {
   }
 
   return (
-    <ClientProvider>
-      <KeyboardProvider>
+    <GestureHandlerRootView>
+      <ClientProvider>
+        <StatusBar backgroundColor="white" />
+
         <RootLayoutNav />
-      </KeyboardProvider>
-    </ClientProvider>
+      </ClientProvider>
+    </GestureHandlerRootView>
   );
 }
 
-export const unstable_settings = {
-  initialRouteName: "/modals/login-modal",
-};
-
 function RootLayoutNav() {
-  const router = useRouter();
-
-  useEffect(() => {
-    router.navigate("/(home)/search");
-  }, []);
-
   return (
-    <Stack initialRouteName="modals/login-modal">
+    <Stack initialRouteName="(home)">
       <Stack.Screen name="(login)" options={{ headerShown: false }} />
       <Stack.Screen
         name="(home)"

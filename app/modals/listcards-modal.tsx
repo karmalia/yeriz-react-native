@@ -13,22 +13,11 @@ import ThemedText from "@/components/shared/themed-text/themed-text";
 import Mulish from "@/constants/font";
 import Constants from "expo-constants";
 import Icons from "@/components/shared/icons/icons";
-import {
-  primaryOne,
-  secondary,
-  secondaryFour,
-  secondaryOne,
-  statusWarning,
-  tertiaryOne,
-  tertiaryThree,
-} from "@/constants/colors";
+import { primaryOne } from "@/constants/colors";
 
-import useBasketStore from "@/stores/basketStore";
 import KitchenCard from "@/components/cards/kitchen-card";
 
 const ListcardModals = () => {
-  const { increaseItem, decreaseItem, items, resetBasket } = useBasketStore();
-
   const router = useRouter();
   const params = useLocalSearchParams();
   let data = [] as any;
@@ -47,8 +36,46 @@ const ListcardModals = () => {
       break;
   }
 
+  const createPairs = (data: any) => {
+    const pairs = [];
+    for (let i = 0; i < data.length; i += 2) {
+      pairs.push([data[i], data[i + 1]]);
+    }
+    return pairs;
+  };
+
+  const KitchenList = ({ data }) => {
+    const pairs = createPairs(data); // Transform data into pairs
+
+    return (
+      <FlatList
+        data={pairs}
+        keyExtractor={(item, index) => `pair-${index}`}
+        style={{
+          paddingHorizontal: 20,
+          backgroundColor: "white",
+          flex: 1,
+        }}
+        renderItem={({ item }) => (
+          <View style={styles.row}>
+            <View style={styles.cardContainer}>
+              <KitchenCard data={item[0]} />
+            </View>
+            {item[1] ? (
+              <View style={styles.cardContainer}>
+                <KitchenCard data={item[1]} />
+              </View>
+            ) : (
+              <View style={styles.cardContainer} /> // Empty space if no second item
+            )}
+          </View>
+        )}
+      />
+    );
+  };
+
   return (
-    <GestureHandlerRootView>
+    <>
       <View
         style={{
           marginTop: Constants.statusBarHeight,
@@ -56,12 +83,8 @@ const ListcardModals = () => {
           backgroundColor: "white",
           display: "flex",
           justifyContent: "space-between",
-          paddingHorizontal: 20,
           flexDirection: "row",
           alignItems: "center",
-          borderBottomWidth: 1,
-          marginBottom: 10,
-          borderBottomColor: "#e0e0e0",
         }}
       >
         <View
@@ -89,82 +112,30 @@ const ListcardModals = () => {
             {params.title || "Error: Section Title is missing"}
           </ThemedText>
         </View>
-
-        <TouchableOpacity
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            position: "relative",
-            marginRight: 20,
-          }}
-          onPress={() => {
-            router.navigate("/(home)/basket");
-          }}
-        >
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              position: "absolute",
-              top: -6,
-              right: -6,
-              backgroundColor: secondaryFour,
-              height: 13,
-              width: 13,
-              zIndex: 1,
-              borderRadius: 50,
-            }}
-          />
-          <Icons.TabsBasket
-            width={26}
-            height={26}
-            style={{ color: primaryOne }}
-          />
-        </TouchableOpacity>
       </View>
-      {params.title === "Mutfak" && (
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "space-between",
-            padding: 20,
-          }}
-        >
-          {data &&
-            data.map((item: any) => {
-              return (
-                <View style={styles.cardContainer}>
-                  <KitchenCard data={item} />
-                </View>
-              );
-            })}
-        </View>
-      )}
-      {params.title === "Popüler Ürünler" ||
-        (params.title === "Senin için önerilenler" && (
-          <View>
-            {data && (
-              <FlatList
-                data={data || []}
-                renderItem={({ item }) => {
-                  return (
-                    <View style={styles.cardContainer}>
-                      <ProductCard data={item} variant="large" />
-                    </View>
-                  );
-                }}
-                keyExtractor={(item) => item.id + "listcards"}
-                contentContainerStyle={styles.flatListContent}
-              />
-            )}
-          </View>
-        ))}
-    </GestureHandlerRootView>
+      <>
+        {params.title === "Mutfak" && <KitchenList data={data} />}
+        {params.title === "Popüler Ürünler" ||
+          (params.title === "Senin için önerilenler" && (
+            <View>
+              {data && (
+                <FlatList
+                  data={data || []}
+                  renderItem={({ item }) => {
+                    return (
+                      <View style={styles.cardContainer}>
+                        <ProductCard data={item} variant="large" />
+                      </View>
+                    );
+                  }}
+                  keyExtractor={(item) => item.id + "listcards"}
+                  contentContainerStyle={styles.flatListContent}
+                />
+              )}
+            </View>
+          ))}
+      </>
+    </>
   );
 };
 
@@ -173,9 +144,7 @@ export default ListcardModals;
 const styles = StyleSheet.create({
   cardContainer: {
     display: "flex",
-    alignItems: "center", // Center the cards horizontally
-    justifyContent: "center", // Center the cards vertically
-    paddingBottom: 20, // Add some vertical spacing between the cards
+    flex: 1,
   },
   flatListContent: {
     flexGrow: 1,
@@ -194,5 +163,11 @@ const styles = StyleSheet.create({
     width: "100%",
     zIndex: 2,
     height: 160,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 20,
+    gap: 20,
   },
 });
