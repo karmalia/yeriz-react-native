@@ -10,6 +10,7 @@ export const secondary = "rgba(255, 125, 99, 1)";
 //New Colors
 
 export const white = "#fff";
+export const contentWhite = "#FAF9F6";
 
 export const primaryOne = "#3D9970";
 export const primaryTwo = "#55D29A";

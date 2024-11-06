@@ -10,6 +10,7 @@ type Props = {
   setValue: React.Dispatch<
     React.SetStateAction<null | { label: string; value: string }>
   >;
+  styles?: any;
 };
 
 // const renderLabel = () => {
@@ -31,6 +32,7 @@ const ThemedDropdown = (props: Props) => {
       style={[
         styles.dropdown,
         isFocus && { borderColor: primaryOne, borderWidth: 2 },
+        props.styles,
       ]}
       placeholderStyle={styles.placeholderStyle}
       selectedTextStyle={styles.selectedTextStyle}

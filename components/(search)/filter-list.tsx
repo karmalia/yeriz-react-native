@@ -2,9 +2,11 @@ import { View } from "react-native";
 import React from "react";
 import { FlatList } from "react-native-gesture-handler";
 import NewProductCard from "../cards/new-product-card";
+import CompanyCard from "../cards/company-card";
+import { TCompanyCard } from "../cards/card.types";
 
 type FilterListProps = {
-  data: any;
+  data: TCompanyCard[];
   setFilterState: any;
 };
 
@@ -13,22 +15,20 @@ const FilterList = ({ setFilterState, data }: FilterListProps) => {
   return (
     <FlatList
       data={data}
-      style={{ width: "100%" }}
-      renderItem={({ item }) => <NewProductCard data={item} />}
+      contentContainerStyle={{
+        alignItems: "center",
+      }}
+      renderItem={({ item }) => <CompanyCard data={item} />}
       keyExtractor={(item) => item.id + "search"}
       ItemSeparatorComponent={() => (
         <View
           style={{
-            height: 4,
+            height: 12,
             backgroundColor: "transparent",
           }}
         />
       )}
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{
-        flexGrow: 1,
-        marginTop: 10,
-      }}
       onScroll={(e) => {
         if (!e.nativeEvent.contentOffset.y) return;
 

@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import { natural20, primaryOne } from "@/constants/colors";
+import { natural20, primaryOne, secondaryOne } from "@/constants/colors";
 import { Link } from "expo-router";
 import Icons from "../shared/icons/icons";
 import { StatusBar } from "expo-status-bar";
@@ -35,7 +35,11 @@ const HeaderSearch = ({ currentLocation }: Props) => {
             gap: 10,
           }}
         >
-          <Icons.LocationOn width={30} height={30} />
+          <Icons.LocationOn
+            width={30}
+            height={30}
+            style={{ color: secondaryOne }}
+          />
           <Text
             style={{
               // color: Colors[colorScheme ?? "light"].text,

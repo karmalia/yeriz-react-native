@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "companyImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9GKf3CAv4p-R3JDJ_QjN9lLFnSejCimm0ow&s",
+    "companyName": "Loccake Cafe",
+    "companyRating": 4.8,
+    "distance": 2,
+    "minPrice": 50.0,
+    "isActive": true,
+    "isDeleted": false,
+    "foodCategories": ["Pastahane - Fırın", "Kahvaltı", "Tatlı"],
+    "isFavorite": false
+  },
+  {
+    "id": "2",
+    "companyName": "Pasta Mania",
+    "distance": 4,
+    "minPrice": 40.0,
+    "companyRating": 4.5,
+    "isActive": true,
+    "isDeleted": false,
+    "companyImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9GKf3CAv4p-R3JDJ_QjN9lLFnSejCimm0ow&s",
+    "foodCategories": ["Makarna", "İtalyan"],
+    "isFavorite": true
+  },
+  {
+    "id": "3",
+    "companyName": "Pizza Palace",
+    "distance": 12,
+    "minPrice": 75.0,
+    "companyRating": 4.7,
+    "isActive": true,
+    "isDeleted": false,
+    "companyImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9GKf3CAv4p-R3JDJ_QjN9lLFnSejCimm0ow&s",
+    "foodCategories": ["Pizza", "İtalyan", "Fast Food"],
+    "isFavorite": false
+  }
+]

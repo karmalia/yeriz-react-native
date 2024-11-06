@@ -111,6 +111,23 @@ const CardIcons = {
       </Svg>
     );
   },
+  StarIcon: (props: any) => {
+    return (
+      <Svg
+        width="11"
+        height="10"
+        viewBox="0 0 11 10"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+      >
+        <Path
+          d="M5.364 7.80801L2.356 9.62401L3.156 6.20001L0.5 3.89601L4.004 3.59201L5.364 0.368011L6.732 3.60001L10.236 3.90401L7.58 6.20801L8.38 9.63201L5.364 7.80801Z"
+          fill="currentColor"
+        />
+      </Svg>
+    );
+  },
 };
 
 export default CardIcons;

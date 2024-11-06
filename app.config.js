@@ -35,7 +35,7 @@ export default {
       output: "static",
       favicon: "./assets/images/icon.png",
     },
-    plugins: ["expo-router"],
+    plugins: ["expo-router", "expo-font"],
     experiments: {
       typedRoutes: true,
     },
@@ -43,6 +43,7 @@ export default {
       router: {
         origin: false,
       },
+      apiKey: process.env.GOOGLE_MAPS_API_KEY,
       eas: {
         projectId: "0dd249db-4186-4ea9-a6ed-0793955a1c58",
       },

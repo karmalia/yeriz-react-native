@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
   cardContent: {
     width: "100%",
 
-    zIndex: 1,
+    zIndex: 99,
     display: "flex",
     flexDirection: "column",
     flex: 1,

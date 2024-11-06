@@ -12,6 +12,7 @@ interface ThemedCheckboxProps extends TextInputProps {
   color?: string;
   value: any;
   onPress?: (value: any) => void;
+  textStyles?: any;
 }
 
 const ThemedCheckbox = (props: ThemedCheckboxProps) => {
@@ -49,9 +50,9 @@ const ThemedCheckbox = (props: ThemedCheckboxProps) => {
           lineHeight: props.height || 25,
           marginLeft: -10,
           display: "flex",
-          fontFamily: Mulish.Regular,
-          fontSize: props.fontSize || 16,
-          color: props.color || primaryOne,
+          fontFamily: Mulish.SemiBold,
+          fontSize: props.fontSize || 18,
+          color: "black",
         }}
       >
         {props.label || ""}

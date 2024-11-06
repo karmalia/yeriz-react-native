@@ -2,7 +2,6 @@ import { Dimensions, StatusBar, StyleSheet, Text, View } from "react-native";
 import MapView, { Circle, Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import React from "react";
 import MapOverlay from "./map-overlay/map-overlay";
-
 type GoogleMapProps = {
   latitude: number;
   longitude: number;

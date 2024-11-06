@@ -39,7 +39,7 @@ const MapHeader = (props: Props) => {
             gap: 5,
           }}
         >
-          <Icons.LocationOn width={20} height={20} />
+          <Icons.LocationOn width={20} height={20} color={primaryOne} />
 
           <ThemedText
             style={{

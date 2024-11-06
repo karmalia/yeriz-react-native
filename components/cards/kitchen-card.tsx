@@ -1,4 +1,10 @@
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React from "react";
 import { Image } from "expo-image";
 import ThemedText from "../shared/themed-text/themed-text";
@@ -19,7 +25,7 @@ export const kitchenImages = {
   "@/assets/images/kitchen/salata.jpeg": require("@/assets/images/kitchen/salata.jpeg"),
 };
 
-const KitchenCard = ({ data }: TKitchenCard) => {
+const KitchenCard = ({ data }: { data: TKitchenCard }) => {
   return (
     <View
       style={{
@@ -28,6 +34,7 @@ const KitchenCard = ({ data }: TKitchenCard) => {
         justifyContent: "center",
         gap: 6,
         minWidth: 150,
+        borderWidth: 1,
       }}
     >
       <ImageBackground
@@ -39,7 +46,7 @@ const KitchenCard = ({ data }: TKitchenCard) => {
       >
         <View
           style={{
-            height: 100,
+            height: Dimensions.get("window").height * 0.15,
             borderRadius: 10,
             overflow: "hidden",
             position: "relative",

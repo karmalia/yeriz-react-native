@@ -24,7 +24,7 @@ import ThemedButton from "@/components/shared/themed-button/themed-button";
 import { useNavigation } from "expo-router";
 import NewProductCard from "@/components/cards/new-product-card";
 import { StatusBar } from "expo-status-bar";
-import FilterList from "@/components/(search)/FilterList";
+import FilterList from "@/components/(search)/filter-list";
 import FilterSidebar from "@/components/(home)/search/filter-sidebar";
 
 const initialInputHeight = 60;

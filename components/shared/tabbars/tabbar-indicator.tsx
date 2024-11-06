@@ -5,25 +5,18 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
-type IconPos = {
-  x: number;
-  y: number;
-};
 
-type Props = {
-  tabIconPositions: any;
+type TabbarIndicatorProps = {
   activeTab: string;
 };
 
 const { width: screenWidth } = Dimensions.get("window");
-const segmentWidth = screenWidth / 5; // Divide screen width into 5 segments
+const segmentWidth = screenWidth / 5;
 
-const TabbarIndicator = ({ activeTab }: Props) => {
+const TabbarIndicator = ({ activeTab }: TabbarIndicatorProps) => {
   const translateX = useSharedValue(0);
-  console.log("activeTab:", activeTab);
 
   useEffect(() => {
-    // Get the x position of the active tab icon
     const tabIndexMap: { [key: string]: number } = {
       search: 0,
       favorites: 1,
@@ -31,11 +24,8 @@ const TabbarIndicator = ({ activeTab }: Props) => {
       basket: 3,
       profile: 4,
     };
-    // Get the index of the active tab, default to 0 if not found
     const targetIndex = tabIndexMap[activeTab] ?? 0;
-    // Calculate the target position based on the index
     const targetPos = targetIndex * segmentWidth;
-    // Animate to the new position using a spring animation
     translateX.value = withSpring(targetPos, {
       stiffness: 150,
       damping: 20,
