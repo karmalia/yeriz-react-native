@@ -131,7 +131,6 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 10,
     display: "flex",
-    borderWidth: 1,
     height: 52,
     borderRadius: 8,
     flexDirection: "row",

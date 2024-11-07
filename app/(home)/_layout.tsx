@@ -18,6 +18,7 @@ import Constants from "expo-constants";
 import { TabBars } from "@/components/shared/tabbars/tab-bars";
 import { StatusBar } from "expo-status-bar";
 import TabbarIndicator from "@/components/shared/tabbars/tabbar-indicator";
+import FilterOrderBar from "@/components/shared/action-bars/filter-order-bar";
 // import { TabBarsNew } from "@/components/shared/tabbars-new/tab-bars-new";
 
 type IconPos = {
@@ -246,6 +247,7 @@ export default function TabLayout() {
           activeTab={activeTab}
         />
       )}
+      <FilterOrderBar />
     </>
   );
 }

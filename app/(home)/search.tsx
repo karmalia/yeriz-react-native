@@ -1,40 +1,72 @@
-import { Dimensions, SectionList, StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import * as React from "react";
 import { Text, View } from "react-native";
 import Icons from "@/components/shared/icons/icons";
-import {
-  FlatList,
-  GestureHandlerRootView,
-  TouchableOpacity,
-} from "react-native-gesture-handler";
-import Animated, {
-  Easing,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
+import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import ThemedInput from "@/components/shared/themed-input/themed-input";
-import { primaryOne } from "@/constants/colors";
-import dummyData from "@/dummy-datas/dummyDataProduct3.json";
-import ProductCard from "@/components/cards/product-card";
-import ThemedCheckbox from "@/components/shared/themed-checkbox/themed-checkbox";
-import ThemedText from "@/components/shared/themed-text/themed-text";
+import { contentWhite, primaryFive, primaryOne } from "@/constants/colors";
 import Mulish from "@/constants/font";
-import ThemedButton from "@/components/shared/themed-button/themed-button";
 import { useNavigation } from "expo-router";
-import NewProductCard from "@/components/cards/new-product-card";
-import { StatusBar } from "expo-status-bar";
-import FilterList from "@/components/(search)/filter-list";
 import FilterSidebar from "@/components/(home)/search/filter-sidebar";
+import CompanyCard from "@/components/cards/company-card";
+import debounce from "@/lib/utils/bounce";
+import { TCompanyCard } from "@/components/cards/card.types";
+import dummyCompanies from "@/dummy-datas/dummyCompanies.json";
+import AnimatedSpinner from "@/components/shared/spinner/spinner";
+import KitchenSlider from "@/components/(home)/index/kitchen-slider";
+import FilterOrderBar from "@/components/shared/action-bars/filter-order-bar";
+import useFilterStore, { EOrderingTypes } from "@/stores/filterStore";
 
-const initialInputHeight = 60;
+/*
+
+
+
+*/
 
 export default function SearchPage() {
-  const [isFilterOpen, setIsFilterOpen] = React.useState(false);
-  const [searchBar, setSearchBar] = React.useState(true);
+  const [searchTerm, setSearchTerm] = React.useState("se");
+  const filterStore = useFilterStore();
 
-  const height = useSharedValue(initialInputHeight);
-  const positionY = useSharedValue(0);
+  const [searchResults, setSearchResults] = React.useState<TCompanyCard[]>([]);
+  const [loading, setLoading] = React.useState(false);
+
+  const fetchSearchResults = async (term) => {
+    try {
+      // Perform an API request based on the search term
+      // const response = await fetch(`@/dummy-datas/dummyCompanies.json`);
+      // const data = await response.json();
+
+      setTimeout(() => {
+        if (term.length > 3) {
+          const results = dummyCompanies.filter((company) =>
+            company.companyName.toLowerCase().includes(term.toLowerCase())
+          );
+          setSearchResults(results as unknown as TCompanyCard[]);
+        }
+        if (term.length === 0) {
+          setSearchResults(dummyCompanies as unknown as TCompanyCard[]);
+        }
+      }, 300);
+    } catch (error) {
+      // Handle the error, e.g., show an error message to the user
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const debouncedSearch = debounce(fetchSearchResults, 500);
+
+  const handleSearch = (text) => {
+    setSearchTerm(text);
+    setLoading(true);
+    debouncedSearch(text);
+  };
+
+  React.useEffect(() => {
+    fetchSearchResults(searchTerm);
+  }, []);
+
+  const [isFilterOpen, setIsFilterOpen] = React.useState(false);
   const navigation = useNavigation();
 
   React.useEffect(() => {
@@ -47,103 +79,240 @@ export default function SearchPage() {
     };
   }, [isFilterOpen]);
 
-  React.useEffect(() => {
-    if (searchBar) {
-      console.log("1");
-      height.value = withTiming(initialInputHeight, {
-        duration: 300,
-        easing: Easing.ease,
-      });
-      positionY.value = withTiming(0, {
-        duration: 300,
-        easing: Easing.ease,
-      });
-    }
+  const FilteringList = [
+    {
+      isDefault: filterStore.orderings.isDefault,
+      name: "Sıralama",
+      contentName: "orderings",
+      data: filterStore.orderings.data,
+    },
+    {
+      name: "Mutfaklar",
+      contentName: "kitchens",
+      isDefault: filterStore.kitchens.isDefault,
+      data: filterStore.kitchens.data,
+    },
+    {
+      name: "Ödeme Yöntemleri",
+      contentName: "paymentTypes",
+      isDefault: filterStore.paymentTypes.isDefault,
+      data: filterStore.paymentTypes.data,
+    },
+    {
+      name: "Minimum Sepet Tutarı",
+      contentName: "minOrderAmounts",
+      isDefault: filterStore.minOrderAmounts.isDefault,
+      data: filterStore.minOrderAmounts.data,
+    },
+    {
+      name: "Puan",
+      contentName: "filterByPoint",
+      isDefault: filterStore.filterByPoint.isDefault,
+      data: filterStore.filterByPoint.data,
+    },
+  ];
 
-    if (!searchBar) {
-      console.log("2");
-      height.value = withTiming(0, {
-        duration: 300,
-        easing: Easing.ease,
-      });
-      positionY.value = withTiming(-50, {
-        duration: 300,
-        easing: Easing.ease,
-      });
-    }
-  }, [searchBar]);
-
-  const inputStyle = useAnimatedStyle(() => {
-    return {
-      height: height.value,
-      transform: [{ translateY: positionY.value }],
-    };
-  });
-
+  const isEveryFilterDefault = FilteringList.every((item) => item.isDefault);
+  console.log("isEveryFilterDefault", isEveryFilterDefault);
+  console.log("FilteringList", FilteringList[0].isDefault);
   return (
-    <GestureHandlerRootView style={styles.container}>
-      <StatusBar backgroundColor="white" />
-      <Animated.View
+    <View style={styles.container}>
+      <View
         style={[
           {
             display: "flex",
-            flexDirection: "row",
             justifyContent: "center",
             alignItems: "center",
-            gap: 10,
-            height: initialInputHeight,
-            transform: [{ translateY: 0 }],
-            width: Dimensions.get("window").width * 0.9,
+            gap: 8,
             overflow: "hidden",
+            paddingVertical: 8,
+            backgroundColor: "white",
+            width: "100%",
+            elevation: 4,
           },
-          inputStyle,
         ]}
       >
-        <TouchableOpacity
-          style={{
-            width: 40,
-          }}
-          onPress={() => setIsFilterOpen((prev) => !prev)}
-        >
-          {isFilterOpen ? (
-            <Icons.FilterIconActive width={40} height={40} />
-          ) : (
-            <Icons.FilterIconPassive width={40} height={40} />
-          )}
-        </TouchableOpacity>
         <View
           style={{
-            flex: 1,
-            marginBottom: 4,
+            width: "100%",
           }}
         >
           <ThemedInput
             placeholder="Ne Yesem?"
             style={{
               borderColor: primaryOne,
-              height: initialInputHeight - 20,
-              borderWidth: 1,
+              height: 42,
+              width: Dimensions.get("window").width * 0.9,
+              alignSelf: "center",
             }}
             rightIcon={"SearchIcon"}
+            value={searchTerm}
+            onChangeText={(text) => handleSearch(text)}
           />
         </View>
-      </Animated.View>
+        {searchTerm.length >= 2 && (
+          <View
+            style={{
+              height: 40,
+              width: "100%",
+              paddingLeft: 18,
+            }}
+          >
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+
+                alignSelf: "center",
+                gap: 6,
+              }}
+            >
+              <TouchableOpacity
+                style={{
+                  width: 40,
+                }}
+                onPress={() =>
+                  filterStore.changeFilterStatus(!filterStore.isActive)
+                }
+              >
+                {filterStore.isActive ? (
+                  <Icons.FilterIconActive width={40} height={40} />
+                ) : (
+                  <Icons.FilterIconPassive width={40} height={40} />
+                )}
+              </TouchableOpacity>
+
+              <FlatList
+                horizontal
+                data={FilteringList}
+                renderItem={({ item }) => {
+                  return (
+                    <TouchableOpacity
+                      onPress={() => {
+                        filterStore.changeContent(item.contentName as any);
+                        filterStore.changeFilterStatus(true);
+                      }}
+                      style={{
+                        borderWidth: 1,
+                        height: 40,
+                        borderColor: primaryOne,
+                        borderRadius: 8,
+                        backgroundColor: item.isDefault ? "white" : primaryFive,
+                        flexDirection: "row",
+                        paddingHorizontal: 8,
+                        alignItems: "center",
+                        gap: 4,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          borderRadius: 8,
+                          color: primaryOne,
+                          fontSize: 12,
+                        }}
+                      >
+                        {item.name} : {item.data[0].name}
+                      </Text>
+                      <Icons.ChevronDown
+                        width={16}
+                        height={16}
+                        color={primaryOne}
+                      />
+                    </TouchableOpacity>
+                  );
+                }}
+                ItemSeparatorComponent={() => <View style={{ width: 8 }} />}
+                keyExtractor={(item) => item.name}
+                showsHorizontalScrollIndicator={false}
+              />
+
+              {/* <TouchableOpacity
+                style={{
+                  borderWidth: 1,
+                  height: 40,
+                  borderColor: primaryOne,
+                  borderRadius: 8,
+                  backgroundColor: primaryFive,
+                  flexDirection: "row",
+                  paddingHorizontal: 8,
+                  alignItems: "center",
+                  gap: 4,
+                }}
+                onPress={() => {
+                  filterStore.resetFilter();
+                }}
+              >
+                <Text
+                  style={{
+                    color: primaryOne,
+                    fontFamily: Mulish.SemiBold,
+                  }}
+                >
+                  Temizle
+                </Text>
+                <Icons.CloseIcon width={12} height={12} color={primaryOne} />
+              </TouchableOpacity> */}
+            </View>
+          </View>
+        )}
+      </View>
 
       <View
         style={{
           flex: 1,
           width: "100%",
           position: "relative",
+          paddingVertical: 8,
         }}
       >
-        <FilterList data={dummyData} setFilterState={setSearchBar} />
+        {/* First Phase */}
+        {searchTerm.length < 2 && (
+          <>
+            {!loading && (
+              <>
+                <KitchenSlider />
+                <FlatList
+                  data={searchResults}
+                  contentContainerStyle={{
+                    alignItems: "center",
+                  }}
+                  renderItem={({ item }) => {
+                    return <CompanyCard data={item} />;
+                  }}
+                  keyExtractor={(item) => item.id + "search"}
+                  ItemSeparatorComponent={() => (
+                    <View
+                      style={{
+                        height: 12,
+                        backgroundColor: "transparent",
+                      }}
+                    />
+                  )}
+                  showsVerticalScrollIndicator={false}
+                />
+              </>
+            )}
+            {loading && (
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <AnimatedSpinner variant="primary" color={primaryOne} />
+              </View>
+            )}
+          </>
+        )}
 
         <FilterSidebar
           isFilterOpen={isFilterOpen}
           setFilterIsOpen={setIsFilterOpen}
         />
       </View>
-    </GestureHandlerRootView>
+    </View>
   );
 }
 
@@ -151,7 +320,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: contentWhite,
   },
   filterModal: {
     position: "absolute",
@@ -162,6 +331,7 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "white",
     paddingTop: 20,
+
     display: "flex",
     flexDirection: "column",
   },

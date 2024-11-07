@@ -34,7 +34,6 @@ const KitchenCard = ({ data }: { data: TKitchenCard }) => {
         justifyContent: "center",
         gap: 6,
         minWidth: 150,
-        borderWidth: 1,
       }}
     >
       <ImageBackground
