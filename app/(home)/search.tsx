@@ -1,4 +1,9 @@
-import { Dimensions, StyleSheet } from "react-native";
+import {
+  Dimensions,
+  StyleSheet,
+  TextInput,
+  TextInputProps,
+} from "react-native";
 import * as React from "react";
 import { Text, View } from "react-native";
 import Icons from "@/components/shared/icons/icons";
@@ -6,7 +11,12 @@ import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import ThemedInput from "@/components/shared/themed-input/themed-input";
 import { contentWhite, primaryFive, primaryOne } from "@/constants/colors";
 import Mulish from "@/constants/font";
-import { useNavigation } from "expo-router";
+import {
+  useFocusEffect,
+  useLocalSearchParams,
+  useNavigation,
+  usePathname,
+} from "expo-router";
 import FilterSidebar from "@/components/(home)/search/filter-sidebar";
 import CompanyCard from "@/components/cards/company-card";
 import debounce from "@/lib/utils/bounce";
@@ -16,16 +26,13 @@ import AnimatedSpinner from "@/components/shared/spinner/spinner";
 import KitchenSlider from "@/components/(home)/index/kitchen-slider";
 import FilterOrderBar from "@/components/shared/action-bars/filter-order-bar";
 import useFilterStore, { EOrderingTypes } from "@/stores/filterStore";
-
-/*
-
-
-
-*/
+import NotFoundCompanies from "@/components/(search)/not-found-companies";
 
 export default function SearchPage() {
-  const [searchTerm, setSearchTerm] = React.useState("se");
+  const [searchTerm, setSearchTerm] = React.useState("");
   const filterStore = useFilterStore();
+  const params = useLocalSearchParams();
+  const searchBarRef = React.useRef<null | TextInput>(null);
 
   const [searchResults, setSearchResults] = React.useState<TCompanyCard[]>([]);
   const [loading, setLoading] = React.useState(false);
@@ -60,6 +67,9 @@ export default function SearchPage() {
     setSearchTerm(text);
     setLoading(true);
     debouncedSearch(text);
+    if (text.length >= 3) {
+      filterStore.toggleFilterBar(true);
+    }
   };
 
   React.useEffect(() => {
@@ -81,9 +91,9 @@ export default function SearchPage() {
 
   const FilteringList = [
     {
-      isDefault: filterStore.orderings.isDefault,
       name: "Sıralama",
       contentName: "orderings",
+      isDefault: filterStore.orderings.isDefault,
       data: filterStore.orderings.data,
     },
     {
@@ -112,9 +122,18 @@ export default function SearchPage() {
     },
   ];
 
-  const isEveryFilterDefault = FilteringList.every((item) => item.isDefault);
-  console.log("isEveryFilterDefault", isEveryFilterDefault);
-  console.log("FilteringList", FilteringList[0].isDefault);
+  const isEveryFilterDefault = FilteringList.every(
+    (filter) => filter.isDefault
+  );
+
+  useFocusEffect(() => {
+    if (params?.focus && searchBarRef.current) {
+      searchBarRef.current.focus();
+    }
+  });
+
+  console.log("filterStore.isFilteringActive", filterStore.isFilteringActive);
+
   return (
     <View style={styles.container}>
       <View
@@ -138,6 +157,7 @@ export default function SearchPage() {
           }}
         >
           <ThemedInput
+            ref={searchBarRef}
             placeholder="Ne Yesem?"
             style={{
               borderColor: primaryOne,
@@ -150,10 +170,10 @@ export default function SearchPage() {
             onChangeText={(text) => handleSearch(text)}
           />
         </View>
-        {searchTerm.length >= 2 && (
+        {filterStore.isFilteringActive && (
           <View
             style={{
-              height: 40,
+              height: 30,
               width: "100%",
               paddingLeft: 18,
             }}
@@ -163,42 +183,49 @@ export default function SearchPage() {
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
-
                 alignSelf: "center",
-                gap: 6,
+                gap: 4,
               }}
             >
               <TouchableOpacity
                 style={{
-                  width: 40,
+                  width: 30,
                 }}
-                onPress={() =>
-                  filterStore.changeFilterStatus(!filterStore.isActive)
-                }
+                onPress={() => {
+                  filterStore.toogleActionBar(!filterStore.isActive);
+                  filterStore.changeContent("filters");
+                }}
               >
-                {filterStore.isActive ? (
-                  <Icons.FilterIconActive width={40} height={40} />
+                {isEveryFilterDefault ? (
+                  <Icons.FilterIconPassive width={30} height={30} />
                 ) : (
-                  <Icons.FilterIconPassive width={40} height={40} />
+                  <Icons.FilterIconActive width={30} height={30} />
                 )}
               </TouchableOpacity>
 
               <FlatList
                 horizontal
-                data={FilteringList}
+                data={
+                  isEveryFilterDefault
+                    ? FilteringList
+                    : FilteringList.filter((filter) => !filter.isDefault)
+                }
                 renderItem={({ item }) => {
+                  const activeOption = item.data.find((i) => i.isActive);
                   return (
                     <TouchableOpacity
                       onPress={() => {
                         filterStore.changeContent(item.contentName as any);
-                        filterStore.changeFilterStatus(true);
+                        filterStore.toogleActionBar(true);
                       }}
                       style={{
                         borderWidth: 1,
-                        height: 40,
+                        height: 30,
                         borderColor: primaryOne,
-                        borderRadius: 8,
-                        backgroundColor: item.isDefault ? "white" : primaryFive,
+                        borderRadius: 4,
+                        backgroundColor: activeOption?.defaultItem
+                          ? "white"
+                          : primaryFive,
                         flexDirection: "row",
                         paddingHorizontal: 8,
                         alignItems: "center",
@@ -207,12 +234,11 @@ export default function SearchPage() {
                     >
                       <Text
                         style={{
-                          borderRadius: 8,
                           color: primaryOne,
                           fontSize: 12,
                         }}
                       >
-                        {item.name} : {item.data[0].name}
+                        {item?.name} : {activeOption?.name}
                       </Text>
                       <Icons.ChevronDown
                         width={16}
@@ -222,37 +248,46 @@ export default function SearchPage() {
                     </TouchableOpacity>
                   );
                 }}
-                ItemSeparatorComponent={() => <View style={{ width: 8 }} />}
+                ItemSeparatorComponent={() => <View style={{ width: 4 }} />}
                 keyExtractor={(item) => item.name}
                 showsHorizontalScrollIndicator={false}
+                ListFooterComponent={() =>
+                  !isEveryFilterDefault ? (
+                    <TouchableOpacity
+                      style={{
+                        borderWidth: 1,
+                        height: 30,
+                        borderColor: primaryOne,
+                        borderRadius: 4,
+                        backgroundColor: primaryFive,
+                        flexDirection: "row",
+                        paddingHorizontal: 8,
+                        alignItems: "center",
+                        marginHorizontal: 8,
+                        gap: 4,
+                      }}
+                      onPress={() => {
+                        filterStore.resetFilter();
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: primaryOne,
+                          fontFamily: Mulish.SemiBold,
+                          fontSize: 12,
+                        }}
+                      >
+                        Temizle
+                      </Text>
+                      <Icons.CloseIcon
+                        width={12}
+                        height={12}
+                        color={primaryOne}
+                      />
+                    </TouchableOpacity>
+                  ) : null
+                }
               />
-
-              {/* <TouchableOpacity
-                style={{
-                  borderWidth: 1,
-                  height: 40,
-                  borderColor: primaryOne,
-                  borderRadius: 8,
-                  backgroundColor: primaryFive,
-                  flexDirection: "row",
-                  paddingHorizontal: 8,
-                  alignItems: "center",
-                  gap: 4,
-                }}
-                onPress={() => {
-                  filterStore.resetFilter();
-                }}
-              >
-                <Text
-                  style={{
-                    color: primaryOne,
-                    fontFamily: Mulish.SemiBold,
-                  }}
-                >
-                  Temizle
-                </Text>
-                <Icons.CloseIcon width={12} height={12} color={primaryOne} />
-              </TouchableOpacity> */}
             </View>
           </View>
         )}
@@ -267,7 +302,7 @@ export default function SearchPage() {
         }}
       >
         {/* First Phase */}
-        {searchTerm.length < 2 && (
+        {!filterStore.isFilteringActive && (
           <>
             {!loading && (
               <>
@@ -307,10 +342,47 @@ export default function SearchPage() {
           </>
         )}
 
-        <FilterSidebar
-          isFilterOpen={isFilterOpen}
-          setFilterIsOpen={setIsFilterOpen}
-        />
+        {/* Second Phase */}
+        {filterStore.isFilteringActive && (
+          <>
+            {!loading && (
+              <>
+                {searchResults.filter((item) => {
+                  return item.companyName
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase());
+                }).length > 0 ? (
+                  <FlatList
+                    data={searchResults.filter((item) => {
+                      return item.companyName
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase());
+                    })}
+                    contentContainerStyle={{
+                      alignItems: "center",
+                    }}
+                    renderItem={({ item }) => {
+                      console.log("item", item);
+                      return <CompanyCard data={item} />;
+                    }}
+                    keyExtractor={(item) => item.id + "search"}
+                    ItemSeparatorComponent={() => (
+                      <View
+                        style={{
+                          height: 12,
+                          backgroundColor: "transparent",
+                        }}
+                      />
+                    )}
+                    showsVerticalScrollIndicator={false}
+                  />
+                ) : (
+                  <NotFoundCompanies />
+                )}
+              </>
+            )}
+          </>
+        )}
       </View>
     </View>
   );

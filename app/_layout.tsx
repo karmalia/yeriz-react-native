@@ -11,6 +11,8 @@ import LoginHeader from "@/components/modals/login/login-header";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import FilterOrderBar from "@/components/shared/action-bars/filter-order-bar";
+import { primaryOne } from "@/constants/colors";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -58,40 +60,60 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   return (
-    <Stack initialRouteName="(home)">
-      <Stack.Screen name="(login)" options={{ headerShown: false }} />
-      <Stack.Screen
-        name="(home)"
-        options={{
-          headerShown: false,
-        }}
-      />
+    <>
+      <Stack initialRouteName="(home)">
+        <Stack.Screen name="(login)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="(home)"
+          options={{
+            headerShown: false,
+          }}
+        />
 
-      <Stack.Screen
-        name="modals/map-modal"
-        options={{
-          headerShown: false,
-          presentation: "modal",
-        }}
-      />
-      <Stack.Screen
-        name="modals/listcards-modal"
-        options={{
-          headerShown: false,
-          headerTitle: "",
+        <Stack.Screen
+          name="modals/map-modal"
+          options={{
+            headerShown: false,
+            presentation: "modal",
+          }}
+        />
+        <Stack.Screen
+          name="modals/listcards-modal"
+          options={{
+            headerShown: false,
+            headerTitle: "",
 
-          presentation: "modal",
-        }}
-      />
-      <Stack.Screen
-        name="modals/login-modal"
-        options={{
-          headerShown: true,
-          header: () => <LoginHeader />,
+            presentation: "modal",
+          }}
+        />
+        <Stack.Screen
+          name="modals/login-modal"
+          options={{
+            headerShown: true,
+            header: () => <LoginHeader />,
 
-          presentation: "modal",
-        }}
-      />
-    </Stack>
+            presentation: "modal",
+          }}
+        />
+        <Stack.Screen
+          name="modals/filtered-restaurants"
+          options={{
+            headerShown: true,
+            headerTitle: "Filtrelenmiş Restoranlar",
+            headerTitleStyle: {
+              fontFamily: "Mulish-Bold",
+              fontSize: 20,
+            },
+            headerTitleAlign: "center",
+            headerStyle: {
+              backgroundColor: primaryOne,
+            },
+            headerTintColor: "white",
+            presentation: "modal",
+          }}
+        />
+      </Stack>
+      <FilterOrderBar />
+    </>
   );
 }

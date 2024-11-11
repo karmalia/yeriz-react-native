@@ -247,7 +247,6 @@ export default function TabLayout() {
           activeTab={activeTab}
         />
       )}
-      <FilterOrderBar />
     </>
   );
 }

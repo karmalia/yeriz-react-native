@@ -1,5 +1,11 @@
 import * as React from "react";
-import { SectionList, StyleSheet, Text } from "react-native";
+import {
+  Dimensions,
+  SectionList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import { View } from "react-native";
 
 import dummyDataProduct from "../../dummy-datas/dummyDataProduct.json";
@@ -8,8 +14,8 @@ import dummyDataKitchen from "../../dummy-datas/dummyDataKitchen.json";
 
 import { TKitchenCard, TProductCard } from "@/components/cards/card.types";
 import ThemedText from "@/components/shared/themed-text/themed-text";
-import { Link } from "expo-router";
-import { contentWhite, natural30 } from "@/constants/colors";
+import { Link, useRouter } from "expo-router";
+import { contentWhite, natural30, primaryOne } from "@/constants/colors";
 import Icons from "@/components/shared/icons/icons";
 import Mulish from "@/constants/font";
 import { FlatList } from "react-native-gesture-handler";
@@ -18,6 +24,29 @@ import KitchenCard from "@/components/cards/kitchen-card";
 import Advertisement from "@/components/(home)/advertisement/advertisement";
 import KitchenSlider from "@/components/(home)/index/kitchen-slider";
 import HomeCompanySlider from "@/components/(home)/index/home-company-slider";
+import ThemedInput from "@/components/shared/themed-input/themed-input";
+
+const SearchBar = () => {
+  const router = useRouter();
+  return (
+    <ThemedInput
+      placeholder="Ne Yesem?"
+      style={{
+        borderColor: primaryOne,
+        height: 42,
+        marginVertical: 20,
+        width: Dimensions.get("window").width * 0.9,
+        alignSelf: "center",
+      }}
+      rightIcon={"SearchIcon"}
+      value={""}
+      onChangeText={(text) => null}
+      onFocus={() => {
+        router.push("/(home)/search?focus=true");
+      }}
+    />
+  );
+};
 
 const Sections: {
   title: {
@@ -33,6 +62,11 @@ const Sections: {
   {
     title: null,
     data: [],
+    Component: SearchBar,
+  },
+  {
+    title: null,
+    data: [],
     Component: Advertisement,
   },
   {
@@ -42,7 +76,7 @@ const Sections: {
       isHorizontal: true,
       cardType: "kitchen",
     },
-    data: dummyDataKitchen as unknown as TKitchenCard[],
+    data: [],
     Component: KitchenSlider,
   },
   {
@@ -93,6 +127,8 @@ export default function HomeScreen() {
           return null;
         }}
         showsVerticalScrollIndicator={false}
+        keyExtractor={(item, index) => index.toString()}
+        ListFooterComponent={<View style={{ height: 80 }} />}
       />
     </View>
   );
@@ -104,8 +140,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     backgroundColor: contentWhite,
-    paddingTop: 20,
-    paddingBottom: 60,
   },
   titleWrapper: {
     display: "flex",

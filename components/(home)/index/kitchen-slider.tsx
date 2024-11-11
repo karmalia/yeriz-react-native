@@ -3,12 +3,13 @@ import React from "react";
 import { TKitchenCard } from "@/components/cards/card.types";
 import KitchenCard from "@/components/cards/kitchen-card";
 import ThemedText from "@/components/shared/themed-text/themed-text";
-import { Link } from "expo-router";
+import { Link, usePathname } from "expo-router";
 import Icons from "@/components/shared/icons/icons";
 import { FlatList } from "react-native-gesture-handler";
 import Mulish from "@/constants/font";
 import { natural30 } from "@/constants/colors";
 import dummyKitchen from "@/dummy-datas/dummyDataKitchen.json";
+import useFilterStore, { IFilterItem } from "@/stores/filterStore";
 
 type Props = {
   section?: {
@@ -36,6 +37,9 @@ const SectionHeader = ({ title, hasLink }) => (
 );
 
 const KitchenSlider = ({ section }: Props) => {
+  const filterStore = useFilterStore();
+  const pathname = usePathname();
+
   return (
     <View // Section Piece
     >
@@ -49,7 +53,7 @@ const KitchenSlider = ({ section }: Props) => {
         style={{
           width: "100%",
         }}
-        data={dummyKitchen}
+        data={filterStore.kitchens.data.filter((k) => k.value !== "all")}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => {
@@ -60,11 +64,13 @@ const KitchenSlider = ({ section }: Props) => {
                 marginLeft: 12,
               }}
             >
-              <KitchenCard data={item as TKitchenCard} />
+              <KitchenCard pathname={pathname} data={item as IFilterItem} />
             </View>
           );
         }}
-        keyExtractor={(item: any) => item.id + "productSection"}
+        keyExtractor={(item: any) => {
+          return item.name + "KitchenSlider";
+        }}
       />
     </View>
   );

@@ -6,26 +6,30 @@ export interface IFilterItem {
   value: string;
   defaultItem: boolean;
   isActive: boolean;
+  action: (filterItem: IFilterItem) => void;
 }
 
 function createFilterItem(
   name: string,
   value: string,
   defaultItem = false,
-  isActive = false
+  isActive = false,
+  action: (filterItem: IFilterItem) => void
 ): IFilterItem {
-  return { name, value, defaultItem, isActive };
+  return { name, value, defaultItem, isActive, action };
 }
 
 function generateFilterItems<T extends Record<string, string>>(
-  enumType: T
+  enumType: T,
+  action: (filterItem: IFilterItem) => void
 ): IFilterItem[] {
   return Object.entries(enumType).map(([key, value], index) => {
     return createFilterItem(
       value,
       key,
       index === 0 ? true : false,
-      index === 0 ? true : false
+      index === 0 ? true : false,
+      action
     );
   });
 }
@@ -41,26 +45,26 @@ export enum EOrderingTypes {
 }
 
 export enum EKitchens {
-  "All" = "Tümü",
-  "Dessert" = "Pasta/Tatlı",
-  "Appetizers" = "Aperatifler",
-  "Bakery" = "Fırın Pastahane",
-  "HomeCooking" = "Ev Yemekleri",
-  "Soup" = "Çorba",
-  "CigKofte" = "Çiğ Köfte",
-  "Salad" = "Salata",
-  "Meze" = "Meze",
-  "WorldCuisine" = "Dünya Mutfağı",
+  "all" = "Tümü",
+  "dessert" = "Pasta/Tatlı",
+  "appetizers" = "Aperatifler",
+  "bakery" = "Fırın Pastahane",
+  "homeCooking" = "Ev Yemekleri",
+  "soup" = "Çorba",
+  "cigKofte" = "Çiğ Köfte",
+  "salad" = "Salata",
+  "meze" = "Meze",
+  "worldCuisine" = "Dünya Mutfağı",
 }
 
 export enum EPaymentTypes {
-  "All" = "Tümü",
+  "all" = "Tümü",
   "Cash" = "Nakit",
   "CreditCard" = "Kredi Kartı",
 }
 
 export enum EMinOrderAmounts {
-  "All" = "Tümü",
+  "all" = "Tümü",
   "100" = "100 TL ve altı",
   "150" = "150 TL ve altı",
   "200" = "200 TL ve altı",
@@ -76,18 +80,29 @@ export enum EFilterByPoint {
   "3.0" = "3.0 ve üzeri",
 }
 
-export type TContents =
-  | "orderings"
-  | "kitchens"
-  | "paymentTypes"
-  | "minOrderAmounts"
-  | "filterByPoint";
+export enum EFilterContents {
+  "orderings" = "Sıralama",
+  "kitchens" = "Mutfaklar",
+  "paymentTypes" = "Ödeme Türleri",
+  "minOrderAmounts" = "Minimum Sipariş Tutarı",
+  "filterByPoint" = "Puan",
+  "filters" = "Filtreler",
+}
+
+type FilterContents = keyof typeof EFilterContents;
 
 interface FilterState {
+  isFilterBarOpen: boolean;
   isActive: boolean;
-  content: TContents;
-  orderings: { isDefault: boolean; data: IFilterItem[] };
-  kitchens: { isDefault: boolean; data: IFilterItem[] };
+  content: FilterContents;
+  orderings: {
+    isDefault: boolean;
+    data: IFilterItem[];
+  };
+  kitchens: {
+    isDefault: boolean;
+    data: IFilterItem[];
+  };
   paymentTypes: {
     isDefault: boolean;
     data: IFilterItem[];
@@ -100,30 +115,28 @@ interface FilterState {
     isDefault: boolean;
     data: IFilterItem[];
   };
-  changeFilterStatus: (value: boolean) => void;
+  toogleActionBar: (value: boolean) => void;
   changeOrdering: (filterItem: IFilterItem) => void;
-  changeContent: (value: TContents) => void;
+  changeKitchens: (filterItem: IFilterItem) => void;
+  changePaymentTypes: (filterItem: IFilterItem) => void;
+  changeMinOrderAmounts: (filterItem: IFilterItem) => void;
+  changeFilterByPoint: (filterItem: IFilterItem) => void;
+  changeContent: (value: FilterContents) => void;
   resetFilter: () => void;
+  toggleFilterBar: (value: boolean) => void;
 }
 
-const useFilterStore = create<FilterState>((set, get) => ({
-  isActive: false,
-  content: "orderings",
-  orderings: { isDefault: true, data: generateFilterItems(EOrderingTypes) },
-  kitchens: { isDefault: true, data: generateFilterItems(EKitchens) },
-  paymentTypes: { isDefault: true, data: generateFilterItems(EPaymentTypes) },
-  minOrderAmounts: {
-    isDefault: true,
-    data: generateFilterItems(EMinOrderAmounts),
-  },
-  filterByPoint: { isDefault: true, data: generateFilterItems(EFilterByPoint) },
-  changeContent: (value: TContents) => {
+const useFilterStore = create<FilterState>((set, get) => {
+  // Define your actions first
+  const changeContent = (value: FilterContents) => {
     set({ content: value });
-  },
-  changeFilterStatus: (value: boolean) => {
+  };
+
+  const toogleActionBar = (value: boolean) => {
     set({ isActive: value });
-  },
-  changeOrdering: (filterItem: IFilterItem) => {
+  };
+
+  const changeOrdering = (filterItem: IFilterItem) => {
     set((state) => ({
       orderings: {
         isDefault: filterItem.defaultItem,
@@ -133,47 +146,158 @@ const useFilterStore = create<FilterState>((set, get) => ({
         })),
       },
     }));
-  },
-  changingKitchens: (value: string) => {
+  };
+
+  const changeKitchens = (filterItem: IFilterItem) => {
+    /*
+      Eğer "Tümü" Gelirse tümü hariç hepsi deactive olacak.
+      Eğer "Tümü" Dışında bir değer gelirse "Tümü" deactive olacak, diğerleri olduğu gibi kalacak.
+    
+    */
+
+    if (filterItem.value === "all") {
+      set((state) => ({
+        kitchens: {
+          isDefault: filterItem.defaultItem,
+          data: state.kitchens.data.map((item) => ({
+            ...item,
+            isActive: item.value == "All",
+          })),
+        },
+      }));
+    }
+
+    if (filterItem.value !== "all") {
+      const newKitchens = get().kitchens.data.map((item) => {
+        if (item.value === filterItem.value) {
+          return {
+            ...item,
+            isActive: !item.isActive,
+          };
+        } else {
+          return item;
+        }
+      });
+      const isSomeActive = newKitchens
+        .filter((item) => item.value !== "all")
+        .some((item) => item.isActive);
+      set(() => ({
+        kitchens: {
+          isDefault: filterItem.defaultItem,
+          data: isSomeActive
+            ? newKitchens.map((item) =>
+                item.value === "all" ? { ...item, isActive: false } : item
+              )
+            : newKitchens.map((item) => ({
+                ...item,
+                isActive: item.value == "all",
+              })),
+        },
+      }));
+    }
+  };
+
+  const changePaymentTypes = (filterItem: IFilterItem) => {
     set((state) => ({
-      kitchens: state.kitchens.map((item) => ({
-        ...item,
-        isActive: item.value === value,
-      })),
+      paymentTypes: {
+        isDefault: filterItem.defaultItem,
+        data: state.paymentTypes.data.map((item) => ({
+          ...item,
+          isActive: item.value === filterItem.value,
+        })),
+      },
     }));
-  },
-  changingPaymentTypes: (value: string) => {
+  };
+
+  const changeMinOrderAmounts = (filterItem: IFilterItem) => {
     set((state) => ({
-      paymentTypes: state.paymentTypes.map((item) => ({
-        ...item,
-        isActive: item.value === value,
-      })),
+      minOrderAmounts: {
+        isDefault: filterItem.defaultItem,
+        data: state.minOrderAmounts.data.map((item) => ({
+          ...item,
+          isActive: item.value === filterItem.value,
+        })),
+      },
     }));
-  },
-  resetFilter: () => {
+  };
+
+  const changeFilterByPoint = (filterItem: IFilterItem) => {
     set((state) => ({
-      orderings: state.orderings.map((item) => ({
-        ...item,
-        isActive: item.isDefault,
-      })),
-      kitchens: state.kitchens.map((item) => ({
-        ...item,
-        isActive: item.isDefault,
-      })),
-      paymentTypes: state.paymentTypes.map((item) => ({
-        ...item,
-        isActive: item.isDefault,
-      })),
-      minOrderAmounts: state.minOrderAmounts.map((item) => ({
-        ...item,
-        isActive: item.isDefault,
-      })),
-      filterByPoint: state.filterByPoint.map((item) => ({
-        ...item,
-        isActive: item.isDefault,
-      })),
+      filterByPoint: {
+        isDefault: filterItem.defaultItem,
+        data: state.filterByPoint.data.map((item) => ({
+          ...item,
+          isActive: item.value === filterItem.value,
+        })),
+      },
     }));
-  },
-}));
+  };
+
+  const toggleFilterBar = (value: boolean) => {
+    set({ isFilterBarOpen: value });
+  };
+
+  const resetFilter = () => {
+    set({
+      orderings: {
+        isDefault: true,
+        data: generateFilterItems(EOrderingTypes, changeOrdering),
+      },
+      kitchens: {
+        isDefault: true,
+        data: generateFilterItems(EKitchens, changeKitchens),
+      },
+      paymentTypes: {
+        isDefault: true,
+        data: generateFilterItems(EPaymentTypes, changePaymentTypes),
+      },
+      minOrderAmounts: {
+        isDefault: true,
+        data: generateFilterItems(EMinOrderAmounts, changeMinOrderAmounts),
+      },
+      filterByPoint: {
+        isDefault: true,
+        data: generateFilterItems(EFilterByPoint, changeFilterByPoint),
+      },
+    });
+  };
+
+  // Now return your initial state and actions
+  return {
+    isFilterBarOpen: false,
+    isActive: false,
+    content: "orderings",
+    orderings: {
+      isDefault: true,
+      data: generateFilterItems(EOrderingTypes, changeOrdering),
+    },
+    kitchens: {
+      isDefault: true,
+      data: generateFilterItems(EKitchens, changeKitchens),
+    },
+    paymentTypes: {
+      isDefault: true,
+      data: generateFilterItems(EPaymentTypes, changePaymentTypes),
+    },
+    minOrderAmounts: {
+      isDefault: true,
+      data: generateFilterItems(EMinOrderAmounts, changeMinOrderAmounts),
+    },
+    filterByPoint: {
+      isDefault: true,
+      data: generateFilterItems(EFilterByPoint, changeFilterByPoint),
+    },
+    // Include your actions in the returned object
+    changeContent,
+    toogleActionBar,
+    changeOrdering,
+    changeKitchens,
+    changePaymentTypes,
+    changeMinOrderAmounts,
+    changeFilterByPoint,
+    resetFilter,
+    toggleFilterBar,
+  };
+});
 
 export default useFilterStore;

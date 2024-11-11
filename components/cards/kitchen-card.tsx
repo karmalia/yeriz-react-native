@@ -10,22 +10,32 @@ import { Image } from "expo-image";
 import ThemedText from "../shared/themed-text/themed-text";
 import { TKitchenCard, blurhash } from "./card.types";
 import Mulish from "@/constants/font";
+import useFilterStore, { IFilterItem } from "@/stores/filterStore";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useRouter } from "expo-router";
 
 // kitchenImages.js
 export const kitchenImages = {
-  "@/assets/images/kitchen/aperatifler.jpeg": require("@/assets/images/kitchen/aperatifler.jpeg"),
-  "@/assets/images/kitchen/cig-kofte.jpeg": require("@/assets/images/kitchen/cig-kofte.jpeg"),
-  "@/assets/images/kitchen/corba.jpeg": require("@/assets/images/kitchen/corba.jpeg"),
-  "@/assets/images/kitchen/dunya-mutfagi.jpeg": require("@/assets/images/kitchen/dunya-mutfagi.jpeg"),
-  "@/assets/images/kitchen/ev-yemekleri.jpeg": require("@/assets/images/kitchen/ev-yemekleri.jpeg"),
-  "@/assets/images/kitchen/firin-pastahane.jpeg": require("@/assets/images/kitchen/firin-pastahane.jpeg"),
-  "@/assets/images/kitchen/makarna-manti.jpeg": require("@/assets/images/kitchen/makarna-manti.jpeg"),
-  "@/assets/images/kitchen/meze.jpeg": require("@/assets/images/kitchen/meze.jpeg"),
-  "@/assets/images/kitchen/pasta-tatli.jpeg": require("@/assets/images/kitchen/pasta-tatli.jpeg"),
-  "@/assets/images/kitchen/salata.jpeg": require("@/assets/images/kitchen/salata.jpeg"),
+  appetizers: require("@/assets/images/kitchen/appetizersBig.jpeg"),
+  cigKofte: require("@/assets/images/kitchen/cigKofteBig.jpeg"),
+  soup: require("@/assets/images/kitchen/soupBig.jpeg"),
+  worldCuisine: require("@/assets/images/kitchen/worldCuisineBig.jpeg"),
+  homeCooking: require("@/assets/images/kitchen/homeCookingBig.jpeg"),
+  bakery: require("@/assets/images/kitchen/bakeryBig.jpeg"),
+  meze: require("@/assets/images/kitchen/mezeBig.jpeg"),
+  dessert: require("@/assets/images/kitchen/dessertBig.jpeg"),
+  salad: require("@/assets/images/kitchen/saladBig.jpeg"),
 };
 
-const KitchenCard = ({ data }: { data: TKitchenCard }) => {
+const KitchenCard = ({
+  data,
+  pathname,
+}: {
+  data: IFilterItem;
+  pathname: string;
+}) => {
+  const { toggleFilterBar } = useFilterStore();
+  const router = useRouter();
   return (
     <View
       style={{
@@ -37,18 +47,24 @@ const KitchenCard = ({ data }: { data: TKitchenCard }) => {
       }}
     >
       <ImageBackground
-        source={kitchenImages[data.imageUrl]}
+        source={kitchenImages[data.value]}
         style={{
           borderRadius: 10,
           overflow: "hidden",
         }}
       >
-        <View
+        <TouchableOpacity
           style={{
             height: Dimensions.get("window").height * 0.15,
             borderRadius: 10,
             overflow: "hidden",
             position: "relative",
+          }}
+          onPress={() => {
+            router.navigate("/modals/filtered-restaurants");
+
+            data.action(data);
+            toggleFilterBar(true);
           }}
         >
           <View
@@ -65,7 +81,7 @@ const KitchenCard = ({ data }: { data: TKitchenCard }) => {
               overflow: "hidden",
             }}
           />
-        </View>
+        </TouchableOpacity>
       </ImageBackground>
       <ThemedText
         style={{
@@ -75,7 +91,7 @@ const KitchenCard = ({ data }: { data: TKitchenCard }) => {
           fontFamily: Mulish.Bold,
         }}
       >
-        {data.title}
+        {data.name}
       </ThemedText>
     </View>
   );

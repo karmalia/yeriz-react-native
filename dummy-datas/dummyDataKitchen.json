@@ -2,57 +2,47 @@
   {
     "id": "1",
     "title": "Pasta/Tatlı",
-    "imageUrl": "@/assets/images/kitchen/pasta-tatli.jpeg"
+    "imageUrl": "@/assets/images/kitchen/dessertBig.jpeg"
   },
   {
     "id": "2",
     "title": "Aperatifler",
-    "imageUrl": "@/assets/images/kitchen/aperatifler.jpeg"
+    "imageUrl": "@/assets/images/kitchen/appetizersBig.jpeg"
   },
   {
     "id": "3",
     "title": "Fırın/Pastane",
-    "imageUrl": "@/assets/images/kitchen/firin-pastahane.jpeg"
+    "imageUrl": "@/assets/images/kitchen/backeryBig.jpeg"
   },
 
   {
     "id": "4",
     "title": "Ev Yemekleri",
-    "imageUrl": "@/assets/images/kitchen/ev-yemekleri.jpeg"
+    "imageUrl": "@/assets/images/kitchen/homeCookingBig.jpeg"
   },
   {
     "id": "5",
     "title": "Çorba",
-    "imageUrl": "@/assets/images/kitchen/corba.jpeg"
+    "imageUrl": "@/assets/images/kitchen/soupBig.jpeg"
   },
   {
     "id": "6",
     "title": "Çiğ Köfte",
-    "imageUrl": "@/assets/images/kitchen/cig-kofte.jpeg"
+    "imageUrl": "@/assets/images/kitchen/cigKofteBig.jpeg"
   },
   {
     "id": "7",
     "title": "Salata",
-    "imageUrl": "@/assets/images/kitchen/salata.jpeg"
+    "imageUrl": "@/assets/images/kitchen/saladBig.jpeg"
   },
   {
     "id": "8",
     "title": "Meze",
-    "imageUrl": "@/assets/images/kitchen/meze.jpeg"
+    "imageUrl": "@/assets/images/kitchen/mezeBig.jpeg"
   },
   {
     "id": "9",
-    "title": "Meze",
-    "imageUrl": "@/assets/images/kitchen/meze.jpeg"
-  },
-  {
-    "id": "10",
-    "title": "Meze",
-    "imageUrl": "@/assets/images/kitchen/makarna-manti.jpeg"
-  },
-  {
-    "id": "11",
     "title": "Dünya Mutfakları",
-    "imageUrl": "@/assets/images/kitchen/dunya-mutfagi.jpeg"
+    "imageUrl": "@/assets/images/kitchen/worldCuisineBig.jpeg"
   }
 ]

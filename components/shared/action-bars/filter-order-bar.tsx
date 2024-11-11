@@ -1,5 +1,5 @@
 import { View, Text, Dimensions, TouchableOpacity } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -12,41 +12,49 @@ import {
   GestureDetector,
   ScrollView,
 } from "react-native-gesture-handler";
-import { primaryFive, primaryOne } from "@/constants/colors";
-import Icons from "../icons/icons";
-import useFilterStore from "@/stores/filterStore";
+import { natural30, natural40, primaryOne } from "@/constants/colors";
+import AllFilters from "./all-filters";
+import FilterStoreContents from "./filterstore-contents";
 import Mulish from "@/constants/font";
-
-const filterOrderBarHeight = Dimensions.get("window").height * 0.4;
-const threshold = filterOrderBarHeight * 0.25;
-
-enum FilterTitle {
-  "orderings" = "Sıralama",
-  "kitchens" = "Mutfaklar",
-  "paymentTypes" = "Ödeme Türleri",
-  "minOrderAmounts" = "Minimum Sipariş Tutarı",
-  "filterByPoint" = "Puan",
-}
+import useFilterStore, { EFilterContents } from "@/stores/filterStore";
+import Icons from "../icons/icons";
 
 const FilterOrderBar = () => {
-  // Ensure orderingTypes contains only the enum values
+  const [contentHeight, setContentHeight] = useState(0);
+  const [actionBarHeight, setActionBarHeight] = useState(0);
+  const maxActionBarHeight = Dimensions.get("window").height * 0.9;
+
   const filterStore = useFilterStore();
 
   const translateY = useSharedValue(0);
+
+  const headerHeight = Dimensions.get("window").height * 0.1;
+  const footerHeight = 74;
+
+  const threshold = actionBarHeight * 0.25;
+
+  useEffect(() => {
+    const totalHeight = headerHeight + contentHeight + footerHeight;
+
+    if (totalHeight > maxActionBarHeight) {
+      setActionBarHeight(maxActionBarHeight);
+    } else {
+      setActionBarHeight(totalHeight);
+    }
+  }, [contentHeight]);
 
   const pan = Gesture.Pan()
     .onStart((event) => {
       translateY.value = event.translationY;
     })
     .onUpdate((event) => {
-      translateY.value = -filterOrderBarHeight + event.translationY;
-      console.log("translateY", translateY.value);
+      translateY.value = -actionBarHeight + event.translationY;
     })
     .onEnd((event) => {
       if (event.translationY > threshold) {
-        runOnJS(filterStore.changeFilterStatus)(false);
+        runOnJS(filterStore.toogleActionBar)(false);
       } else {
-        translateY.value = withTiming(-filterOrderBarHeight, {
+        translateY.value = withTiming(-actionBarHeight, {
           duration: 300,
           easing: Easing.out(Easing.ease),
         });
@@ -60,8 +68,8 @@ const FilterOrderBar = () => {
   });
 
   useEffect(() => {
-    if (filterStore.isActive) {
-      translateY.value = withTiming(-filterOrderBarHeight, {
+    if (filterStore.isActive && actionBarHeight > 0) {
+      translateY.value = withTiming(-actionBarHeight, {
         duration: 300,
         easing: Easing.inOut(Easing.ease),
       });
@@ -71,7 +79,7 @@ const FilterOrderBar = () => {
         easing: Easing.inOut(Easing.ease),
       });
     }
-  }, [filterStore.isActive]);
+  }, [filterStore.isActive, actionBarHeight]);
 
   return (
     <>
@@ -87,143 +95,149 @@ const FilterOrderBar = () => {
           display: filterStore.isActive ? "flex" : "none",
         }}
       />
+      {actionBarHeight > 0 && (
+        <Animated.View
+          style={[
+            {
+              position: "absolute",
+              bottom: -actionBarHeight,
+              left: 0,
+              height: actionBarHeight,
+              borderTopRightRadius: 20,
+              borderTopLeftRadius: 20,
+              backgroundColor: "white",
+              justifyContent: "space-between",
+              right: 0,
+              overflow: "hidden",
+            },
+            animatedStyle,
+          ]}
+        >
+          <GestureDetector gesture={pan}>
+            <View
+              style={{
+                height: headerHeight,
+                backgroundColor: "white",
+                elevation: 4,
+                width: "100%",
+                position: "relative",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <View
+                style={{
+                  position: "absolute",
+                  top: -5,
+                  left: 0,
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Icons.ActionBarHandler
+                  color={natural30}
+                  width={Dimensions.get("window").width * 0.8}
+                  height={20}
+                />
+              </View>
+              <TouchableOpacity
+                style={{
+                  position: "absolute",
+                  right: 12,
+                  top: 0,
+                  transform: [
+                    { translateY: Dimensions.get("window").height * 0.05 - 8 },
+                  ],
+                }}
+                onPress={() => {
+                  filterStore.toogleActionBar(false);
+                }}
+              >
+                <Icons.CloseIcon color={primaryOne} width={16} height={16} />
+              </TouchableOpacity>
 
-      <Animated.View
-        style={[
-          {
-            position: "absolute",
-            bottom: -filterOrderBarHeight,
-            left: 0,
-            height: filterOrderBarHeight,
-            borderTopRightRadius: 20,
-            borderTopLeftRadius: 20,
-            backgroundColor: "white",
-            justifyContent: "space-between",
-            right: 0,
+              <Text
+                style={{
+                  color: primaryOne,
+                  textAlign: "center",
+                  fontSize: 22,
+                  fontFamily: Mulish.SemiBold,
+                  letterSpacing: 1,
+                }}
+              >
+                {EFilterContents[filterStore.content]}
+              </Text>
+            </View>
+          </GestureDetector>
 
-            overflow: "hidden",
-            // shadowColor: "#000",
-            // shadowOffset: {
-            //   width: 0,
-            //   height: 4,
-            // },
-            // shadowOpacity: 0.3,
-            // shadowRadius: 4.65,
-            // elevation: 8,
-          },
-          animatedStyle,
-        ]}
-      >
-        <GestureDetector gesture={pan}>
+          <ScrollView
+            contentContainerStyle={{
+              paddingHorizontal: 12,
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "flex-start",
+            }}
+            style={{
+              maxHeight: actionBarHeight - headerHeight - footerHeight,
+              paddingTop: 12,
+              paddingBottom: 12,
+            }}
+          >
+            {/* Remove the wrapping View or adjust its styles */}
+            <View
+              onLayout={(event) => {
+                const { height } = event.nativeEvent.layout;
+                setContentHeight(height);
+              }}
+              style={{
+                paddingBottom: 20,
+              }}
+            >
+              {filterStore.content !== "filters" && <FilterStoreContents />}
+              {filterStore.content === "filters" && <AllFilters />}
+            </View>
+          </ScrollView>
+
           <View
             style={{
-              height: 50,
+              width: "100%",
               backgroundColor: "white",
               elevation: 4,
-              width: "100%",
-              position: "relative",
-              alignItems: "center",
-              justifyContent: "center",
+              paddingTop: 12,
+              borderWidth: 1,
+              borderColor: natural40,
             }}
           >
             <TouchableOpacity
               style={{
-                position: "absolute",
-                right: 12,
-                top: 0,
-                transform: [{ translateY: 50 / 2 - 20 / 2 }],
+                width: "95%",
+                alignSelf: "center",
+                borderRadius: 8,
+                height: 50,
+                marginBottom: 12,
+                backgroundColor: primaryOne,
+                alignItems: "center",
+                justifyContent: "center",
               }}
               onPress={() => {
-                filterStore.changeFilterStatus(false);
+                filterStore.toogleActionBar(false);
               }}
             >
-              <Icons.CloseIcon color={primaryOne} width={20} height={20} />
-            </TouchableOpacity>
-
-            <Text
-              style={{
-                color: primaryOne,
-                textAlign: "center",
-                fontSize: 22,
-              }}
-            >
-              {FilterTitle[filterStore.content]}
-            </Text>
-          </View>
-        </GestureDetector>
-
-        <View
-          style={{
-            flex: 1,
-            paddingVertical: 12,
-          }}
-        >
-          <ScrollView
-            contentContainerStyle={{
-              flexDirection: "row",
-              flexWrap: "wrap",
-              justifyContent: "flex-start", // Adjust as needed
-              paddingHorizontal: 12,
-              gap: 12,
-            }}
-            style={{
-              width: "100%",
-            }}
-          >
-            {filterStore[filterStore.content].data.map((orderItem) => (
-              <TouchableOpacity
-                onPress={() => {
-                  filterStore.changeOrdering(orderItem);
-                }}
+              <Text
                 style={{
-                  paddingHorizontal: 12,
-                  paddingVertical: 8,
-                  borderRadius: 8,
-                  backgroundColor: orderItem.isActive ? primaryFive : "white",
-                  borderWidth: 1,
-                  borderColor: primaryOne,
+                  color: "white",
+                  fontSize: 18,
+                  fontFamily: Mulish.SemiBold,
+                  letterSpacing: 1,
                 }}
-                key={orderItem.name}
               >
-                <Text
-                  style={{
-                    color: primaryOne,
-                  }}
-                >
-                  {orderItem.name}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-        </View>
-
-        <TouchableOpacity
-          style={{
-            width: "95%",
-            alignSelf: "center",
-            borderRadius: 8,
-            height: 50,
-            marginBottom: 12,
-            backgroundColor: primaryOne,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          onPress={() => {
-            filterStore.changeFilterStatus(false);
-          }}
-        >
-          <Text
-            style={{
-              color: "white",
-              fontSize: 18,
-              fontFamily: Mulish.SemiBold,
-              letterSpacing: 1,
-            }}
-          >
-            UYGULA
-          </Text>
-        </TouchableOpacity>
-      </Animated.View>
+                UYGULA
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </Animated.View>
+      )}
     </>
   );
 };

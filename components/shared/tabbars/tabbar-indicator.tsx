@@ -5,33 +5,34 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
-
-type TabbarIndicatorProps = {
-  activeTab: string;
-};
+import { primaryOne } from "@/constants/colors";
+import { usePathname } from "expo-router";
 
 const { width: screenWidth } = Dimensions.get("window");
 const segmentWidth = screenWidth / 5;
+const shrinkRate = segmentWidth * 0.3;
 
-const TabbarIndicator = ({ activeTab }: TabbarIndicatorProps) => {
-  const translateX = useSharedValue(0);
+const TabbarIndicator = () => {
+  const translateX = useSharedValue(2);
+  const pathname = usePathname();
+  console.log("pathname", pathname);
 
   useEffect(() => {
     const tabIndexMap: { [key: string]: number } = {
-      search: 0,
-      favorites: 1,
-      index: 2,
-      basket: 3,
-      profile: 4,
+      "/search": -2,
+      "/favorites": -1,
+      "/": 0,
+      "/basket": 1,
+      "/profile": 2,
     };
-    const targetIndex = tabIndexMap[activeTab] ?? 0;
-    const targetPos = targetIndex * segmentWidth;
+    const targetIndex = tabIndexMap[pathname] ?? 0;
+    const targetPos = targetIndex * segmentWidth + shrinkRate / 2;
     translateX.value = withSpring(targetPos, {
-      stiffness: 150,
+      stiffness: 250,
       damping: 20,
       mass: 1,
     });
-  }, [activeTab]);
+  }, [pathname]);
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
@@ -45,11 +46,11 @@ const styles = StyleSheet.create({
   indicator: {
     position: "absolute",
     bottom: 0,
-    left: segmentWidth * 0.1,
+    left: Dimensions.get("window").width / 2 - segmentWidth / 2,
     height: 4,
-    backgroundColor: "green",
+    backgroundColor: primaryOne,
     borderRadius: 2,
-    width: segmentWidth * 0.8,
+    width: segmentWidth - shrinkRate,
   },
 });
 
