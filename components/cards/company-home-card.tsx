@@ -47,7 +47,7 @@ const CompanyHomeCard = ({ data }: { data: TCompanyCard }) => {
           </ThemedText>
         ))}
         <ThemedText style={styles.distance}>
-          <Icons.LocationOn style={styles.iconLocation} />
+          <Icons.LocationOn style={{ color: "white" }} width={14} height={14} />
           {data.distance}km
         </ThemedText>
       </View>
@@ -106,11 +106,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
     letterSpacing: 2,
   },
-  iconLocation: {
-    color: primaryOne,
-    height: 10,
-    width: 10,
-  },
+
   ratingContainer: {
     display: "flex",
     position: "absolute",

@@ -4,6 +4,13 @@ import React from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 
 import ClientProvider from "@/providers/query-client";
 import { Text, View } from "react-native";
@@ -51,8 +58,6 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView>
       <ClientProvider>
-        <StatusBar backgroundColor="white" />
-
         <RootLayoutNav />
       </ClientProvider>
     </GestureHandlerRootView>
@@ -106,6 +111,23 @@ function RootLayoutNav() {
         />
         <Stack.Screen
           name="modals/filtered-restaurants"
+          options={{
+            headerShown: true,
+            headerTitle: "Filtrelenmiş Restoranlar",
+            headerTitleStyle: {
+              fontFamily: Mulish.Regular,
+              fontSize: 20,
+            },
+            headerTitleAlign: "center",
+            headerStyle: {
+              backgroundColor: primaryOne,
+            },
+            headerTintColor: "white",
+            presentation: "modal",
+          }}
+        />
+        <Stack.Screen
+          name="modals/company-modal"
           options={{
             headerShown: true,
             headerTitle: "Filtrelenmiş Restoranlar",

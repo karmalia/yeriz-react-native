@@ -1,13 +1,20 @@
-import { Dimensions, StyleSheet, View } from "react-native";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import {
+  ActivityIndicator,
+  Dimensions,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 import React, { useEffect } from "react";
 import MapOverlay from "./map-overlay/map-overlay";
 import useGoogleMapStore from "@/stores/googleMapStore";
-type GoogleMapProps = {
-  radius: number;
-};
+import { useGetAllCompanies } from "@/api/queries/company/get-all-companies";
+import { useGetNearbyCompanies } from "@/api/queries/company/get-nearby-companies";
 
-const GoogleMap = ({ radius }: GoogleMapProps) => {
+const mapHeight = Dimensions.get("window").height;
+
+const GoogleMap = () => {
   const {
     latitude,
     longitude,
@@ -17,12 +24,22 @@ const GoogleMap = ({ radius }: GoogleMapProps) => {
     distanceArranged,
   } = useGoogleMapStore();
 
-  useEffect(() => {
-    console.log("zoomLevel", zoomLevel);
-  }, [distanceArranged]);
+  const { isLoading, error, data } = useGetNearbyCompanies(
+    latitude,
+    longitude,
+    zoomLevel
+  );
+
+  if (isLoading) {
+    return <ActivityIndicator size="large" color="#0000ff" />;
+  }
+
+  if (error) {
+    return <Text>Error loading companies: {error.message}</Text>;
+  }
 
   return (
-    <View style={styles.container}>
+    <>
       <MapView
         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
         style={styles.map}
@@ -39,28 +56,36 @@ const GoogleMap = ({ radius }: GoogleMapProps) => {
           longitudeDelta: Number(longitudeDelta),
         }}
         rotateEnabled={false}
-        scrollEnabled={false}
+        scrollEnabled={true}
         zoomEnabled={false}
-      ></MapView>
-      <MapOverlay />
-    </View>
+      >
+        {<Marker coordinate={{ latitude, longitude }} title="You are here" />}
+        {data &&
+          data.map((company) => (
+            <Marker
+              key={company.id}
+              coordinate={{
+                latitude: company.lat,
+                longitude: company.long,
+              }}
+              title={company.name}
+              description={company.companyTypeName}
+              onPress={() => {
+                // Handle marker press
+                console.log(`Marker pressed: ${company.name}`);
+              }}
+            />
+          ))}
+      </MapView>
+      <MapOverlay mapHeight={mapHeight} />
+    </>
   );
 };
 
 export default GoogleMap;
 
 const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFillObject,
-    height: Dimensions.get("window").height * 0.6,
-    width: Dimensions.get("window").width,
-    justifyContent: "flex-end",
-    alignItems: "center",
-    zIndex: -1,
-    top: Dimensions.get("window").height * 0.11,
-  },
   map: {
-    ...StyleSheet.absoluteFillObject,
-    height: Dimensions.get("window").height * 0.7,
+    flex: 1,
   },
 });

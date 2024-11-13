@@ -1,8 +1,10 @@
 import calculateDeltas from "@/lib/utils/calculateDelta";
 import { TFood } from "@/types";
+import { Company } from "@/types/api.types";
 import { create } from "zustand";
 
 interface MapState {
+  companies: Company[];
   distanceArranged: boolean;
   latitude: number;
   longitude: number;
@@ -43,6 +45,7 @@ const useGoogleMapStore = create<MapState>((set, get) => {
     }
   };
   return {
+    companies: [],
     distanceArranged: false,
     latitude: 38.4231,
     longitude: 27.1405,

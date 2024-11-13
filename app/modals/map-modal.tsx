@@ -1,12 +1,19 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet } from "react-native";
+import { StyleSheet, TextInput } from "react-native";
 import * as React from "react";
 import { Text, View } from "react-native";
 import { natural10, natural20, primaryOne } from "@/constants/colors";
 import Mulish from "@/constants/font";
 import Icons from "@/components/shared/icons/icons";
 import ThemedButton from "@/components/shared/themed-button/themed-button";
-import { useSharedValue } from "react-native-reanimated";
+import Animated, {
+  runOnJS,
+  useAnimatedProps,
+  useAnimatedReaction,
+  useAnimatedStyle,
+  useDerivedValue,
+  useSharedValue,
+} from "react-native-reanimated";
 import ThemedRange from "@/components/shared/themed-range/themed-range";
 import GoogleMap from "@/components/map/google-map";
 import calculateDeltas from "@/lib/utils/calculateDelta";
@@ -14,21 +21,36 @@ import MapHeader from "@/components/map/map-header";
 import ThemedText from "@/components/shared/themed-text/themed-text";
 import useKeyboardState from "@/lib/custom-hooks/useKeyboardState";
 import useGoogleMapStore from "@/stores/googleMapStore";
-export default function ModalScreen() {
-  const { zoomLevel, changeZoomLevel, latitudeDelta, changeDistanceArranged } =
-    useGoogleMapStore();
+import { useGetNearbyCompanies } from "@/api/queries/company/get-nearby-companies";
+import ReText from "@/components/shared/ReText";
+const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
+export default function ModalScreen() {
   const progress = useSharedValue(10);
 
   const min = useSharedValue(1);
   const max = useSharedValue(25);
+  const {
+    zoomLevel,
+    changeZoomLevel,
+    latitudeDelta,
+    changeDistanceArranged,
+    latitude,
+    longitude,
+  } = useGoogleMapStore();
+  // State to hold formatted progress for display
+
+  // Derived value for formatted display without rerendering
+  const derivedDisplayProgress = useDerivedValue(() => {
+    return `${progress.value.toFixed(1)} km`;
+  });
 
   const { keyboardMetrics } = useKeyboardState();
   return (
     <View style={styles.container}>
       <MapHeader />
 
-      <GoogleMap radius={progress.value * 1000} />
+      <GoogleMap />
 
       <View
         style={[
@@ -49,26 +71,19 @@ export default function ModalScreen() {
           }}
         >
           <ThemedRange
-            onChange={changeZoomLevel}
-            progress={progress}
-            onSlidingStart={() => {
-              changeDistanceArranged(true);
-            }}
-            onSlidingComplete={() => {
-              changeDistanceArranged(false);
-            }}
             min={min}
             max={max}
-          />
-          <Text
-            style={{
-              fontFamily: Mulish.Regular,
-              fontSize: 14,
-              color: natural10,
+            progress={progress}
+            onSlidingStart={(value: number) => {
+              changeZoomLevel(value);
+              changeDistanceArranged(true);
             }}
-          >
-            {zoomLevel} km
-          </Text>
+            onSlidingComplete={(value: number) => {
+              changeZoomLevel(value);
+              changeDistanceArranged(false);
+            }}
+          />
+          <ReText text={derivedDisplayProgress} />
         </View>
 
         <View
@@ -125,7 +140,10 @@ const styles = StyleSheet.create({
     left: 0,
     zIndex: 1,
   },
-
+  progressText: {
+    fontSize: 14,
+    color: natural10,
+  },
   text: {
     fontFamily: Mulish.Regular,
     fontSize: 14,

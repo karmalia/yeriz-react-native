@@ -86,6 +86,10 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width,
     flexDirection: "column",
     justifyContent: "space-around",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    zIndex: 1,
 
     paddingHorizontal: 20,
     paddingTop: Constants.statusBarHeight,
