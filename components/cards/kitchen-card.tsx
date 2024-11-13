@@ -27,13 +27,7 @@ export const kitchenImages = {
   salad: require("@/assets/images/kitchen/saladBig.jpeg"),
 };
 
-const KitchenCard = ({
-  data,
-  pathname,
-}: {
-  data: IFilterItem;
-  pathname: string;
-}) => {
+const KitchenCard = ({ data }: { data: IFilterItem }) => {
   const { toggleFilterBar } = useFilterStore();
   const router = useRouter();
   return (
@@ -56,10 +50,8 @@ const KitchenCard = ({
         <TouchableOpacity
           style={{
             height: Dimensions.get("window").height * 0.15,
-            borderRadius: 10,
-            overflow: "hidden",
-            position: "relative",
           }}
+          activeOpacity={1}
           onPress={() => {
             router.navigate("/modals/filtered-restaurants");
 

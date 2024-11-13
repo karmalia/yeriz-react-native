@@ -1,27 +1,38 @@
-import { Dimensions, StatusBar, StyleSheet, Text, View } from "react-native";
-import MapView, { Circle, Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import React from "react";
+import { Dimensions, StyleSheet, View } from "react-native";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import React, { useEffect } from "react";
 import MapOverlay from "./map-overlay/map-overlay";
+import useGoogleMapStore from "@/stores/googleMapStore";
 type GoogleMapProps = {
-  latitude: number;
-  longitude: number;
-  latitudeDelta: string;
-  longitudeDelta: string;
   radius: number;
 };
 
-const GoogleMap = ({
-  latitude,
-  longitude,
-  latitudeDelta,
-  longitudeDelta,
-}: GoogleMapProps) => {
+const GoogleMap = ({ radius }: GoogleMapProps) => {
+  const {
+    latitude,
+    longitude,
+    latitudeDelta,
+    longitudeDelta,
+    zoomLevel,
+    distanceArranged,
+  } = useGoogleMapStore();
+
+  useEffect(() => {
+    console.log("zoomLevel", zoomLevel);
+  }, [distanceArranged]);
+
   return (
     <View style={styles.container}>
       <MapView
         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
         style={styles.map}
         initialRegion={{
+          latitude: Number(latitude),
+          longitude: Number(longitude),
+          latitudeDelta: Number(latitudeDelta),
+          longitudeDelta: Number(longitudeDelta),
+        }}
+        region={{
           latitude: Number(latitude),
           longitude: Number(longitude),
           latitudeDelta: Number(latitudeDelta),

@@ -3,54 +3,59 @@ import React from "react";
 import { TCompanyCard, TKitchenCard } from "@/components/cards/card.types";
 import KitchenCard from "@/components/cards/kitchen-card";
 import ThemedText from "@/components/shared/themed-text/themed-text";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import Icons from "@/components/shared/icons/icons";
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
 import Mulish from "@/constants/font";
 import { natural30 } from "@/constants/colors";
 import CompanyCard from "@/components/cards/company-card";
 import dummyCompanies from "@/dummy-datas/dummyCompanies.json";
 import CompanyHomeCard from "@/components/cards/company-home-card";
+import { IFilterItem } from "@/stores/filterStore";
 
-type Props = {
+type HomeCompanySliderProps = {
   section: {
     title: {
       title: string;
       hasLink: boolean;
-      isHorizontal: boolean;
+      action: (data: IFilterItem) => void;
+      value: IFilterItem;
     };
     data: TCompanyCard[];
   };
 };
 
-const SectionHeader = ({ title, hasLink }) => (
-  <View style={styles.titleWrapper}>
-    <ThemedText style={styles.title}>{title}</ThemedText>
-    {hasLink && (
-      <Link href={`/modals/listcards-modal?title=${title}`}>
-        <View style={styles.linkWrapper}>
-          <ThemedText style={styles.linkText}>Tümünü göster</ThemedText>
-          <Icons.ChevronRight width={14} height={14} style={styles.iconStyle} />
-        </View>
-      </Link>
-    )}
-  </View>
-);
-
-const HomeCompanySlider = ({ section }: Props) => {
+const HomeCompanySlider = ({ section }: HomeCompanySliderProps) => {
+  const router = useRouter();
+  const { title, hasLink } = section.title;
   return (
-    <View // Section Piece
-    >
-      <SectionHeader
-        title={section.title.title}
-        hasLink={section.title.hasLink}
-      />
+    <>
+      <View style={styles.titleWrapper}>
+        <ThemedText style={styles.title}>{title}</ThemedText>
+        {hasLink && (
+          <TouchableOpacity
+            onPress={() => {
+              section.title.action(section.title.value);
+              router.push("/modals/filtered-restaurants");
+            }}
+          >
+            <View style={styles.linkWrapper}>
+              <ThemedText style={styles.linkText}>Tümünü göster</ThemedText>
+              <Icons.ChevronRight
+                width={14}
+                height={14}
+                style={styles.iconStyle}
+              />
+            </View>
+          </TouchableOpacity>
+        )}
+      </View>
       <FlatList
         style={{
           width: "100%",
         }}
         data={dummyCompanies}
-        horizontal={section.title.isHorizontal}
+        horizontal={true}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => {
           return (
@@ -66,7 +71,7 @@ const HomeCompanySlider = ({ section }: Props) => {
         }}
         keyExtractor={(item: any) => item.id + "productSection"}
       />
-    </View>
+    </>
   );
 };
 
@@ -85,6 +90,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     justifyContent: "space-between",
     alignItems: "center",
+    height: 48,
   },
   title: {
     fontSize: 20,

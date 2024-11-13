@@ -11,14 +11,9 @@ type Props = {
   progress: SharedValue<number>;
   min: SharedValue<number>;
   max: SharedValue<number>;
-  setRegion: React.Dispatch<
-    React.SetStateAction<{
-      latitude: number;
-      longitude: number;
-      latitudeDelta: number;
-      longitudeDelta: number;
-    }>
-  >;
+  onChange: (value: number) => void;
+  onSlidingStart?: () => void;
+  onSlidingComplete?: () => void;
 };
 
 /*
@@ -29,14 +24,14 @@ type Props = {
 
 */
 
-const ThemedRange = ({ progress, min, max, setRegion }: Props) => {
-  const handleValueChange = useDebounce((value) => {
-    setRegion((prev) => ({
-      ...prev,
-      ...calculateDeltas(Math.floor(value), prev.latitude),
-    }));
-  }, 300);
-
+const ThemedRange = ({
+  progress,
+  min,
+  max,
+  onChange,
+  onSlidingComplete,
+  onSlidingStart,
+}: Props) => {
   return (
     <Slider
       style={{
@@ -45,7 +40,7 @@ const ThemedRange = ({ progress, min, max, setRegion }: Props) => {
       progress={progress}
       minimumValue={min}
       maximumValue={max}
-      onValueChange={handleValueChange}
+      onValueChange={onChange}
       renderBubble={() => null}
       renderThumb={() => (
         <View
@@ -61,8 +56,8 @@ const ThemedRange = ({ progress, min, max, setRegion }: Props) => {
         borderRadius: 8,
       }}
       //For backend integration
-      onSlidingComplete={() => null}
-      onSlidingStart={() => null}
+      onSlidingComplete={onSlidingComplete}
+      onSlidingStart={onSlidingStart}
       theme={{
         disableMinTrackTintColor: "red",
         maximumTrackTintColor: natural40,

@@ -13,6 +13,7 @@ import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import FilterOrderBar from "@/components/shared/action-bars/filter-order-bar";
 import { primaryOne } from "@/constants/colors";
+import Mulish from "@/constants/font";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -78,11 +79,19 @@ function RootLayoutNav() {
           }}
         />
         <Stack.Screen
-          name="modals/listcards-modal"
+          name="modals/kitchens-modal"
           options={{
-            headerShown: false,
-            headerTitle: "",
-
+            headerShown: true,
+            headerTitle: "Mutfaklar",
+            headerTitleStyle: {
+              fontFamily: "Mulish-Bold",
+              fontSize: 20,
+            },
+            headerTitleAlign: "center",
+            headerStyle: {
+              backgroundColor: primaryOne,
+            },
+            headerTintColor: "white",
             presentation: "modal",
           }}
         />
@@ -101,7 +110,7 @@ function RootLayoutNav() {
             headerShown: true,
             headerTitle: "Filtrelenmiş Restoranlar",
             headerTitleStyle: {
-              fontFamily: "Mulish-Bold",
+              fontFamily: Mulish.Regular,
               fontSize: 20,
             },
             headerTitleAlign: "center",

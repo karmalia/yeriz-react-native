@@ -25,96 +25,103 @@ import Advertisement from "@/components/(home)/advertisement/advertisement";
 import KitchenSlider from "@/components/(home)/index/kitchen-slider";
 import HomeCompanySlider from "@/components/(home)/index/home-company-slider";
 import ThemedInput from "@/components/shared/themed-input/themed-input";
+import useFilterStore, {
+  EOrderingTypes,
+  IFilterItem,
+} from "@/stores/filterStore";
 
 const SearchBar = () => {
   const router = useRouter();
   return (
-    <ThemedInput
-      placeholder="Ne Yesem?"
-      style={{
-        borderColor: primaryOne,
-        height: 42,
-        marginVertical: 20,
-        width: Dimensions.get("window").width * 0.9,
-        alignSelf: "center",
-      }}
-      rightIcon={"SearchIcon"}
-      value={""}
-      onChangeText={(text) => null}
-      onFocus={() => {
+    <TouchableOpacity
+      onPress={() => {
         router.push("/(home)/search?focus=true");
       }}
-    />
+    >
+      <ThemedInput
+        placeholder="Ne Yesem?"
+        style={{
+          borderColor: primaryOne,
+          height: 42,
+          marginVertical: 20,
+          width: Dimensions.get("window").width * 0.9,
+          alignSelf: "center",
+        }}
+        rightIcon={"SearchIcon"}
+        value={""}
+        onChangeText={(text) => null}
+        editable={false}
+      />
+    </TouchableOpacity>
   );
 };
 
-const Sections: {
-  title: {
-    hasLink: boolean;
-    title: string;
-    isHorizontal: boolean;
-    cardType: "product" | "kitchen";
-    variant?: "small" | "large";
-  } | null;
-  data: (TProductCard | TKitchenCard)[];
-  Component: ({ section }: { section: any }) => React.JSX.Element;
-}[] = [
-  {
-    title: null,
-    data: [],
-    Component: SearchBar,
-  },
-  {
-    title: null,
-    data: [],
-    Component: Advertisement,
-  },
-  {
-    title: {
-      hasLink: true,
-      title: "Mutfak",
-      isHorizontal: true,
-      cardType: "kitchen",
-    },
-    data: [],
-    Component: KitchenSlider,
-  },
-  {
-    title: {
-      hasLink: true,
-      title: "Yakındakiler",
-      isHorizontal: true,
-      variant: "small",
-      cardType: "product",
-    },
-    data: dummyDataProduct as unknown as TProductCard[],
-    Component: HomeCompanySlider,
-  },
-  {
-    title: {
-      hasLink: true,
-      title: "Sevilen Mekanlar",
-      isHorizontal: true,
-      variant: "small",
-      cardType: "product",
-    },
-    data: dummyDataProduct2 as unknown as TProductCard[],
-    Component: HomeCompanySlider,
-  },
-  {
-    title: {
-      hasLink: true,
-      title: "Senin için önerilenler",
-      isHorizontal: true,
-      variant: "small",
-      cardType: "product",
-    },
-    data: dummyDataProduct2 as unknown as TProductCard[],
-    Component: HomeCompanySlider,
-  },
-];
-
 export default function HomeScreen() {
+  const filterStore = useFilterStore();
+
+  const Sections: {
+    title: {
+      hasLink: boolean;
+      title: string;
+      action: (data: IFilterItem) => void | null;
+      value: IFilterItem | null;
+    } | null;
+    data: (TProductCard | TKitchenCard)[];
+    Component: ({ section }: { section: any }) => React.JSX.Element;
+  }[] = [
+    {
+      title: null,
+      data: [],
+      Component: SearchBar,
+    },
+    {
+      title: null,
+      data: [],
+      Component: Advertisement,
+    },
+    {
+      title: null,
+      data: [],
+      Component: KitchenSlider,
+    },
+    {
+      title: {
+        hasLink: true,
+        title: "Yakındakiler",
+        action: filterStore.changeOrdering,
+        value: filterStore.orderings.data.find(
+          (o) => o.name === EOrderingTypes.Distance
+        )!,
+      },
+      data: dummyDataProduct as unknown as TProductCard[],
+      Component: HomeCompanySlider,
+    },
+    {
+      title: {
+        hasLink: true,
+        title: "Sevilen Mekanlar",
+        action: filterStore.changeOrdering,
+        value: filterStore.orderings.data.find(
+          (o) => o.name === EOrderingTypes.MostPopular
+        )!,
+      },
+      data: dummyDataProduct2 as unknown as TProductCard[],
+      Component: HomeCompanySlider,
+    },
+    {
+      title: {
+        hasLink: true,
+        title: "Senin için önerilenler",
+        action: filterStore.changeOrdering,
+        value: filterStore.orderings.data.find(
+          (o) => o.name === EOrderingTypes.SmartOrder //Default Search page data
+        )!,
+      },
+      data: dummyDataProduct2 as unknown as TProductCard[],
+      Component: HomeCompanySlider,
+    },
+  ];
+
   return (
     <View style={styles.container}>
       <SectionList

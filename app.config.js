@@ -22,6 +22,8 @@ export default {
         foregroundImage: "./assets/images/icon-android.png",
         backgroundColor: "#ffffff",
       },
+      permissions: ["android.permission.SCHEDULE_EXACT_ALARM"],
+      blockedPermissions: ["android.permission.RECORD_AUDIO"],
       package: "com.anonymous.bizyerizapp",
       softwareKeyboardLayoutMode: "pan",
       config: {

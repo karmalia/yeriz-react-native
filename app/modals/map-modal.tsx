@@ -8,20 +8,16 @@ import Icons from "@/components/shared/icons/icons";
 import ThemedButton from "@/components/shared/themed-button/themed-button";
 import { useSharedValue } from "react-native-reanimated";
 import ThemedRange from "@/components/shared/themed-range/themed-range";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import GoogleMap from "@/components/map/google-map";
 import calculateDeltas from "@/lib/utils/calculateDelta";
 import MapHeader from "@/components/map/map-header";
 import ThemedText from "@/components/shared/themed-text/themed-text";
 import useKeyboardState from "@/lib/custom-hooks/useKeyboardState";
+import useGoogleMapStore from "@/stores/googleMapStore";
 export default function ModalScreen() {
-  const [region, setRegion] = React.useState({
-    latitude: 38.43859,
-    longitude: 27.143772,
-    ...calculateDeltas(10, 38.43859),
-  });
+  const { zoomLevel, changeZoomLevel, latitudeDelta, changeDistanceArranged } =
+    useGoogleMapStore();
 
-  // const [range, setRange] = React.useState(0);
   const progress = useSharedValue(10);
 
   const min = useSharedValue(1);
@@ -29,15 +25,10 @@ export default function ModalScreen() {
 
   const { keyboardMetrics } = useKeyboardState();
   return (
-    <GestureHandlerRootView style={styles.container}>
-      <StatusBar
-        style="dark"
-        backgroundColor="transparent"
-        translucent={true}
-      />
+    <View style={styles.container}>
       <MapHeader />
 
-      <GoogleMap {...region} radius={progress.value * 1000} />
+      <GoogleMap radius={progress.value * 1000} />
 
       <View
         style={[
@@ -58,8 +49,14 @@ export default function ModalScreen() {
           }}
         >
           <ThemedRange
-            setRegion={setRegion}
+            onChange={changeZoomLevel}
             progress={progress}
+            onSlidingStart={() => {
+              changeDistanceArranged(true);
+            }}
+            onSlidingComplete={() => {
+              changeDistanceArranged(false);
+            }}
             min={min}
             max={max}
           />
@@ -70,7 +67,7 @@ export default function ModalScreen() {
               color: natural10,
             }}
           >
-            {region.latitudeDelta.toFixed(2).substring(2, 4)} km
+            {zoomLevel} km
           </Text>
         </View>
 
@@ -99,7 +96,7 @@ export default function ModalScreen() {
           <ThemedText>Seçimi Uygula</ThemedText>
         </ThemedButton>
       </View>
-    </GestureHandlerRootView>
+    </View>
   );
 }
 
@@ -118,10 +115,9 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     display: "flex",
     alignItems: "center",
-    justifyContent: "flex-start",
-
-    paddingVertical: 40,
-    gap: 30,
+    justifyContent: "space-around",
+    gap: 20,
+    paddingVertical: 20,
     borderTopEndRadius: 25,
     borderTopLeftRadius: 25,
     position: "absolute",

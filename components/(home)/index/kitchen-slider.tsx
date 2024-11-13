@@ -1,4 +1,4 @@
-import { SectionList, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
 import { TKitchenCard } from "@/components/cards/card.types";
 import KitchenCard from "@/components/cards/kitchen-card";
@@ -8,47 +8,29 @@ import Icons from "@/components/shared/icons/icons";
 import { FlatList } from "react-native-gesture-handler";
 import Mulish from "@/constants/font";
 import { natural30 } from "@/constants/colors";
-import dummyKitchen from "@/dummy-datas/dummyDataKitchen.json";
 import useFilterStore, { IFilterItem } from "@/stores/filterStore";
 
-type Props = {
-  section?: {
-    title: {
-      title: string;
-      hasLink: boolean;
-      isHorizontal: boolean;
-    };
-    data: TKitchenCard[];
-  };
-};
-
-const SectionHeader = ({ title, hasLink }) => (
-  <View style={styles.titleWrapper}>
-    <ThemedText style={styles.title}>{title}</ThemedText>
-    {hasLink && (
-      <Link href={`/modals/listcards-modal?title=${title}`}>
-        <View style={styles.linkWrapper}>
-          <ThemedText style={styles.linkText}>Tümünü göster</ThemedText>
-          <Icons.ChevronRight width={14} height={14} style={styles.iconStyle} />
-        </View>
-      </Link>
-    )}
-  </View>
-);
-
-const KitchenSlider = ({ section }: Props) => {
+const KitchenSlider = () => {
   const filterStore = useFilterStore();
-  const pathname = usePathname();
 
   return (
     <View // Section Piece
     >
-      {section && (
-        <SectionHeader
-          title={section.title.title}
-          hasLink={section.title.hasLink}
-        />
-      )}
+      <View style={styles.titleWrapper}>
+        <ThemedText style={styles.title}>{"Mutfak"}</ThemedText>
+
+        <Link href={`/modals/kitchens-modal`}>
+          <View style={styles.linkWrapper}>
+            <ThemedText style={styles.linkText}>Tümünü göster</ThemedText>
+            <Icons.ChevronRight
+              width={14}
+              height={14}
+              style={styles.iconStyle}
+            />
+          </View>
+        </Link>
+      </View>
+
       <FlatList
         style={{
           width: "100%",
@@ -64,7 +46,7 @@ const KitchenSlider = ({ section }: Props) => {
                 marginLeft: 12,
               }}
             >
-              <KitchenCard pathname={pathname} data={item as IFilterItem} />
+              <KitchenCard data={item as IFilterItem} />
             </View>
           );
         }}

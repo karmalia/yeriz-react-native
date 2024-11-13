@@ -30,7 +30,7 @@ const MapHeader = (props: Props) => {
 
   return (
     <View style={styles.container}>
-      <View style={[styles.header]}>
+      <View style={styles.header}>
         <View
           style={{
             display: "flex",
@@ -81,14 +81,14 @@ export default MapHeader;
 
 const styles = StyleSheet.create({
   container: {
-    height: 125,
+    height: 150,
     display: "flex",
     width: Dimensions.get("window").width,
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: "space-around",
+
     paddingHorizontal: 20,
     paddingTop: Constants.statusBarHeight,
-    gap: 10,
     backgroundColor: "white",
     borderBottomEndRadius: 10,
     borderBottomLeftRadius: 10,
@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     position: "relative",
     backgroundColor: "#fff",
+    flex: 1,
   },
   search: {
     display: "flex",
@@ -107,5 +108,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
+    flex: 1,
   },
 });

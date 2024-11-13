@@ -10,11 +10,13 @@ const MapOverlay = (props: Props) => {
     <View
       style={{
         width: Dimensions.get("window").width,
-        height: "100%",
+        height: Dimensions.get("window").height / 1.4,
         position: "absolute",
         backgroundColor: "rgba(0, 0, 0, 0)",
         top: 0,
         left: 0,
+        bottom: 0,
+        right: 0,
         justifyContent: "center",
         alignItems: "center",
       }}

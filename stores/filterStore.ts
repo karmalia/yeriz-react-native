@@ -91,6 +91,44 @@ export enum EFilterContents {
 
 type FilterContents = keyof typeof EFilterContents;
 
+const ex1 = {
+  location: {
+    lat: 12,
+    long: 12,
+    distance: 25,
+  },
+  searchTerm: "Bur",
+  filteringOptions: {
+    order: "smartOrder",
+    kitchens: ["all"],
+    paymentTypes: ["all"],
+    minOrderAmount: "all",
+    filterByPoint: "all",
+  },
+  _username: "Burak",
+  _surname: "Kaya",
+  _email: "BurakKaya@gmail.com",
+};
+
+const ex2 = {
+  location: {
+    lat: 12,
+    long: 12,
+    distance: 20,
+  },
+  searchTerm: "Piz",
+  filteringOptions: {
+    order: "smartOrder",
+    kitchens: ["all"],
+    paymentTypes: ["all"],
+    minOrderAmount: "all",
+    filterByPoint: "all",
+  },
+  username: "Burak",
+  surname: "Kaya",
+  email: "BurakKaya@gmail.com",
+};
+
 interface FilterState {
   isFilterBarOpen: boolean;
   isActive: boolean;
@@ -149,20 +187,11 @@ const useFilterStore = create<FilterState>((set, get) => {
   };
 
   const changeKitchens = (filterItem: IFilterItem) => {
-    /*
-      Eğer "Tümü" Gelirse tümü hariç hepsi deactive olacak.
-      Eğer "Tümü" Dışında bir değer gelirse "Tümü" deactive olacak, diğerleri olduğu gibi kalacak.
-    
-    */
-
     if (filterItem.value === "all") {
       set((state) => ({
         kitchens: {
-          isDefault: filterItem.defaultItem,
-          data: state.kitchens.data.map((item) => ({
-            ...item,
-            isActive: item.value == "All",
-          })),
+          isDefault: true,
+          data: generateFilterItems(EKitchens, changeKitchens),
         },
       }));
     }

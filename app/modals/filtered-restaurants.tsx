@@ -28,7 +28,7 @@ type Props = {};
 const FilteredRestaurants = (props: Props) => {
   const filterStore = useFilterStore();
   const params = useLocalSearchParams();
-  const searchBarRef = React.useRef<null | TextInput>(null);
+  console.log("FilteredRestaurants params", params);
 
   const [searchResults, setSearchResults] = React.useState<TCompanyCard[]>([]);
   const [loading, setLoading] = React.useState(false);
@@ -107,12 +107,6 @@ const FilteredRestaurants = (props: Props) => {
   const isEveryFilterDefault = FilteringList.every(
     (filter) => filter.isDefault
   );
-
-  useFocusEffect(() => {
-    if (params?.focus && searchBarRef.current) {
-      searchBarRef.current.focus();
-    }
-  });
 
   return (
     <View style={styles.container}>

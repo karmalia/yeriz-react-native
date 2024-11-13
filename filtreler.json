@@ -1,0 +1,51 @@
+{
+  "EOrderingTypes": {
+    "SmartOrder": "Akıllı Sıralama",
+    "MostPopular": "En Çok Değerlendirilenler",
+    "RestoranPoint": "Restoran Puanı",
+    "DeliveryTime": "Teslimat Süresi",
+    "Alfabetic": "Alfabetik Sıralama",
+    "DiscountRate": "İndirim Oranı",
+    "Distance": "Yakınlık"
+  },
+  "EKitchens": {
+    "all": "Tümü",
+    "dessert": "Pasta/Tatlı",
+    "appetizers": "Aperatifler",
+    "bakery": "Fırın Pastahane",
+    "homeCooking": "Ev Yemekleri",
+    "soup": "Çorba",
+    "cigKofte": "Çiğ Köfte",
+    "salad": "Salata",
+    "meze": "Meze",
+    "worldCuisine": "Dünya Mutfağı"
+  },
+  "EPaymentTypes": {
+    "all": "Tümü",
+    "Cash": "Nakit",
+    "CreditCard": "Kredi Kartı"
+  },
+  "EMinOrderAmounts": {
+    "all": "Tümü",
+    "100": "100 TL ve altı",
+    "150": "150 TL ve altı",
+    "200": "200 TL ve altı",
+    "250": "250 TL ve altı",
+    "300": "300 TL ve altı"
+  },
+  "EFilterByPoint": {
+    "All": "Tümü",
+    "4.5": "4.5 ve üzeri",
+    "4.0": "4.0 ve üzeri",
+    "3.5": "3.5 ve üzeri",
+    "3.0": "3.0 ve üzeri"
+  },
+  "EFilterContents": {
+    "orderings": "Sıralama",
+    "kitchens": "Mutfaklar",
+    "paymentTypes": "Ödeme Türleri",
+    "minOrderAmounts": "Minimum Sipariş Tutarı",
+    "filterByPoint": "Puan",
+    "filters": "Filtreler"
+  }
+}
