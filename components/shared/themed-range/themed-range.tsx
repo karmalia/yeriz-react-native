@@ -49,14 +49,22 @@ const ThemedRange = ({
         onValueChange={(value) => {
           progress.value = value;
         }}
+        step={24}
+        steps={25}
         renderBubble={() => null}
+        renderMark={() => null}
         renderThumb={() => (
           <View
             style={{
-              width: 15,
-              height: 15,
+              width: 25,
+              height: 25,
               backgroundColor: secondaryOne,
-              borderRadius: 6,
+              borderRadius: 25,
+              elevation: 5,
+              shadowColor: "black",
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.25,
+              shadowRadius: 3.84,
             }}
           />
         )}
@@ -66,11 +74,8 @@ const ThemedRange = ({
         onSlidingComplete={onSlidingComplete}
         onSlidingStart={onSlidingStart}
         theme={{
-          disableMinTrackTintColor: "red",
           maximumTrackTintColor: natural40,
           minimumTrackTintColor: primaryOne,
-          cacheTrackTintColor: "gray",
-          heartbeatColor: "blue",
         }}
       />
     </View>

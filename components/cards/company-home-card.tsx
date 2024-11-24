@@ -29,7 +29,7 @@ const CompanyHomeCard = ({ data }: { data: TCompanyCard }) => {
 
   return (
     <ImageBackground
-      source={{ uri: data.companyImage }}
+      source={{ uri: data.imageUrl }}
       resizeMode="cover"
       style={[
         styles.card,
@@ -40,21 +40,17 @@ const CompanyHomeCard = ({ data }: { data: TCompanyCard }) => {
       ]}
     >
       <View style={styles.cardContent}>
-        <ThemedText style={styles.companyName}>{data.companyName}</ThemedText>
-        {data.foodCategories.map((category, index) => (
-          <ThemedText key={index} style={styles.category}>
-            - {category}
-          </ThemedText>
-        ))}
+        <ThemedText style={styles.companyName}>{data.name}</ThemedText>
+        <ThemedText>{data.companyTypeName}</ThemedText>
         <ThemedText style={styles.distance}>
           <Icons.LocationOn style={{ color: "white" }} width={14} height={14} />
-          {data.distance}km
+          {" null "}km
         </ThemedText>
       </View>
 
       <View style={styles.ratingContainer}>
         <CardIcons.StarIcon width={14} height={14} style={styles.iconStar} />
-        <Text style={styles.ratingNumber}>{data.companyRating}</Text>
+        <Text style={styles.ratingNumber}>{data.starRating}</Text>
       </View>
 
       <View style={styles.overlay} />

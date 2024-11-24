@@ -1,172 +1,87 @@
 import { TFood } from "@/types";
 import { create } from "zustand";
 
+type TFilterData = {
+  name: string;
+  isMultiSelect: boolean;
+
+  data: { id: string; name: string; imgUrl?: string }[];
+};
+
+type TDummyData = {
+  byKitchens: TFilterData;
+  byOrdering: TFilterData;
+  byPaymentTypes: TFilterData;
+  byMinOrderAmounts: TFilterData;
+  byPoint: TFilterData;
+};
+
 export interface IFilterItem {
   name: string;
-  value: string;
+  value: string | null;
   defaultItem: boolean;
   isActive: boolean;
+  imgUrl: null | string;
   action: (filterItem: IFilterItem) => void;
 }
 
-function createFilterItem(
-  name: string,
-  value: string,
-  defaultItem = false,
-  isActive = false,
-  action: (filterItem: IFilterItem) => void
-): IFilterItem {
-  return { name, value, defaultItem, isActive, action };
-}
-
-function generateFilterItems<T extends Record<string, string>>(
-  enumType: T,
+function generateFilterItems(
+  filterData: TFilterData,
   action: (filterItem: IFilterItem) => void
 ): IFilterItem[] {
-  return Object.entries(enumType).map(([key, value], index) => {
-    return createFilterItem(
-      value,
-      key,
-      index === 0 ? true : false,
-      index === 0 ? true : false,
-      action
-    );
-  });
+  const defaultItem: IFilterItem = {
+    name: "Tümü",
+    value: null, // Representing the default option
+    defaultItem: true,
+    imgUrl: null,
+    isActive: true,
+    action,
+  };
+
+  const items = filterData.data.map((item) => ({
+    name: item.name,
+    value: item.id,
+    defaultItem: false,
+    isActive: false,
+    imgUrl: item?.imgUrl || null,
+    action,
+  }));
+
+  return [defaultItem, ...items];
 }
 
-export enum EOrderingTypes {
-  "SmartOrder" = "Akıllı Sıralama",
-  "MostPopular" = "En Çok Değerlendirilenler",
-  "RestoranPoint" = "Restoran Puanı",
-  "DeliveryTime" = "Teslimat Süresi",
-  "Alfabetic" = "Alfabetik Sıralama",
-  "DiscountRate" = "İndirim Oranı",
-  "Distance" = "Yakınlık",
+interface FilterCategory {
+  name: string;
+  isDefault: boolean;
+  isMultiSelect: boolean;
+  data: IFilterItem[];
 }
-
-export enum EKitchens {
-  "all" = "Tümü",
-  "dessert" = "Pasta/Tatlı",
-  "appetizers" = "Aperatifler",
-  "bakery" = "Fırın Pastahane",
-  "homeCooking" = "Ev Yemekleri",
-  "soup" = "Çorba",
-  "cigKofte" = "Çiğ Köfte",
-  "salad" = "Salata",
-  "meze" = "Meze",
-  "worldCuisine" = "Dünya Mutfağı",
-}
-
-export enum EPaymentTypes {
-  "all" = "Tümü",
-  "Cash" = "Nakit",
-  "CreditCard" = "Kredi Kartı",
-}
-
-export enum EMinOrderAmounts {
-  "all" = "Tümü",
-  "100" = "100 TL ve altı",
-  "150" = "150 TL ve altı",
-  "200" = "200 TL ve altı",
-  "250" = "250 TL ve altı",
-  "300" = "300 TL ve altı",
-}
-
-export enum EFilterByPoint {
-  "All" = "Tümü",
-  "4.5" = "4.5 ve üzeri",
-  "4.0" = "4.0 ve üzeri",
-  "3.5" = "3.5 ve üzeri",
-  "3.0" = "3.0 ve üzeri",
-}
-
-export enum EFilterContents {
-  "orderings" = "Sıralama",
-  "kitchens" = "Mutfaklar",
-  "paymentTypes" = "Ödeme Türleri",
-  "minOrderAmounts" = "Minimum Sipariş Tutarı",
-  "filterByPoint" = "Puan",
-  "filters" = "Filtreler",
-}
-
-type FilterContents = keyof typeof EFilterContents;
-
-const ex1 = {
-  location: {
-    lat: 12,
-    long: 12,
-    distance: 25,
-  },
-  searchTerm: "Bur",
-  filteringOptions: {
-    order: "smartOrder",
-    kitchens: ["all"],
-    paymentTypes: ["all"],
-    minOrderAmount: "all",
-    filterByPoint: "all",
-  },
-  _username: "Burak",
-  _surname: "Kaya",
-  _email: "BurakKaya@gmail.com",
-};
-
-const ex2 = {
-  location: {
-    lat: 12,
-    long: 12,
-    distance: 20,
-  },
-  searchTerm: "Piz",
-  filteringOptions: {
-    order: "smartOrder",
-    kitchens: ["all"],
-    paymentTypes: ["all"],
-    minOrderAmount: "all",
-    filterByPoint: "all",
-  },
-  username: "Burak",
-  surname: "Kaya",
-  email: "BurakKaya@gmail.com",
-};
-
 interface FilterState {
+  searchTerm: string;
   isFilterBarOpen: boolean;
   isActive: boolean;
-  content: FilterContents;
-  orderings: {
-    isDefault: boolean;
-    data: IFilterItem[];
-  };
-  kitchens: {
-    isDefault: boolean;
-    data: IFilterItem[];
-  };
-  paymentTypes: {
-    isDefault: boolean;
-    data: IFilterItem[];
-  };
-  minOrderAmounts: {
-    isDefault: boolean;
-    data: IFilterItem[];
-  };
-  filterByPoint: {
-    isDefault: boolean;
-    data: IFilterItem[];
-  };
+  content: string;
+  orderings: FilterCategory;
+  kitchens: FilterCategory;
+  paymentTypes: FilterCategory;
+  minOrderAmounts: FilterCategory;
+  filterByPoint: FilterCategory;
+  // Actions
   toogleActionBar: (value: boolean) => void;
   changeOrdering: (filterItem: IFilterItem) => void;
   changeKitchens: (filterItem: IFilterItem) => void;
   changePaymentTypes: (filterItem: IFilterItem) => void;
   changeMinOrderAmounts: (filterItem: IFilterItem) => void;
   changeFilterByPoint: (filterItem: IFilterItem) => void;
-  changeContent: (value: FilterContents) => void;
+  changeContent: (value: string) => void;
   resetFilter: () => void;
   toggleFilterBar: (value: boolean) => void;
+  initializeFilters: (data: TDummyData) => void;
 }
 
 const useFilterStore = create<FilterState>((set, get) => {
   // Define your actions first
-  const changeContent = (value: FilterContents) => {
+  const changeContent = (value: string) => {
     set({ content: value });
   };
 
@@ -177,6 +92,8 @@ const useFilterStore = create<FilterState>((set, get) => {
   const changeOrdering = (filterItem: IFilterItem) => {
     set((state) => ({
       orderings: {
+        name: state.orderings.name,
+        isMultiSelect: state.orderings.isMultiSelect,
         isDefault: filterItem.defaultItem,
         data: state.orderings.data.map((item) => ({
           ...item,
@@ -187,16 +104,24 @@ const useFilterStore = create<FilterState>((set, get) => {
   };
 
   const changeKitchens = (filterItem: IFilterItem) => {
-    if (filterItem.value === "all") {
+    const currentKitchens = get().kitchens;
+    if (!filterItem.value) {
+      console.log("phase 1");
       set((state) => ({
         kitchens: {
+          name: state.kitchens.name,
+          isMultiSelect: state.kitchens.isMultiSelect,
           isDefault: true,
-          data: generateFilterItems(EKitchens, changeKitchens),
+          data: state.kitchens.data.map((item) => ({
+            ...item,
+            isActive: item.value === null,
+          })),
         },
       }));
     }
 
-    if (filterItem.value !== "all") {
+    if (filterItem.value !== null) {
+      console.log("phase 2");
       const newKitchens = get().kitchens.data.map((item) => {
         if (item.value === filterItem.value) {
           return {
@@ -208,18 +133,22 @@ const useFilterStore = create<FilterState>((set, get) => {
         }
       });
       const isSomeActive = newKitchens
-        .filter((item) => item.value !== "all")
+        .filter((item) => item.value !== null)
         .some((item) => item.isActive);
+
+      console.log("isSomeActive", isSomeActive);
       set(() => ({
         kitchens: {
+          name: get().kitchens.name,
+          isMultiSelect: get().kitchens.isMultiSelect,
           isDefault: filterItem.defaultItem,
           data: isSomeActive
             ? newKitchens.map((item) =>
-                item.value === "all" ? { ...item, isActive: false } : item
+                item.value === null ? { ...item, isActive: false } : item
               )
             : newKitchens.map((item) => ({
                 ...item,
-                isActive: item.value == "all",
+                isActive: item.value === null,
               })),
         },
       }));
@@ -229,6 +158,8 @@ const useFilterStore = create<FilterState>((set, get) => {
   const changePaymentTypes = (filterItem: IFilterItem) => {
     set((state) => ({
       paymentTypes: {
+        name: state.paymentTypes.name,
+        isMultiSelect: state.paymentTypes.isMultiSelect,
         isDefault: filterItem.defaultItem,
         data: state.paymentTypes.data.map((item) => ({
           ...item,
@@ -241,6 +172,8 @@ const useFilterStore = create<FilterState>((set, get) => {
   const changeMinOrderAmounts = (filterItem: IFilterItem) => {
     set((state) => ({
       minOrderAmounts: {
+        name: state.minOrderAmounts.name,
+        isMultiSelect: state.minOrderAmounts.isMultiSelect,
         isDefault: filterItem.defaultItem,
         data: state.minOrderAmounts.data.map((item) => ({
           ...item,
@@ -253,6 +186,8 @@ const useFilterStore = create<FilterState>((set, get) => {
   const changeFilterByPoint = (filterItem: IFilterItem) => {
     set((state) => ({
       filterByPoint: {
+        name: state.filterByPoint.name,
+        isMultiSelect: state.filterByPoint.isMultiSelect,
         isDefault: filterItem.defaultItem,
         data: state.filterByPoint.data.map((item) => ({
           ...item,
@@ -266,56 +201,115 @@ const useFilterStore = create<FilterState>((set, get) => {
     set({ isFilterBarOpen: value });
   };
 
-  const resetFilter = () => {
+  const initializeFilters = (data: TDummyData) => {
     set({
       orderings: {
+        name: data.byOrdering.name,
         isDefault: true,
-        data: generateFilterItems(EOrderingTypes, changeOrdering),
+        isMultiSelect: data.byOrdering.isMultiSelect,
+        data: generateFilterItems(data.byOrdering, changeOrdering),
       },
       kitchens: {
+        name: data.byKitchens.name,
         isDefault: true,
-        data: generateFilterItems(EKitchens, changeKitchens),
+        isMultiSelect: data.byKitchens.isMultiSelect,
+        data: generateFilterItems(data.byKitchens, changeKitchens),
       },
       paymentTypes: {
+        name: data.byPaymentTypes.name,
         isDefault: true,
-        data: generateFilterItems(EPaymentTypes, changePaymentTypes),
+        isMultiSelect: data.byPaymentTypes.isMultiSelect,
+        data: generateFilterItems(data.byPaymentTypes, changePaymentTypes),
       },
       minOrderAmounts: {
+        name: data.byMinOrderAmounts.name,
         isDefault: true,
-        data: generateFilterItems(EMinOrderAmounts, changeMinOrderAmounts),
+        isMultiSelect: data.byMinOrderAmounts.isMultiSelect,
+        data: generateFilterItems(
+          data.byMinOrderAmounts,
+          changeMinOrderAmounts
+        ),
       },
       filterByPoint: {
+        name: data.byPoint.name,
         isDefault: true,
-        data: generateFilterItems(EFilterByPoint, changeFilterByPoint),
+        isMultiSelect: data.byPoint.isMultiSelect,
+        data: generateFilterItems(data.byPoint, changeFilterByPoint),
       },
     });
   };
 
-  // Now return your initial state and actions
+  const resetFilter = () => {
+    set((state) => ({
+      orderings: {
+        name: state.orderings.name,
+        isDefault: true,
+        isMultiSelect: state.orderings.isMultiSelect,
+        data: state.orderings.data.map((item) => ({
+          ...item,
+          isActive: item.defaultItem,
+        })),
+      },
+      kitchens: {
+        name: state.kitchens.name,
+        isDefault: true,
+        isMultiSelect: state.kitchens.isMultiSelect,
+        data: state.kitchens.data.map((item) => ({
+          ...item,
+          isActive: item.defaultItem,
+        })),
+      },
+      paymentTypes: {
+        name: state.paymentTypes.name,
+        isDefault: true,
+        isMultiSelect: state.paymentTypes.isMultiSelect,
+        data: state.paymentTypes.data.map((item) => ({
+          ...item,
+          isActive: item.defaultItem,
+        })),
+      },
+      minOrderAmounts: {
+        name: state.minOrderAmounts.name,
+        isDefault: true,
+        isMultiSelect: state.minOrderAmounts.isMultiSelect,
+        data: state.minOrderAmounts.data.map((item) => ({
+          ...item,
+          isActive: item.defaultItem,
+        })),
+      },
+      filterByPoint: {
+        name: state.filterByPoint.name,
+        isDefault: true,
+        isMultiSelect: state.filterByPoint.isMultiSelect,
+        data: state.filterByPoint.data.map((item) => ({
+          ...item,
+          isActive: item.defaultItem,
+        })),
+      },
+    }));
+  };
+
   return {
     isFilterBarOpen: false,
+    searchTerm: "",
     isActive: false,
     content: "orderings",
-    orderings: {
-      isDefault: true,
-      data: generateFilterItems(EOrderingTypes, changeOrdering),
-    },
-    kitchens: {
-      isDefault: true,
-      data: generateFilterItems(EKitchens, changeKitchens),
-    },
-    paymentTypes: {
-      isDefault: true,
-      data: generateFilterItems(EPaymentTypes, changePaymentTypes),
-    },
+    orderings: { name: "", isDefault: true, isMultiSelect: false, data: [] },
+    kitchens: { name: "", isDefault: true, isMultiSelect: false, data: [] },
+    paymentTypes: { name: "", isDefault: true, isMultiSelect: false, data: [] },
     minOrderAmounts: {
+      name: "",
       isDefault: true,
-      data: generateFilterItems(EMinOrderAmounts, changeMinOrderAmounts),
+      isMultiSelect: false,
+      data: [],
     },
     filterByPoint: {
+      name: "",
       isDefault: true,
-      data: generateFilterItems(EFilterByPoint, changeFilterByPoint),
+      isMultiSelect: false,
+      data: [],
     },
+
     // Include your actions in the returned object
     changeContent,
     toogleActionBar,
@@ -324,8 +318,9 @@ const useFilterStore = create<FilterState>((set, get) => {
     changePaymentTypes,
     changeMinOrderAmounts,
     changeFilterByPoint,
-    resetFilter,
+    initializeFilters,
     toggleFilterBar,
+    resetFilter,
   };
 });
 

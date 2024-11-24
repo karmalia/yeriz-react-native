@@ -23,8 +23,6 @@ interface BasketProps extends TFood {
 const BasketCard = (data: BasketProps) => {
   const { increaseItem, decreaseItem, deleteItem } = useBasketStore();
 
-  console.log("data sx", data);
-
   return (
     <View style={[styles.card, styles.shadow]}>
       <View

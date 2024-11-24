@@ -13,14 +13,24 @@ import {
 } from "@tanstack/react-query";
 
 import ClientProvider from "@/providers/query-client";
-import { Text, View } from "react-native";
+import { ActivityIndicator, ImageBackground, Text, View } from "react-native";
 import LoginHeader from "@/components/modals/login/login-header";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import FilterOrderBar from "@/components/shared/action-bars/filter-order-bar";
-import { primaryOne } from "@/constants/colors";
+import {
+  primaryOne,
+  secondaryOne,
+  secondaryThree,
+  secondaryTwo,
+} from "@/constants/colors";
 import Mulish from "@/constants/font";
+import { useGetAllFilters } from "@/api/queries/filters/get-all-filters";
+import useFilterStore from "@/stores/filterStore";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { LinearGradient } from "expo-linear-gradient";
+import Icons from "@/components/shared/icons/icons";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -65,86 +75,124 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  return (
-    <>
-      <Stack initialRouteName="(home)">
-        <Stack.Screen name="(login)" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="(home)"
-          options={{
-            headerShown: false,
-          }}
-        />
+  const { data, isLoading, isError } = useGetAllFilters();
+  const { initializeFilters } = useFilterStore();
 
-        <Stack.Screen
-          name="modals/map-modal"
-          options={{
-            headerShown: false,
-            presentation: "modal",
-          }}
-        />
-        <Stack.Screen
-          name="modals/kitchens-modal"
-          options={{
-            headerShown: true,
-            headerTitle: "Mutfaklar",
-            headerTitleStyle: {
-              fontFamily: "Mulish-Bold",
-              fontSize: 20,
-            },
-            headerTitleAlign: "center",
-            headerStyle: {
-              backgroundColor: primaryOne,
-            },
-            headerTintColor: "white",
-            presentation: "modal",
-          }}
-        />
-        <Stack.Screen
-          name="modals/login-modal"
-          options={{
-            headerShown: true,
-            header: () => <LoginHeader />,
+  useEffect(() => {
+    if (data) {
+      initializeFilters(data);
+    }
+  }, [data]);
 
-            presentation: "modal",
+  if (isLoading || isError) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <LinearGradient
+          // Background Linear Gradient
+          colors={["white", secondaryThree]}
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
           }}
         />
-        <Stack.Screen
-          name="modals/filtered-restaurants"
-          options={{
-            headerShown: true,
-            headerTitle: "Filtrelenmiş Restoranlar",
-            headerTitleStyle: {
-              fontFamily: Mulish.Regular,
-              fontSize: 20,
-            },
-            headerTitleAlign: "center",
-            headerStyle: {
-              backgroundColor: primaryOne,
-            },
-            headerTintColor: "white",
-            presentation: "modal",
-          }}
-        />
-        <Stack.Screen
-          name="modals/company-modal"
-          options={{
-            headerShown: true,
-            headerTitle: "Filtrelenmiş Restoranlar",
-            headerTitleStyle: {
-              fontFamily: Mulish.Regular,
-              fontSize: 20,
-            },
-            headerTitleAlign: "center",
-            headerStyle: {
-              backgroundColor: primaryOne,
-            },
-            headerTintColor: "white",
-            presentation: "modal",
-          }}
-        />
-      </Stack>
-      <FilterOrderBar />
-    </>
-  );
+        <Icons.BizYerizLogo width={150} height={150} />
+      </View>
+    );
+  }
+
+  if (data) {
+    return (
+      <>
+        <Stack initialRouteName="(home)">
+          <Stack.Screen name="(login)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="(home)"
+            options={{
+              headerShown: false,
+            }}
+          />
+
+          <Stack.Screen
+            name="modals/map-modal"
+            options={{
+              headerShown: false,
+              presentation: "modal",
+            }}
+          />
+          <Stack.Screen
+            name="modals/kitchens-modal"
+            options={{
+              headerShown: true,
+              headerTitle: "Mutfaklar",
+              headerTitleStyle: {
+                fontFamily: "Mulish-Bold",
+                fontSize: 20,
+              },
+              headerTitleAlign: "center",
+              headerStyle: {
+                backgroundColor: primaryOne,
+              },
+              headerTintColor: "white",
+              presentation: "modal",
+            }}
+          />
+          <Stack.Screen
+            name="modals/login-modal"
+            options={{
+              headerShown: true,
+              header: () => <LoginHeader />,
+
+              presentation: "modal",
+            }}
+          />
+          <Stack.Screen
+            name="modals/filtered-restaurants"
+            options={{
+              headerShown: true,
+              headerTitle: "Filtrelenmiş Restoranlar",
+              headerTitleStyle: {
+                fontFamily: Mulish.Regular,
+                fontSize: 20,
+              },
+              headerTitleAlign: "center",
+              headerStyle: {
+                backgroundColor: primaryOne,
+              },
+              headerTintColor: "white",
+              presentation: "modal",
+            }}
+          />
+          <Stack.Screen
+            name="modals/company-modal"
+            options={{
+              headerShown: true,
+              headerTitle: "Filtrelenmiş Restoranlar",
+              headerTitleStyle: {
+                fontFamily: Mulish.Regular,
+                fontSize: 20,
+              },
+              headerTitleAlign: "center",
+              headerStyle: {
+                backgroundColor: primaryOne,
+              },
+              headerTintColor: "white",
+              presentation: "modal",
+            }}
+          />
+        </Stack>
+        <FilterOrderBar />
+      </>
+    );
+  }
+
+  return null;
 }

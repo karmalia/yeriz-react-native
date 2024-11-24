@@ -41,7 +41,7 @@ export default function SearchPage() {
       setTimeout(() => {
         if (term.length > 3) {
           const results = dummyCompanies.filter((company) =>
-            company.companyName.toLowerCase().includes(term.toLowerCase())
+            company.name.toLowerCase().includes(term.toLowerCase())
           );
           setSearchResults(results as unknown as TCompanyCard[]);
         }
@@ -173,13 +173,13 @@ export default function SearchPage() {
             {!loading && (
               <>
                 {searchResults.filter((item) => {
-                  return item.companyName
+                  return item.name
                     .toLowerCase()
                     .includes(searchTerm.toLowerCase());
                 }).length > 0 ? (
                   <FlatList
                     data={searchResults.filter((item) => {
-                      return item.companyName
+                      return item.name
                         .toLowerCase()
                         .includes(searchTerm.toLowerCase());
                     })}

@@ -35,7 +35,9 @@ const KitchenSlider = () => {
         style={{
           width: "100%",
         }}
-        data={filterStore.kitchens.data.filter((k) => k.value !== "all")}
+        data={filterStore.kitchens.data
+          .slice(1, -1)
+          .filter((k) => k.value !== "all")}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => {

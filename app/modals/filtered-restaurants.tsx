@@ -23,39 +23,29 @@ import Mulish from "@/constants/font";
 import KitchenSlider from "@/components/(home)/index/kitchen-slider";
 import CompanyCard from "@/components/cards/company-card";
 import NotFoundCompanies from "@/components/(search)/not-found-companies";
+import { useSearchedCompanies } from "@/api/queries/search/get-searched-companies";
+import useGoogleMapStore from "@/stores/googleMapStore";
 type Props = {};
 
 const FilteredRestaurants = (props: Props) => {
   const filterStore = useFilterStore();
+  const googleMapStore = useGoogleMapStore();
   const params = useLocalSearchParams();
-  console.log("FilteredRestaurants params", params);
-
-  const [searchResults, setSearchResults] = React.useState<TCompanyCard[]>([]);
-  const [loading, setLoading] = React.useState(false);
-
-  const fetchSearchResults = async (term) => {
-    try {
-      // Perform an API request based on the search term
-      // const response = await fetch(`@/dummy-datas/dummyCompanies.json`);
-      // const data = await response.json();
-
-      setTimeout(() => {
-        if (term.length > 3) {
-          const results = dummyCompanies.filter((company) =>
-            company.companyName.toLowerCase().includes(term.toLowerCase())
-          );
-          setSearchResults(results as unknown as TCompanyCard[]);
-        }
-        if (term.length === 0) {
-          setSearchResults(dummyCompanies as unknown as TCompanyCard[]);
-        }
-      }, 300);
-    } catch (error) {
-      // Handle the error, e.g., show an error message to the user
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { data, isLoading, isError } = useSearchedCompanies(
+    {
+      location: {
+        latitude: googleMapStore.latitude,
+        longitude: googleMapStore.longitude,
+        distance: googleMapStore.zoomLevel * 1000,
+      },
+      filters: {
+        cuisineCategoryIds: filterStore.kitchens.data
+          .filter((kitchen) => kitchen.isActive && kitchen.value != null)
+          .map((kitchen) => kitchen.value),
+      },
+    },
+    filterStore.isFilterBarOpen
+  );
 
   const [isFilterOpen, setIsFilterOpen] = React.useState(false);
   const navigation = useNavigation();
@@ -85,7 +75,7 @@ const FilteredRestaurants = (props: Props) => {
       data: filterStore.kitchens.data,
     },
     {
-      name: "Ödeme Yöntemleri",
+      name: "Ödeme Türleri",
       contentName: "paymentTypes",
       isDefault: filterStore.paymentTypes.isDefault,
       data: filterStore.paymentTypes.data,
@@ -255,16 +245,15 @@ const FilteredRestaurants = (props: Props) => {
           paddingVertical: 8,
         }}
       >
-        {!loading && (
+        {!isLoading && (
           <>
-            {searchResults.length > 0 ? (
+            {data && data.length > 0 ? (
               <FlatList
-                data={searchResults}
+                data={data}
                 contentContainerStyle={{
                   alignItems: "center",
                 }}
                 renderItem={({ item }) => {
-                  console.log("item", item);
                   return <CompanyCard data={item} />;
                 }}
                 keyExtractor={(item) => item.id + "search"}

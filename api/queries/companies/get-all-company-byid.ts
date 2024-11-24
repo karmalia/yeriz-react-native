@@ -4,7 +4,7 @@ import { Company } from "@/types/api.types";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchCompanies = async (id: string): Promise<Company[]> => {
-  const response = await api.get("/Company/getbyid/" + id);
+  const response = await api.get("/Companies/getbyid/" + id);
   return response.data;
 };
 

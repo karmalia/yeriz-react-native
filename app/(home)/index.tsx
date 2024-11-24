@@ -25,10 +25,7 @@ import Advertisement from "@/components/(home)/advertisement/advertisement";
 import KitchenSlider from "@/components/(home)/index/kitchen-slider";
 import HomeCompanySlider from "@/components/(home)/index/home-company-slider";
 import ThemedInput from "@/components/shared/themed-input/themed-input";
-import useFilterStore, {
-  EOrderingTypes,
-  IFilterItem,
-} from "@/stores/filterStore";
+import useFilterStore, { IFilterItem } from "@/stores/filterStore";
 
 const SearchBar = () => {
   const router = useRouter();
@@ -64,7 +61,7 @@ export default function HomeScreen() {
       hasLink: boolean;
       title: string;
       action: (data: IFilterItem) => void | null;
-      value: IFilterItem | null;
+      value: IFilterItem;
     } | null;
     data: (TProductCard | TKitchenCard)[];
     Component: ({ section }: { section: any }) => React.JSX.Element;
@@ -90,7 +87,7 @@ export default function HomeScreen() {
         title: "Yakındakiler",
         action: filterStore.changeOrdering,
         value: filterStore.orderings.data.find(
-          (o) => o.name === EOrderingTypes.Distance
+          (item) => item.name == "Yakınlık"
         )!,
       },
       data: dummyDataProduct as unknown as TProductCard[],
@@ -99,22 +96,10 @@ export default function HomeScreen() {
     {
       title: {
         hasLink: true,
-        title: "Sevilen Mekanlar",
+        title: "En Çok Değerlendirilenler",
         action: filterStore.changeOrdering,
         value: filterStore.orderings.data.find(
-          (o) => o.name === EOrderingTypes.MostPopular
-        )!,
-      },
-      data: dummyDataProduct2 as unknown as TProductCard[],
-      Component: HomeCompanySlider,
-    },
-    {
-      title: {
-        hasLink: true,
-        title: "Senin için önerilenler",
-        action: filterStore.changeOrdering,
-        value: filterStore.orderings.data.find(
-          (o) => o.name === EOrderingTypes.SmartOrder //Default Search page data
+          (item) => item.name == "En Çok Değerlendirilenler"
         )!,
       },
       data: dummyDataProduct2 as unknown as TProductCard[],

@@ -30,6 +30,7 @@ export const kitchenImages = {
 const KitchenCard = ({ data }: { data: IFilterItem }) => {
   const { toggleFilterBar } = useFilterStore();
   const router = useRouter();
+
   return (
     <View
       style={{
@@ -41,7 +42,7 @@ const KitchenCard = ({ data }: { data: IFilterItem }) => {
       }}
     >
       <ImageBackground
-        source={kitchenImages[data.value]}
+        source={kitchenImages[data.imgUrl]}
         style={{
           borderRadius: 10,
           overflow: "hidden",

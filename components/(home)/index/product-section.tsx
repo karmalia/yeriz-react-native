@@ -32,7 +32,6 @@ const ProductSection = ({
   hasLink,
 }: TProductSection) => {
   const Card = CardLookUp[cardType || "product"];
-  console.log("data");
   return (
     <GestureHandlerRootView style={styles.listWrapper}>
       <FlatList

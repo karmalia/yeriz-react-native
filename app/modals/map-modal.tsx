@@ -15,31 +15,24 @@ import Animated, {
   useSharedValue,
 } from "react-native-reanimated";
 import ThemedRange from "@/components/shared/themed-range/themed-range";
-import GoogleMap from "@/components/map/google-map";
+import GoogleMap from "@/components/map/google-map/google-map";
 import calculateDeltas from "@/lib/utils/calculateDelta";
 import MapHeader from "@/components/map/map-header";
 import ThemedText from "@/components/shared/themed-text/themed-text";
 import useKeyboardState from "@/lib/custom-hooks/useKeyboardState";
 import useGoogleMapStore from "@/stores/googleMapStore";
-import { useGetNearbyCompanies } from "@/api/queries/company/get-nearby-companies";
+
 import ReText from "@/components/shared/ReText";
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
 export default function ModalScreen() {
-  const progress = useSharedValue(10);
-
   const min = useSharedValue(1);
   const max = useSharedValue(25);
-  const {
-    zoomLevel,
-    changeZoomLevel,
-    latitudeDelta,
-    changeDistanceArranged,
-    latitude,
-    longitude,
-  } = useGoogleMapStore();
+  const { changeZoomLevel, zoomLevel, changeDistanceArranged } =
+    useGoogleMapStore();
+  const progress = useSharedValue(zoomLevel);
   // State to hold formatted progress for display
-
+  console.log("zoomlevel", zoomLevel);
   // Derived value for formatted display without rerendering
   const derivedDisplayProgress = useDerivedValue(() => {
     return `${progress.value.toFixed(1)} km`;
@@ -74,8 +67,7 @@ export default function ModalScreen() {
             min={min}
             max={max}
             progress={progress}
-            onSlidingStart={(value: number) => {
-              changeZoomLevel(value);
+            onSlidingStart={() => {
               changeDistanceArranged(true);
             }}
             onSlidingComplete={(value: number) => {

@@ -16,8 +16,16 @@ import { natural30, natural40, primaryOne } from "@/constants/colors";
 import AllFilters from "./all-filters";
 import FilterStoreContents from "./filterstore-contents";
 import Mulish from "@/constants/font";
-import useFilterStore, { EFilterContents } from "@/stores/filterStore";
+import useFilterStore from "@/stores/filterStore";
 import Icons from "../icons/icons";
+
+enum EContentNames {
+  orderings = "Sıralama",
+  kitchens = "Mutfak",
+  paymentTypes = "Ödeme Türleri",
+  minOrderAmounts = "Minimum Sepet Tutarı",
+  filterByPoint = "Puan",
+}
 
 const FilterOrderBar = () => {
   const [contentHeight, setContentHeight] = useState(0);
@@ -25,6 +33,7 @@ const FilterOrderBar = () => {
   const maxActionBarHeight = Dimensions.get("window").height * 0.9;
 
   const filterStore = useFilterStore();
+  console.log("content filterStore", filterStore.content);
 
   const translateY = useSharedValue(0);
 
@@ -166,7 +175,7 @@ const FilterOrderBar = () => {
                   letterSpacing: 1,
                 }}
               >
-                {EFilterContents[filterStore.content]}
+                {EContentNames[filterStore.content]}
               </Text>
             </View>
           </GestureDetector>

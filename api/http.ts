@@ -31,7 +31,7 @@ api.interceptors.response.use(
     return response;
   },
   (error: AxiosError) => {
-    console.error("Response error:", error.cause);
+    console.error("Response error:", error);
 
     return Promise.reject(error);
   }

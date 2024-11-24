@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   DeviceEventEmitter,
   Dimensions,
   Keyboard,
@@ -22,12 +23,36 @@ import ThemedText from "../shared/themed-text/themed-text";
 import ThemedInput from "../shared/themed-input/themed-input";
 import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
 import Constants from "expo-constants";
-type Props = {};
-
-const MapHeader = (props: Props) => {
+import { useGetAutoComplete } from "@/api/queries/auto-complete/get-auto-complete";
+import uuid from "react-native-uuid";
+import Animated from "react-native-reanimated";
+const array = new Uint8Array([1, 2, 3, 4, 5]);
+const MapHeader = () => {
   StatusBar.setBackgroundColor("white");
+  const [place, setPlace] = React.useState("");
+  const [sessionToken, setSessionToken] = React.useState<string | null>(null);
   const navigation = useNavigation();
 
+  const { data, isLoading, isError } = useGetAutoComplete(place, sessionToken);
+
+  console.log(
+    "data",
+    data?.data?.suggestions.map((item) => item.placePrediction)
+  );
+  console.log("isLoading", isLoading);
+  console.log("isError", isError);
+  React.useEffect(() => {
+    // Generate a session token when the component mounts
+
+    setSessionToken(uuid.v4());
+  }, []);
+
+  const handleInputChange = (text: string) => {
+    if (!sessionToken) {
+      setSessionToken(uuid.v4());
+    }
+    setPlace(text);
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -70,8 +95,67 @@ const MapHeader = (props: Props) => {
             borderColor: primaryOne,
             height: 40,
           }}
-          rightIcon={"SearchIcon"}
+          rightIcon={place.length > 4 ? "CloseIcon" : "SearchIcon"}
+          rightIconOnPress={place.length > 4 ? () => setPlace("") : null}
+          value={place}
+          onChangeText={handleInputChange}
         />
+        <View
+          style={{
+            position: "absolute",
+            top: 50,
+            left: 0,
+            right: 0,
+          }}
+        >
+          {data && (
+            <View
+              style={{
+                backgroundColor: "white",
+                zIndex: 1,
+                display: "flex",
+                flexDirection: "column",
+                gap: 5,
+                borderRadius: 8,
+                borderWidth: 1,
+                borderColor: primaryOne,
+                maxHeight: 200,
+                overflow: "scroll",
+                paddingHorizontal: 10,
+                paddingVertical: 5,
+              }}
+            >
+              {isLoading && (
+                <ActivityIndicator size="small" color={primaryOne} />
+              )}
+              {data?.data?.suggestions.map((item) => (
+                <View
+                  key={item.placePrediction.id}
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 5,
+                    height: 30,
+                  }}
+                >
+                  <Icons.LocationOn width={20} height={20} color={primaryOne} />
+                  <ThemedText
+                    style={{
+                      fontFamily: Mulish.Regular,
+                      lineHeight: 20,
+                      paddingTop: 2,
+                      fontSize: 16,
+                      color: natural30,
+                    }}
+                  >
+                    {item.placePrediction.text.text.slice(0, 40)}
+                  </ThemedText>
+                </View>
+              ))}
+            </View>
+          )}
+        </View>
       </View>
     </View>
   );
@@ -113,5 +197,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
     flex: 1,
+    position: "relative",
   },
 });

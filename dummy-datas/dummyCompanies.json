@@ -34,5 +34,20 @@
     "companyImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9GKf3CAv4p-R3JDJ_QjN9lLFnSejCimm0ow&s",
     "foodCategories": ["Pizza", "İtalyan", "Fast Food"],
     "isFavorite": false
+  },
+  {
+    "id": "a86cc935-49ca-4d01-203e-08dd0244c40d",
+    "name": "Alsancak BioMarket",
+    "imageUrl": "https://cdn.pixabay.com/photo/2020/06/30/15/03/table-5356682_1280.jpg",
+    "starRating": 0,
+    "ratingCount": 0,
+    "companyTypeName": "Market",
+    "environmentallyFriendly": true,
+    "isTrustworthy": true,
+    "createdDate": "2024-11-11T12:13:52.976456Z",
+    "updatedDate": null,
+    "deletedDate": null,
+    "isActive": true,
+    "isDelete": false
   }
 ]

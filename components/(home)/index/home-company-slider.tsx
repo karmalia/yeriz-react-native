@@ -12,6 +12,8 @@ import CompanyCard from "@/components/cards/company-card";
 import dummyCompanies from "@/dummy-datas/dummyCompanies.json";
 import CompanyHomeCard from "@/components/cards/company-home-card";
 import { IFilterItem } from "@/stores/filterStore";
+import { useSearchedCompanies } from "@/api/queries/search/get-searched-companies";
+import useGoogleMapStore from "@/stores/googleMapStore";
 
 type HomeCompanySliderProps = {
   section: {
@@ -28,6 +30,23 @@ type HomeCompanySliderProps = {
 const HomeCompanySlider = ({ section }: HomeCompanySliderProps) => {
   const router = useRouter();
   const { title, hasLink } = section.title;
+  const { latitude, longitude, zoomLevel } = useGoogleMapStore();
+
+  const { data, isLoading, isError } = useSearchedCompanies(
+    {
+      filters: {
+        cuisineCategoryIds: [],
+        //ordering stilleri yukarıdan gelecek: Yaındakiler için yakındakiler filtresi gönderilecek
+      },
+      location: {
+        latitude,
+        longitude,
+        distance: zoomLevel * 1000,
+      },
+    },
+    title
+  );
+
   return (
     <>
       <View style={styles.titleWrapper}>
@@ -50,27 +69,29 @@ const HomeCompanySlider = ({ section }: HomeCompanySliderProps) => {
           </TouchableOpacity>
         )}
       </View>
-      <FlatList
-        style={{
-          width: "100%",
-        }}
-        data={dummyCompanies}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => {
-          return (
-            <View
-              style={{
-                marginBottom: 8,
-                marginLeft: 12,
-              }}
-            >
-              <CompanyHomeCard data={item as TCompanyCard} />
-            </View>
-          );
-        }}
-        keyExtractor={(item: any) => item.id + "productSection"}
-      />
+      {data && (
+        <FlatList
+          style={{
+            width: "100%",
+          }}
+          data={data}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => {
+            return (
+              <View
+                style={{
+                  marginBottom: 8,
+                  marginLeft: 12,
+                }}
+              >
+                <CompanyHomeCard data={item as TCompanyCard} />
+              </View>
+            );
+          }}
+          keyExtractor={(item: any) => item.id + "productSection"}
+        />
+      )}
     </>
   );
 };

@@ -21,22 +21,21 @@ const useGoogleMapStore = create<MapState>((set, get) => {
     set({
       latitude,
       longitude,
-      ...calculateDeltas(get().zoomLevel, longitude),
+      ...calculateDeltas(get().zoomLevel, latitude),
     });
   };
 
   const changeZoomLevel = (zoomLevel: number) => {
-    let newZoomLevel = Math.floor(zoomLevel);
+    let newZoomLevel = Number(zoomLevel.toFixed(1));
     set(() => ({
       zoomLevel: newZoomLevel,
     }));
   };
   const changeDistanceArranged = (value: boolean) => {
     if (!value) {
-      console.log("Calculating Deltas");
       set(() => ({
         distanceArranged: value,
-        ...calculateDeltas(get().zoomLevel, get().longitude),
+        ...calculateDeltas(get().zoomLevel, get().latitude),
       }));
     } else {
       set(() => ({
@@ -47,11 +46,11 @@ const useGoogleMapStore = create<MapState>((set, get) => {
   return {
     companies: [],
     distanceArranged: false,
-    latitude: 38.4231,
-    longitude: 27.1405,
+    latitude: 38.433418,
+    longitude: 27.142826,
     zoomLevel: 10,
-    latitudeDelta: null,
-    longitudeDelta: null,
+    latitudeDelta: 0.008983111749910169,
+    longitudeDelta: 0.020189670372142945,
     changeLocation,
     changeZoomLevel,
     changeDistanceArranged,

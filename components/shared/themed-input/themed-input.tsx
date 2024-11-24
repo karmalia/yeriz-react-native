@@ -18,10 +18,12 @@ import {
 import Icons from "@/components/shared/icons/icons";
 import Mulish from "@/constants/font";
 import { useController } from "react-hook-form";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 interface ThemedInputProps extends TextInputProps {
   leftIcon?: keyof typeof Icons;
   rightIcon?: keyof typeof Icons;
+  rightIconOnPress?: () => void | null;
   label?: string;
   hasError?: string | undefined;
   style?: any;
@@ -40,6 +42,7 @@ const ThemedInput = forwardRef<TextInput, ThemedInputProps>(
       label,
       hasError,
       control,
+      rightIconOnPress,
       ...props
     }: ThemedInputProps,
     ref: Ref<TextInput>
@@ -58,23 +61,25 @@ const ThemedInput = forwardRef<TextInput, ThemedInputProps>(
           onChange: props.onChangeText || (() => {}),
         };
 
-    const renderIcon = (iconName) => {
+    const renderIcon = (iconName, onClick) => {
       const IconComponent = Icons[iconName];
 
       if (IconComponent) {
         return (
-          <IconComponent
-            style={{ color: hasError ? "red" : primaryOne }}
-            size={24}
-            onPress={() => {
-              if (iconName === "EyeOffIcon") {
-                setRightIconName("EyeIcon");
-              }
-              if (iconName === "EyeIcon") {
-                setRightIconName("EyeOffIcon");
-              }
-            }}
-          />
+          <TouchableOpacity onPress={onClick && onClick}>
+            <IconComponent
+              style={{ color: hasError ? "red" : primaryOne }}
+              size={24}
+              onPress={() => {
+                if (iconName === "EyeOffIcon") {
+                  setRightIconName("EyeIcon");
+                }
+                if (iconName === "EyeIcon") {
+                  setRightIconName("EyeOffIcon");
+                }
+              }}
+            />
+          </TouchableOpacity>
         );
       }
 
@@ -100,7 +105,7 @@ const ThemedInput = forwardRef<TextInput, ThemedInputProps>(
             },
           ]}
         >
-          {leftIcon && renderIcon(leftIcon)}
+          {leftIcon && renderIcon(leftIcon, null)}
           <TextInput
             ref={ref}
             style={[
@@ -120,7 +125,7 @@ const ThemedInput = forwardRef<TextInput, ThemedInputProps>(
             {...props}
           />
 
-          {rightIcon && renderIcon(rightIconName)}
+          {rightIcon && renderIcon(rightIconName, rightIconOnPress)}
         </View>
         {hasError && (
           <Text style={{ color: "red", fontSize: 12 }}>{hasError}</Text>

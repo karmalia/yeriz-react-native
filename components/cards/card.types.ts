@@ -13,15 +13,18 @@ export type TProductCard = {
 
 export type TCompanyCard = {
   id: string;
-  companyImage: string;
-  companyName: string;
-  companyRating: number;
-  minPrice: number;
-  isFavorite: boolean;
-  distance: number;
-  foodCategories: string[];
+  name: string;
+  imageUrl: string;
+  starRating: number;
+  ratingCount: number;
+  companyTypeName: string;
+  environmentallyFriendly: boolean;
+  isTrustworthy: boolean;
+  createdDate: string;
+  updatedDate: null;
+  deletedDate: null;
   isActive: boolean;
-  isDeleted: boolean;
+  isDelete: boolean;
 };
 
 export type TNewProductCard = {

@@ -3,7 +3,6 @@
     "SmartOrder": "Akıllı Sıralama",
     "MostPopular": "En Çok Değerlendirilenler",
     "RestoranPoint": "Restoran Puanı",
-    "DeliveryTime": "Teslimat Süresi",
     "Alfabetic": "Alfabetik Sıralama",
     "DiscountRate": "İndirim Oranı",
     "Distance": "Yakınlık"
@@ -18,7 +17,7 @@
     "cigKofte": "Çiğ Köfte",
     "salad": "Salata",
     "meze": "Meze",
-    "worldCuisine": "Dünya Mutfağı"
+    "worldCuisine": "Dünya Mutfağı" 100
   },
   "EPaymentTypes": {
     "all": "Tümü",
@@ -43,9 +42,7 @@
   "EFilterContents": {
     "orderings": "Sıralama",
     "kitchens": "Mutfaklar",
-    "paymentTypes": "Ödeme Türleri",
     "minOrderAmounts": "Minimum Sipariş Tutarı",
-    "filterByPoint": "Puan",
-    "filters": "Filtreler"
+    "filterByPoint": "Puan"
   }
 }

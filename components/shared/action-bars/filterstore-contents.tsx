@@ -2,12 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import useFilterStore from "@/stores/filterStore";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import {
-  contentWhite,
-  natural40,
-  primaryFive,
-  primaryOne,
-} from "@/constants/colors";
+import { natural40, primaryOne } from "@/constants/colors";
 import Mulish from "@/constants/font";
 
 const FilterStoreContents = () => {
@@ -23,11 +18,11 @@ const FilterStoreContents = () => {
         backgroundColor: "white",
       }}
     >
-      {filterStore[filterStore.content].data.map((orderItem) => {
+      {filterStore[filterStore.content].data.map((filterItem) => {
         return (
           <TouchableOpacity
             onPress={() => {
-              orderItem.action(orderItem);
+              filterItem.action(filterItem);
             }}
             style={{
               paddingHorizontal: 10,
@@ -36,18 +31,18 @@ const FilterStoreContents = () => {
               backgroundColor: "white",
 
               borderWidth: 1,
-              borderColor: orderItem.isActive ? primaryOne : natural40,
+              borderColor: filterItem.isActive ? primaryOne : natural40,
             }}
-            key={orderItem.name}
+            key={filterItem.name}
           >
             <Text
               style={{
                 fontFamily: Mulish.Regular,
                 textAlign: "center",
-                color: orderItem.isActive ? primaryOne : "black",
+                color: filterItem.isActive ? primaryOne : "black",
               }}
             >
-              {orderItem.name}
+              {filterItem.name}
             </Text>
           </TouchableOpacity>
         );

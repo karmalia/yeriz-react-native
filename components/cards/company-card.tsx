@@ -21,7 +21,7 @@ const CompanyCard = ({ data }: { data: TCompanyCard }) => {
     <View style={[styles.card, { width: getWidth(), height: getHeight() }]}>
       <View style={styles.cardContent}>
         <ImageBackground
-          source={{ uri: data.companyImage }}
+          source={{ uri: data.imageUrl }}
           resizeMode="cover"
           style={styles.imageBackground}
         >
@@ -29,28 +29,26 @@ const CompanyCard = ({ data }: { data: TCompanyCard }) => {
         </ImageBackground>
 
         <View style={styles.infoContainer}>
-          <ThemedText style={styles.companyName}>{data.companyName}</ThemedText>
+          <ThemedText style={styles.companyName}>{data.name}</ThemedText>
 
-          <RatingDisplay rating={data.companyRating} />
-          <LocationDisplay distance={data.distance} />
+          <RatingDisplay rating={data.starRating} />
+          <LocationDisplay distance={"null"} />
 
-          <View>
+          {/* <View>
             {data.foodCategories.slice(0, 3).map((category, index) => (
               <ThemedText key={index} style={styles.category}>
                 {category}
               </ThemedText>
             ))}
-          </View>
+          </View> */}
         </View>
       </View>
 
-      <PriceDisplay minPrice={data.minPrice} />
-      <FavoriteIcon isFavorite={data.isFavorite} />
+      <PriceDisplay minPrice={"null"} />
+      <FavoriteIcon isFavorite={null} />
     </View>
   );
 };
-
-const FilteringDisplay = () => {};
 
 const RatingDisplay = ({ rating }) => (
   <View style={styles.ratingContainer}>
