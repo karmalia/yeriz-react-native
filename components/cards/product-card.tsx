@@ -17,6 +17,7 @@ import {
   TouchableOpacity,
 } from "react-native-gesture-handler";
 import useBasketStore from "@/stores/basketStore";
+import { CompanyFood } from "@/api/queries/companies/companies.types";
 
 const getWidth = (variant: TProductCard["variant"]) => {
   const screenWidth = Dimensions.get("window").width;
@@ -25,7 +26,7 @@ const getWidth = (variant: TProductCard["variant"]) => {
   if (variant === "small") {
     return 235;
   } else {
-    const width = screenWidth * 0.8;
+    const width = screenWidth * 0.6;
     return isLandscape ? Math.min(width, 400) : width; // Limit width to 400 in landscape mode
   }
 };
@@ -34,181 +35,185 @@ const getHeight = (variant: TProductCard["variant"]) => {
   if (variant === "small") {
     return 135;
   } else {
-    return Dimensions.get("window").height * 0.2;
+    return Dimensions.get("window").height * 0.18;
   }
 };
 
-const ProductCard = ({ data, variant }: TProductCard) => {
+const ProductCard = ({
+  data,
+  variant,
+}: {
+  data: CompanyFood["data"][0];
+  variant: TProductCard["variant"];
+}) => {
   const { addItem, basketItems } = useBasketStore();
+  console.log("data", data);
 
   return (
-    <GestureHandlerRootView>
-      <View
-        style={[
-          styles.card,
-          styles.cardShadow,
-          {
-            width: getWidth(variant),
-            height: getHeight(variant),
-          },
-        ]}
-      >
-        <View style={styles.cardContent}>
+    <View
+      style={[
+        styles.card,
+        styles.cardShadow,
+        {
+          width: getWidth(variant),
+          height: getHeight(variant),
+        },
+      ]}
+    >
+      <View style={styles.cardContent}>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
           <ThemedText
             style={{
               fontSize: 20,
               fontFamily: Mulish.SemiBold,
               textDecorationLine: "underline",
               textAlign: "left",
-            }}
-          >
-            {data.companyName}
-          </ThemedText>
-
-          <ThemedText
-            style={{
-              fontSize: 12,
-              textAlign: "left",
-              fontFamily: Mulish.SemiBold,
-            }}
-          >
-            Bugün al{" "}
-            <Text
-              style={{
-                fontFamily: Mulish.Medium,
-              }}
-            >
-              {data.availableFrom}:00 - {data.availableUntil}:00
-            </Text>
-          </ThemedText>
-
-          <ThemedText
-            style={{
-              fontSize: 12,
-              fontWeight: "600",
-              textAlign: "left",
+              flex: 1,
             }}
           >
             {data.name}
           </ThemedText>
-        </View>
-
-        <View style={styles.cardBottom}>
-          <View
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "white",
-              height: 40,
-              width: "30%",
-              borderTopRightRadius: 20,
-              paddingTop: 4,
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 10,
-                color: natural30,
-                textDecorationLine: "line-through",
-                fontFamily: Mulish.MediumItalic,
-                textAlignVertical: "bottom",
-              }}
-            >
-              {data.originalPrice}.00₺
-            </Text>
-            <Text
-              style={{
-                fontSize: 14,
-                textAlignVertical: "bottom",
-                color: natural10,
-                fontFamily: Mulish.Regular,
-              }}
-            >
-              {data.discountedPrice}.00₺
-            </Text>
-          </View>
-          <TouchableOpacity
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              padding: 20,
-              alignItems: "center",
-              backgroundColor: basketItems.find((item) => item.id === data.id)
-                ? secondaryOne
-                : "white",
-              height: 40,
-              borderTopLeftRadius: 20,
-            }}
-            disabled={
-              basketItems.find((item) => item.id === data.id) ? true : false
-            }
-            onPress={() => {
-              if (basketItems.find((item) => item.id === data.id)) {
-                return;
-              } else {
-                addItem(data);
-              }
-            }}
-          >
-            <CardIcons.PlusIcon
-              style={{
-                color: basketItems.find((item) => item.id === data.id)
-                  ? "white"
-                  : tertiaryOne,
-              }}
+          {data?.isActive ? (
+            <CardIcons.FavoriteUp
+              style={[
+                styles.badge,
+                {
+                  color: tertiaryThree,
+                },
+              ]}
             />
-          </TouchableOpacity>
+          ) : (
+            <CardIcons.FavoriteDown
+              style={[
+                styles.badge,
+                {
+                  color: tertiaryThree,
+                },
+              ]}
+            />
+          )}
         </View>
 
+        <ThemedText
+          style={{
+            fontSize: 12,
+            textAlign: "left",
+            fontFamily: Mulish.SemiBold,
+          }}
+        >
+          Bugün al{" "}
+          <Text
+            style={{
+              fontFamily: Mulish.Medium,
+            }}
+          >
+            {data.availableTime}
+          </Text>
+        </ThemedText>
+      </View>
+
+      <View style={styles.cardBottom}>
         <View
           style={{
-            width: "100%",
-            height: "100%",
-            position: "absolute",
-            top: 0,
-            left: 0,
-            zIndex: 0,
-            backgroundColor: "rgba(0,0,0,0.5)",
-            borderRadius: 20,
-            overflow: "hidden",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "white",
+            height: 40,
+            width: "30%",
+            borderTopRightRadius: 20,
+            paddingTop: 4,
           }}
-        />
-        {data.isActive ? (
-          <CardIcons.FavoriteUp
-            style={[
-              styles.badge,
-              {
-                color: tertiaryThree,
-              },
-            ]}
-          />
-        ) : (
-          <CardIcons.FavoriteDown
-            style={[
-              styles.badge,
-              {
-                color: tertiaryThree,
-              },
-            ]}
-          />
-        )}
-        <Image
-          //Require is not required when using local files
-          source={data.foodImage[0].imageUrl}
+        >
+          <Text
+            style={{
+              fontSize: 14,
+              color: natural30,
+              textDecorationLine: "line-through",
+              fontFamily: Mulish.MediumItalic,
+              textAlignVertical: "bottom",
+            }}
+          >
+            {data.originalPrice}₺
+          </Text>
+          <Text
+            style={{
+              fontSize: 16,
+              textAlignVertical: "bottom",
+              color: natural10,
+              fontFamily: Mulish.Regular,
+            }}
+          >
+            {data.discountedPrice}₺
+          </Text>
+        </View>
+        <TouchableOpacity
           style={{
-            width: "100%",
-            height: "100%",
-            position: "absolute",
-            top: 0,
-            left: 0,
-            zIndex: -1,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: 20,
+            alignItems: "center",
+            backgroundColor: basketItems.find((item) => item.id === data.id)
+              ? secondaryOne
+              : "white",
+            height: 40,
+            borderTopLeftRadius: 20,
           }}
-          placeholder={{ blurhash }}
-        />
+          disabled={
+            basketItems.find((item) => item.id === data.id) ? true : false
+          }
+          onPress={() => {
+            if (basketItems.find((item) => item.id === data.id)) {
+              return;
+            } else {
+              addItem(data);
+            }
+          }}
+        >
+          <CardIcons.PlusIcon
+            style={{
+              color: basketItems.find((item) => item.id === data.id)
+                ? "white"
+                : tertiaryOne,
+            }}
+          />
+        </TouchableOpacity>
       </View>
-    </GestureHandlerRootView>
+
+      <View
+        style={{
+          width: "100%",
+          height: "100%",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          zIndex: 0,
+          backgroundColor: "rgba(0,0,0,0.5)",
+          borderRadius: 20,
+          overflow: "hidden",
+        }}
+      />
+
+      <Image
+        //Require is not required when using local files
+        source={data.imageUrl}
+        style={{
+          width: "100%",
+          height: "100%",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          zIndex: -1,
+        }}
+      />
+    </View>
   );
 };
 
@@ -216,14 +221,11 @@ export default ProductCard;
 
 const styles = StyleSheet.create({
   badge: {
-    position: "absolute",
-    top: 10,
-    right: 10,
     zIndex: 2,
     color: natural10,
   },
   card: {
-    width: 235,
+    width: 200,
     height: 135,
     display: "flex",
     justifyContent: "center",

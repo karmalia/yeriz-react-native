@@ -12,41 +12,48 @@ import Mulish from "@/constants/font";
 import CardIcons from "../shared/icons/card.icons";
 import Icons from "../shared/icons/icons";
 import { TCompanyCard } from "./card.types";
+import { useRouter } from "expo-router";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const getWidth = () => Dimensions.get("window").width * 0.9;
 const getHeight = () => 125;
 
 const CompanyCard = ({ data }: { data: TCompanyCard }) => {
+  const router = useRouter();
   return (
-    <View style={[styles.card, { width: getWidth(), height: getHeight() }]}>
-      <View style={styles.cardContent}>
-        <ImageBackground
-          source={{ uri: data.imageUrl }}
-          resizeMode="cover"
-          style={styles.imageBackground}
-        >
-          <View style={styles.imageOverlay} />
-        </ImageBackground>
-
-        <View style={styles.infoContainer}>
-          <ThemedText style={styles.companyName}>{data.name}</ThemedText>
-
-          <RatingDisplay rating={data.starRating} />
-          <LocationDisplay distance={"null"} />
-
-          {/* <View>
-            {data.foodCategories.slice(0, 3).map((category, index) => (
-              <ThemedText key={index} style={styles.category}>
-                {category}
-              </ThemedText>
-            ))}
-          </View> */}
+    <TouchableOpacity
+      onPress={() => {
+        router.push(
+          `modals/company-modal?companyId=${data.id}&companyDistance=${data.distance}`
+        );
+      }}
+    >
+      <View style={[styles.card, { width: getWidth(), height: getHeight() }]}>
+        <View style={styles.cardContent}>
+          <ImageBackground
+            source={{ uri: data.imageUrl }}
+            resizeMode="cover"
+            style={styles.imageBackground}
+          >
+            <View style={styles.imageOverlay} />
+          </ImageBackground>
+          <View style={styles.infoContainer}>
+            <ThemedText style={styles.companyName}>{data.name}</ThemedText>
+            <RatingDisplay rating={data.starRating} />
+            <LocationDisplay distance={"null"} />
+            {/* <View>
+              {data.foodCategories.slice(0, 3).map((category, index) => (
+                <ThemedText key={index} style={styles.category}>
+                  {category}
+                </ThemedText>
+              ))}
+            </View> */}
+          </View>
         </View>
+        <PriceDisplay minPrice={"null"} />
+        <FavoriteIcon isFavorite={null} />
       </View>
-
-      <PriceDisplay minPrice={"null"} />
-      <FavoriteIcon isFavorite={null} />
-    </View>
+    </TouchableOpacity>
   );
 };
 

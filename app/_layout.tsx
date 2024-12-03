@@ -1,34 +1,21 @@
 import { useFonts } from "expo-font";
-import { Stack, useRouter } from "expo-router";
+import { Stack } from "expo-router";
 import React from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
 
 import ClientProvider from "@/providers/query-client";
-import { ActivityIndicator, ImageBackground, Text, View } from "react-native";
+import { View } from "react-native";
 import LoginHeader from "@/components/modals/login/login-header";
-import { KeyboardProvider } from "react-native-keyboard-controller";
-import { StatusBar } from "expo-status-bar";
+
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import FilterOrderBar from "@/components/shared/action-bars/filter-order-bar";
-import {
-  primaryOne,
-  secondaryOne,
-  secondaryThree,
-  secondaryTwo,
-} from "@/constants/colors";
+import { primaryOne, secondaryThree } from "@/constants/colors";
 import Mulish from "@/constants/font";
 import { useGetAllFilters } from "@/api/queries/filters/get-all-filters";
 import useFilterStore from "@/stores/filterStore";
-import { SafeAreaView } from "react-native-safe-area-context";
+
 import { LinearGradient } from "expo-linear-gradient";
 import Icons from "@/components/shared/icons/icons";
 
@@ -112,7 +99,7 @@ function RootLayoutNav() {
   if (data) {
     return (
       <>
-        <Stack initialRouteName="(home)">
+        <Stack initialRouteName="(home)/index">
           <Stack.Screen name="(login)" options={{ headerShown: false }} />
           <Stack.Screen
             name="(home)"
@@ -174,17 +161,7 @@ function RootLayoutNav() {
           <Stack.Screen
             name="modals/company-modal"
             options={{
-              headerShown: true,
-              headerTitle: "Filtrelenmiş Restoranlar",
-              headerTitleStyle: {
-                fontFamily: Mulish.Regular,
-                fontSize: 20,
-              },
-              headerTitleAlign: "center",
-              headerStyle: {
-                backgroundColor: primaryOne,
-              },
-              headerTintColor: "white",
+              headerShown: false,
               presentation: "modal",
             }}
           />

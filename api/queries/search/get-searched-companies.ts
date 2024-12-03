@@ -3,24 +3,10 @@ import api from "@/api/http";
 import { Company } from "@/types/api.types";
 import { useQuery } from "@tanstack/react-query";
 
-const exampleData = {
-  location: {
-    latitude: 38.423734,
-    longitude: 27.142826,
-    distance: 8000,
-  },
-  searchTerm: "",
-  filters: {
-    cuisineCategoryIds: [8, 9],
-  },
-};
-
 const fetchFilters = async (options): Promise<Company[]> => {
-  console.log("options", options);
-  const response = await api.post(
-    "/Companies/filter-companies",
-    options || exampleData
-  );
+  console.log("Fetching Data: Fetch Filters", options);
+  const response = await api.post("/Companies/filter-companies", options);
+  console.log("response", response.data);
   return response.data;
 };
 
@@ -48,9 +34,9 @@ export const useSearchedCompanies = (
       queryFn: () => fetchFilters(filterOptions),
     });
 
-  if (filterOptions.searchTerm && filterOptions.searchTerm.length > 3) {
+  if (filterOptions.searchTerm && filterOptions.searchTerm.length > 2) {
     return useQuery({
-      queryKey: [GET_SEARCH_COMPANIES, pageKey],
+      queryKey: [GET_SEARCH_COMPANIES, pageKey, filterOptions.searchTerm],
       queryFn: () => fetchFilters(filterOptions),
       enabled: true,
     });

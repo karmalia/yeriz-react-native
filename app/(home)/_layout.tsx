@@ -7,7 +7,13 @@ import React, {
   useState,
 } from "react";
 import { Tabs } from "expo-router";
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 import { natural30, natural40, primaryOne } from "@/constants/colors";
 import { useClientOnlyValue } from "@/lib/hooks/useClientOnlyValue";
@@ -81,19 +87,21 @@ export default function TabLayout() {
           tabBarBackground: () => {
             return (
               <ImageBackground
-                source={require("@/assets/images/tabbar/Subtract.png")}
+                source={require("@/assets/images/tabbar/TabBarBgImage.png")}
                 resizeMode="cover"
                 style={{
                   width: "100%",
                   height: "100%",
                   position: "absolute",
                   top: 0,
-                  left: -1,
+                  left: 0,
+                  right: 0,
                   zIndex: -1,
                 }}
               />
             );
           },
+          tabBarAccessibilityLabel: "TabBar",
         }}
       >
         <Tabs.Screen
@@ -111,10 +119,10 @@ export default function TabLayout() {
               );
             },
 
-            tabBarIcon: ({ focused }) => {
+            tabBarIcon: () => {
               return (
                 <View ref={searchRef}>
-                  <TabBars.search focused={focused} />
+                  <TabBars.search />
                 </View>
               );
             },
@@ -136,10 +144,10 @@ export default function TabLayout() {
               );
             },
 
-            tabBarIcon: ({ focused }) => {
+            tabBarIcon: () => {
               return (
                 <View ref={favoritesRef}>
-                  <TabBars.favorites focused={focused} />
+                  <TabBars.favorites />
                 </View>
               );
             },
@@ -180,10 +188,10 @@ export default function TabLayout() {
               );
             },
 
-            tabBarIcon: ({ focused }) => {
+            tabBarIcon: () => {
               return (
                 <View ref={indexRef}>
-                  <TabBars.index focused={focused} />
+                  <TabBars.index />
                 </View>
               );
             },
@@ -206,10 +214,10 @@ export default function TabLayout() {
               );
             },
 
-            tabBarIcon: ({ focused }) => {
+            tabBarIcon: () => {
               return (
                 <View ref={basketRef}>
-                  <TabBars.basket focused={focused} />
+                  <TabBars.basket />
                 </View>
               );
             },
@@ -231,10 +239,10 @@ export default function TabLayout() {
                 </View>
               );
             },
-            tabBarIcon: ({ focused }) => {
+            tabBarIcon: () => {
               return (
                 <View ref={profileRef}>
-                  <TabBars.profile focused={focused} />
+                  <TabBars.profile />
                 </View>
               );
             },
@@ -254,7 +262,7 @@ export default function TabLayout() {
 const tabStyles = StyleSheet.create({
   tabBarStyle: {
     height: 60,
-    backgroundColor: "transparent",
+    borderTopWidth: 0,
     position: "absolute",
     elevation: 0,
   },
@@ -264,7 +272,6 @@ const tabStyles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "flex-start",
     paddingHorizontal: 12,
-
     marginTop: Constants.statusBarHeight,
   },
 

@@ -12,6 +12,9 @@ import Mulish from "@/constants/font";
 import CardIcons from "../shared/icons/card.icons";
 import Icons from "../shared/icons/icons";
 import { TCompanyCard } from "./card.types";
+import { opacity } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
+import { useRouter } from "expo-router";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const getWidthAndHeightCompanyCard = () => {
   const screenWidth = Dimensions.get("window").width;
@@ -26,40 +29,56 @@ const getWidthAndHeightCompanyCard = () => {
 
 const CompanyHomeCard = ({ data }: { data: TCompanyCard }) => {
   const { cardWidth, cardHeight } = getWidthAndHeightCompanyCard();
-
+  const router = useRouter();
   return (
-    <ImageBackground
-      source={{ uri: data.imageUrl }}
-      resizeMode="cover"
-      style={[
-        styles.card,
-        {
-          width: cardWidth,
-          height: cardHeight,
-        },
-      ]}
+    <TouchableOpacity
+      onPress={() => {
+        router.push(
+          `modals/company-modal?companyId=${data.id}&companyDistance=${data.distance}`
+        );
+      }}
     >
-      <View style={styles.cardContent}>
-        <ThemedText style={styles.companyName}>{data.name}</ThemedText>
-        <ThemedText>{data.companyTypeName}</ThemedText>
-        <ThemedText style={styles.distance}>
-          <Icons.LocationOn style={{ color: "white" }} width={14} height={14} />
-          {" null "}km
-        </ThemedText>
-      </View>
+      <ImageBackground
+        source={{ uri: data.imageUrl }}
+        resizeMode="cover"
+        style={[
+          styles.card,
+          {
+            width: cardWidth,
+            height: cardHeight,
+          },
+        ]}
+      >
+        <View style={styles.cardContent}>
+          <ThemedText style={styles.companyName}>{data.name}</ThemedText>
+          <ThemedText>{data.companyTypeName}</ThemedText>
+          <ThemedText style={styles.distance}>
+            <Icons.LocationOn
+              style={{ color: "white" }}
+              width={14}
+              height={14}
+            />
+            {(data.distance / 1000).toFixed(1)}km
+          </ThemedText>
+        </View>
 
-      <View style={styles.ratingContainer}>
-        <CardIcons.StarIcon width={14} height={14} style={styles.iconStar} />
-        <Text style={styles.ratingNumber}>{data.starRating}</Text>
-      </View>
+        <View style={styles.ratingContainer}>
+          <CardIcons.StarIcon width={14} height={14} style={styles.iconStar} />
+          <Text style={styles.ratingNumber}>{data.starRating}</Text>
+        </View>
 
-      <View style={styles.overlay} />
-      {data.isActive ? (
-        <CardIcons.FavoriteUp style={styles.badgeIcon} />
-      ) : (
-        <CardIcons.FavoriteDown style={styles.badgeIcon} />
-      )}
-    </ImageBackground>
+        <View style={styles.overlay} />
+        {data.isActive ? (
+          <View style={styles.badgeIcon}>
+            <CardIcons.FavoriteUp style={{ color: "red", opacity: 0.9 }} />
+          </View>
+        ) : (
+          <View style={styles.badgeIcon}>
+            <CardIcons.FavoriteDown style={{ color: "gray", opacity: 0.9 }} />
+          </View>
+        )}
+      </ImageBackground>
+    </TouchableOpacity>
   );
 };
 
@@ -71,8 +90,9 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "flex-start",
     position: "relative",
+    flexDirection: "row",
   },
   cardContent: {
     width: "100%",
@@ -141,10 +161,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   badgeIcon: {
-    position: "absolute",
-    top: 10,
-    right: 10,
-    zIndex: 2,
     color: tertiaryThree,
+    paddingTop: 8,
+    paddingRight: 8,
   },
 });

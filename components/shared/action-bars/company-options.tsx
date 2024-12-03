@@ -7,44 +7,48 @@ import Animated, {
   Easing,
   runOnJS,
 } from "react-native-reanimated";
+import Constants from "expo-constants";
 import {
   Gesture,
   GestureDetector,
   ScrollView,
 } from "react-native-gesture-handler";
 import { natural30, natural40, primaryOne } from "@/constants/colors";
-import AllFilters from "./all-filters";
-import FilterStoreContents from "./filterstore-contents";
+
 import Mulish from "@/constants/font";
-import useFilterStore from "@/stores/filterStore";
+
 import Icons from "../icons/icons";
-
-enum EContentNames {
-  orderings = "Sıralama",
-  kitchens = "Mutfak",
-  paymentTypes = "Ödeme Türleri",
-  minOrderAmounts = "Minimum Sepet Tutarı",
-  filterByPoint = "Puan",
-}
-
-const FilterOrderBar = () => {
+import ThemedText from "../themed-text/themed-text";
+import { useRouter } from "expo-router";
+type TCompanyContentTabs = "meals" | "about" | "complain";
+const CompanyModalOptions = ({
+  setModal,
+  modal,
+}: {
+  modal: {
+    status: boolean;
+    activeTab: TCompanyContentTabs;
+  };
+  setModal: React.Dispatch<
+    React.SetStateAction<{
+      status: boolean;
+      activeTab: TCompanyContentTabs;
+    }>
+  >;
+}) => {
+  const router = useRouter();
   const [contentHeight, setContentHeight] = useState(0);
   const [actionBarHeight, setActionBarHeight] = useState(0);
   const maxActionBarHeight = Dimensions.get("window").height * 0.9;
 
-  const { toogleActionBar, content, changeRefetchId, isActive } =
-    useFilterStore();
-  console.log("content filterStore", content);
-
   const translateY = useSharedValue(0);
 
-  const headerHeight = Dimensions.get("window").height * 0.1;
-  const footerHeight = 74;
+  const headerHeight = Dimensions.get("window").height * 0.075;
 
   const threshold = actionBarHeight * 0.25;
 
   useEffect(() => {
-    const totalHeight = headerHeight + contentHeight + footerHeight;
+    const totalHeight = headerHeight + contentHeight;
 
     if (totalHeight > maxActionBarHeight) {
       setActionBarHeight(maxActionBarHeight);
@@ -62,7 +66,7 @@ const FilterOrderBar = () => {
     })
     .onEnd((event) => {
       if (event.translationY > threshold) {
-        runOnJS(toogleActionBar)(false);
+        runOnJS(setModal)({ ...modal, status: false });
       } else {
         translateY.value = withTiming(-actionBarHeight, {
           duration: 300,
@@ -78,7 +82,7 @@ const FilterOrderBar = () => {
   });
 
   useEffect(() => {
-    if (isActive && actionBarHeight > 0) {
+    if (modal.status && actionBarHeight > 0) {
       translateY.value = withTiming(-actionBarHeight, {
         duration: 300,
         easing: Easing.inOut(Easing.ease),
@@ -89,28 +93,26 @@ const FilterOrderBar = () => {
         easing: Easing.inOut(Easing.ease),
       });
     }
-  }, [isActive, actionBarHeight]);
+  }, [modal.status, actionBarHeight]);
 
   return (
-    <>
-      <View
-        style={{
-          position: "absolute",
-          bottom: 0,
-          top: 0,
-          left: 0,
-          right: 0,
-          height: "100%",
-          backgroundColor: "rgba(0,0,0,0.5)",
-          display: isActive ? "flex" : "none",
-        }}
-      />
+    <View
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        height: Dimensions.get("window").height,
+        width: Dimensions.get("window").width,
+        backgroundColor: "rgba(0,0,0,0.5)",
+        display: modal.status ? "flex" : "none",
+      }}
+    >
       {actionBarHeight > 0 && (
         <Animated.View
           style={[
             {
               position: "absolute",
-              bottom: -actionBarHeight,
+              bottom: -actionBarHeight + Constants.statusBarHeight,
               left: 0,
               height: actionBarHeight,
               borderTopRightRadius: 20,
@@ -157,11 +159,14 @@ const FilterOrderBar = () => {
                   right: 12,
                   top: 0,
                   transform: [
-                    { translateY: Dimensions.get("window").height * 0.05 - 8 },
+                    { translateY: Dimensions.get("window").height * 0.04 - 8 },
                   ],
                 }}
                 onPress={() => {
-                  toogleActionBar(false);
+                  setModal({
+                    ...modal,
+                    status: false,
+                  });
                 }}
               >
                 <Icons.CloseIcon color={primaryOne} width={16} height={16} />
@@ -176,7 +181,7 @@ const FilterOrderBar = () => {
                   letterSpacing: 1,
                 }}
               >
-                {EContentNames[content]}
+                {"Seçenekler"}
               </Text>
             </View>
           </GestureDetector>
@@ -184,73 +189,115 @@ const FilterOrderBar = () => {
           <ScrollView
             contentContainerStyle={{
               paddingHorizontal: 12,
+              paddingTop: 6,
               flexDirection: "row",
-              flexWrap: "wrap",
-              justifyContent: "flex-start",
+              justifyContent: "center",
             }}
             style={{
-              maxHeight: actionBarHeight - headerHeight - footerHeight,
-              paddingTop: 12,
-              paddingBottom: 12,
+              maxHeight: actionBarHeight - headerHeight,
             }}
           >
-            {/* Remove the wrapping View or adjust its styles */}
             <View
               onLayout={(event) => {
                 const { height } = event.nativeEvent.layout;
                 setContentHeight(height);
               }}
               style={{
-                paddingBottom: 20,
+                width: "100%",
               }}
             >
-              {content !== "filters" && <FilterStoreContents />}
-              {content === "filters" && <AllFilters />}
+              {modal.activeTab !== "meals" && (
+                <TouchableOpacity
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: 12,
+                    borderBottomWidth: 1,
+                    borderColor: natural40,
+                    padding: 12,
+                  }}
+                  onPress={() => {
+                    setModal({
+                      status: false,
+                      activeTab: "meals",
+                    });
+                  }}
+                >
+                  <ThemedText
+                    style={{
+                      color: "black",
+                      fontFamily: Mulish.SemiBold,
+                    }}
+                  >
+                    Yemekler
+                  </ThemedText>
+                </TouchableOpacity>
+              )}
+
+              {modal.activeTab !== "about" && (
+                <TouchableOpacity
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: 12,
+                    borderBottomWidth: 1,
+                    borderColor: natural40,
+                    padding: 12,
+                  }}
+                  onPress={() => {
+                    setModal({
+                      status: false,
+                      activeTab: "about",
+                    });
+                  }}
+                >
+                  <ThemedText
+                    style={{
+                      color: "black",
+                      fontFamily: Mulish.SemiBold,
+                    }}
+                  >
+                    İşletme Hakkında
+                  </ThemedText>
+                </TouchableOpacity>
+              )}
+
+              {modal.activeTab !== "complain" && (
+                <TouchableOpacity
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: 12,
+                    borderBottomWidth: 1,
+                    borderColor: natural40,
+                    padding: 12,
+                  }}
+                  onPress={() => {
+                    setModal({
+                      status: false,
+                      activeTab: "complain",
+                    });
+                  }}
+                >
+                  <ThemedText
+                    style={{
+                      color: "black",
+                      fontFamily: Mulish.SemiBold,
+                    }}
+                  >
+                    Şikayet Bildir
+                  </ThemedText>
+                </TouchableOpacity>
+              )}
             </View>
           </ScrollView>
-
-          <View
-            style={{
-              width: "100%",
-              backgroundColor: "white",
-              elevation: 4,
-              paddingTop: 12,
-              borderWidth: 1,
-              borderColor: natural40,
-            }}
-          >
-            <TouchableOpacity
-              style={{
-                width: "95%",
-                alignSelf: "center",
-                borderRadius: 8,
-                height: 50,
-                marginBottom: 12,
-                backgroundColor: primaryOne,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              onPress={() => {
-                toogleActionBar(false);
-                changeRefetchId();
-              }}
-            >
-              <Text
-                style={{
-                  color: "white",
-                  fontSize: 18,
-                  fontFamily: Mulish.SemiBold,
-                  letterSpacing: 1,
-                }}
-              >
-                UYGULA
-              </Text>
-            </TouchableOpacity>
-          </View>
         </Animated.View>
       )}
-    </>
+    </View>
   );
 };
 
-export default FilterOrderBar;
+export default CompanyModalOptions;

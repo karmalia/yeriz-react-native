@@ -41,10 +41,10 @@ const FilteredRestaurants = (props: Props) => {
       filters: {
         cuisineCategoryIds: filterStore.kitchens.data
           .filter((kitchen) => kitchen.isActive && kitchen.value != null)
-          .map((kitchen) => kitchen.value),
+          .map((kitchen) => Number(kitchen.value)),
       },
     },
-    filterStore.isFilterBarOpen
+    "filteredRestaurants"
   );
 
   const [isFilterOpen, setIsFilterOpen] = React.useState(false);

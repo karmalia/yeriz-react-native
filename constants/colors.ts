@@ -18,6 +18,9 @@ export const primaryThree = "#64FFBA";
 export const primaryFour = "#2AE391";
 export const primaryFive = "#E5FFF4";
 
+export const passiveStar = "#B4DBD4";
+export const activeStar = "#FFC700";
+
 export const productCardBackground = "#F7F8FA";
 
 export const secondaryOne = "#FFC700";

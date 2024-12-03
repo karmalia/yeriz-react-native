@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "category": "Burgers",
+    "data": [
+      {
+        "id": 1,
+        "name": "Cheeseburger",
+        "originalPrice": 5.99,
+        "discountedPrice": 4.99,
+        "availableTime": "10:00 - 22:00",
+        "imageUrl": "https://cdn.yemek.com/mnresize/1250/833/uploads/2019/06/cheeseburger-one-cikan-yemekcom.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Bacon Cheeseburger",
+        "originalPrice": 6.99,
+        "discountedPrice": 5.99,
+        "availableTime": "10:00 - 22:00",
+        "imageUrl": "https://cdn.yemek.com/mnresize/1250/833/uploads/2019/06/cheeseburger-one-cikan-yemekcom.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Mushroom Swiss Burger",
+        "originalPrice": 7.99,
+        "discountedPrice": 6.99,
+        "availableTime": "10:00 - 22:00",
+        "imageUrl": "https://cdn.yemek.com/mnresize/1250/833/uploads/2019/06/cheeseburger-one-cikan-yemekcom.jpg"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "category": "Salads",
+    "data": [
+      {
+        "id": 1,
+        "name": "Garden Salad",
+        "originalPrice": 4.99,
+        "discountedPrice": 3.99,
+        "availableTime": "10:00 - 22:00",
+        "imageUrl": "https://cdn.yemek.com/mnresize/1250/833/uploads/2019/06/cheeseburger-one-cikan-yemekcom.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Caesar Salad",
+        "originalPrice": 5.99,
+        "discountedPrice": 4.99,
+        "availableTime": "10:00 - 22:00",
+        "imageUrl": "https://cdn.yemek.com/mnresize/1250/833/uploads/2019/06/cheeseburger-one-cikan-yemekcom.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Greek Salad",
+        "originalPrice": 6.99,
+        "discountedPrice": 5.99,
+        "availableTime": "10:00 - 22:00",
+        "imageUrl": "https://cdn.yemek.com/mnresize/1250/833/uploads/2019/06/cheeseburger-one-cikan-yemekcom.jpg"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "category": "Kebabs",
+    "data": [
+      {
+        "id": 1,
+        "name": "Garden Salad",
+        "originalPrice": 4.99,
+        "discountedPrice": 3.99,
+        "availableTime": "10:00 - 22:00",
+        "imageUrl": "https://cdn.yemek.com/mnresize/1250/833/uploads/2019/06/cheeseburger-one-cikan-yemekcom.jpg"
+      },
+      {
+        "id": 2,
+        "name": "Caesar Salad",
+        "originalPrice": 5.99,
+        "discountedPrice": 4.99,
+        "availableTime": "10:00 - 22:00",
+        "imageUrl": "https://cdn.yemek.com/mnresize/1250/833/uploads/2019/06/cheeseburger-one-cikan-yemekcom.jpg"
+      },
+      {
+        "id": 3,
+        "name": "Greek Salad",
+        "originalPrice": 6.99,
+        "discountedPrice": 5.99,
+        "availableTime": "10:00 - 22:00",
+        "imageUrl": "https://cdn.yemek.com/mnresize/1250/833/uploads/2019/06/cheeseburger-one-cikan-yemekcom.jpg"
+      }
+    ]
+  }
+]

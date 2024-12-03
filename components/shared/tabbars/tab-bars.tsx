@@ -1,14 +1,14 @@
 import React from "react";
 import { primaryOne, secondaryFour } from "@/constants/colors";
 import Icons from "../icons/icons";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import useBasketStore from "@/stores/basketStore";
 
 const IconSize = 20;
 
 // Reusable TabIcon component
-const TabIcon = ({ IconComponent, focused, showBadge = false }) => (
-  <View style={[styles.iconContainer, focused && styles.focusedContainer]}>
+const TabIcon = ({ IconComponent, showBadge = false, isHome }) => (
+  <View style={[styles.iconContainer, isHome && styles.focusedContainer]}>
     {showBadge && <View style={styles.badge} />}
     <IconComponent
       width={IconSize}
@@ -19,22 +19,22 @@ const TabIcon = ({ IconComponent, focused, showBadge = false }) => (
 );
 
 export const TabBars = {
-  index: () => <TabIcon IconComponent={Icons.TabsHome} focused={true} />,
-  search: () => <TabIcon IconComponent={Icons.TabsFilter} focused={false} />,
+  index: () => <TabIcon IconComponent={Icons.TabsHome} isHome={true} />,
+  search: () => <TabIcon IconComponent={Icons.TabsFilter} isHome={false} />,
   basket: () => {
     const { basketItems } = useBasketStore();
     return (
       <TabIcon
         IconComponent={Icons.TabsBasket}
-        focused={false}
         showBadge={basketItems.length > 0}
+        isHome={false}
       />
     );
   },
   favorites: () => (
-    <TabIcon IconComponent={Icons.TabsFavorites} focused={false} />
+    <TabIcon IconComponent={Icons.TabsFavorites} isHome={false} />
   ),
-  profile: () => <TabIcon IconComponent={Icons.TabsProfile} focused={false} />,
+  profile: () => <TabIcon IconComponent={Icons.TabsProfile} isHome={false} />,
 };
 
 const styles = StyleSheet.create({
@@ -46,10 +46,11 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   focusedContainer: {
-    height: IconSize * 3,
-    width: IconSize * 3,
-    borderRadius: 50,
-    marginBottom: 50,
+    height: 60,
+    width: 60,
+    borderRadius: 100,
+    marginBottom: 55,
+    marginLeft: 1,
     backgroundColor: primaryOne,
   },
   iconStyle: {

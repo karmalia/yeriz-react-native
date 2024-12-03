@@ -1,32 +1,26 @@
 import { TFood } from "@/types";
 import { create } from "zustand";
+import uuid from "react-native-uuid";
+import { GetAllFiltersResponse } from "@/api/queries/filters/get-all-filters";
 
 type TFilterData = {
-  name: string;
+  filterName: string;
   isMultiSelect: boolean;
 
-  data: { id: string; name: string; imgUrl?: string }[];
-};
-
-type TDummyData = {
-  byKitchens: TFilterData;
-  byOrdering: TFilterData;
-  byPaymentTypes: TFilterData;
-  byMinOrderAmounts: TFilterData;
-  byPoint: TFilterData;
+  data: { id: number; name: string; imgUrl?: string }[];
 };
 
 export interface IFilterItem {
   name: string;
-  value: string | null;
+  value: number | null;
   defaultItem: boolean;
   isActive: boolean;
-  imgUrl: null | string;
+  imgUrl?: null | string;
   action: (filterItem: IFilterItem) => void;
 }
 
 function generateFilterItems(
-  filterData: TFilterData,
+  filterData: TFilterData | null,
   action: (filterItem: IFilterItem) => void
 ): IFilterItem[] {
   const defaultItem: IFilterItem = {
@@ -38,7 +32,7 @@ function generateFilterItems(
     action,
   };
 
-  const items = filterData.data.map((item) => ({
+  const items = filterData?.data.map((item) => ({
     name: item.name,
     value: item.id,
     defaultItem: false,
@@ -47,7 +41,7 @@ function generateFilterItems(
     action,
   }));
 
-  return [defaultItem, ...items];
+  return [defaultItem, ...(items || [])];
 }
 
 interface FilterCategory {
@@ -57,6 +51,7 @@ interface FilterCategory {
   data: IFilterItem[];
 }
 interface FilterState {
+  refetchId: string;
   searchTerm: string;
   isFilterBarOpen: boolean;
   isActive: boolean;
@@ -76,7 +71,9 @@ interface FilterState {
   changeContent: (value: string) => void;
   resetFilter: () => void;
   toggleFilterBar: (value: boolean) => void;
-  initializeFilters: (data: TDummyData) => void;
+  initializeFilters: (data: GetAllFiltersResponse) => void;
+  handleSearchTerm: (value: string) => void;
+  changeRefetchId: () => void;
 }
 
 const useFilterStore = create<FilterState>((set, get) => {
@@ -103,8 +100,11 @@ const useFilterStore = create<FilterState>((set, get) => {
     }));
   };
 
+  const handleSearchTerm = (value: string) => {
+    set({ searchTerm: value });
+  };
+
   const changeKitchens = (filterItem: IFilterItem) => {
-    const currentKitchens = get().kitchens;
     if (!filterItem.value) {
       console.log("phase 1");
       set((state) => ({
@@ -136,7 +136,6 @@ const useFilterStore = create<FilterState>((set, get) => {
         .filter((item) => item.value !== null)
         .some((item) => item.isActive);
 
-      console.log("isSomeActive", isSomeActive);
       set(() => ({
         kitchens: {
           name: get().kitchens.name,
@@ -153,6 +152,10 @@ const useFilterStore = create<FilterState>((set, get) => {
         },
       }));
     }
+  };
+
+  const changeRefetchId = () => {
+    set({ refetchId: uuid.v4() });
   };
 
   const changePaymentTypes = (filterItem: IFilterItem) => {
@@ -201,37 +204,34 @@ const useFilterStore = create<FilterState>((set, get) => {
     set({ isFilterBarOpen: value });
   };
 
-  const initializeFilters = (data: TDummyData) => {
+  const initializeFilters = (data: GetAllFiltersResponse) => {
     set({
       orderings: {
-        name: data.byOrdering.name,
+        name: "Sıralama Dummy",
         isDefault: true,
-        isMultiSelect: data.byOrdering.isMultiSelect,
-        data: generateFilterItems(data.byOrdering, changeOrdering),
+        isMultiSelect: false,
+        data: generateFilterItems(null, changeOrdering),
       },
       kitchens: {
-        name: data.byKitchens.name,
+        name: data.byCuisineCategory.filterName,
         isDefault: true,
-        isMultiSelect: data.byKitchens.isMultiSelect,
-        data: generateFilterItems(data.byKitchens, changeKitchens),
+        isMultiSelect: data.byCuisineCategory.isMultiSelect,
+        data: generateFilterItems(data.byCuisineCategory, changeKitchens),
       },
       paymentTypes: {
-        name: data.byPaymentTypes.name,
+        name: data.byPaymentType.filterName,
         isDefault: true,
-        isMultiSelect: data.byPaymentTypes.isMultiSelect,
-        data: generateFilterItems(data.byPaymentTypes, changePaymentTypes),
+        isMultiSelect: data.byPaymentType.isMultiSelect,
+        data: generateFilterItems(data.byPaymentType, changePaymentTypes),
       },
       minOrderAmounts: {
-        name: data.byMinOrderAmounts.name,
+        name: data.byPriceRange.filterName,
         isDefault: true,
-        isMultiSelect: data.byMinOrderAmounts.isMultiSelect,
-        data: generateFilterItems(
-          data.byMinOrderAmounts,
-          changeMinOrderAmounts
-        ),
+        isMultiSelect: data.byPriceRange.isMultiSelect,
+        data: generateFilterItems(data.byPriceRange, changeMinOrderAmounts),
       },
       filterByPoint: {
-        name: data.byPoint.name,
+        name: data.byPoint.filterName,
         isDefault: true,
         isMultiSelect: data.byPoint.isMultiSelect,
         data: generateFilterItems(data.byPoint, changeFilterByPoint),
@@ -290,6 +290,7 @@ const useFilterStore = create<FilterState>((set, get) => {
   };
 
   return {
+    refetchId: uuid.v4(),
     isFilterBarOpen: false,
     searchTerm: "",
     isActive: false,
@@ -321,6 +322,8 @@ const useFilterStore = create<FilterState>((set, get) => {
     initializeFilters,
     toggleFilterBar,
     resetFilter,
+    handleSearchTerm,
+    changeRefetchId,
   };
 });
 

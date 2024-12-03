@@ -26,6 +26,8 @@ import KitchenSlider from "@/components/(home)/index/kitchen-slider";
 import HomeCompanySlider from "@/components/(home)/index/home-company-slider";
 import ThemedInput from "@/components/shared/themed-input/themed-input";
 import useFilterStore, { IFilterItem } from "@/stores/filterStore";
+import CompaniesNearby from "@/components/(home)/index/companies-nearby";
+import CompaniesMostRated from "@/components/(home)/index/companies-most-rated";
 
 const SearchBar = () => {
   const router = useRouter();
@@ -54,8 +56,6 @@ const SearchBar = () => {
 };
 
 export default function HomeScreen() {
-  const filterStore = useFilterStore();
-
   const Sections: {
     title: {
       hasLink: boolean;
@@ -82,28 +82,14 @@ export default function HomeScreen() {
       Component: KitchenSlider,
     },
     {
-      title: {
-        hasLink: true,
-        title: "Yakındakiler",
-        action: filterStore.changeOrdering,
-        value: filterStore.orderings.data.find(
-          (item) => item.name == "Yakınlık"
-        )!,
-      },
-      data: dummyDataProduct as unknown as TProductCard[],
-      Component: HomeCompanySlider,
+      title: null,
+      data: [],
+      Component: CompaniesNearby,
     },
     {
-      title: {
-        hasLink: true,
-        title: "En Çok Değerlendirilenler",
-        action: filterStore.changeOrdering,
-        value: filterStore.orderings.data.find(
-          (item) => item.name == "En Çok Değerlendirilenler"
-        )!,
-      },
-      data: dummyDataProduct2 as unknown as TProductCard[],
-      Component: HomeCompanySlider,
+      title: null,
+      data: [],
+      Component: CompaniesMostRated,
     },
   ];
 
