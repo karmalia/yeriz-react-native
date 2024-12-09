@@ -1,10 +1,12 @@
 import calculateDeltas from "@/lib/utils/calculateDelta";
 import { TFood } from "@/types";
-import { Company } from "@/types/api.types";
+import { ICompany } from "@/types/api.types";
+import { AnimatedRegion } from "react-native-maps";
 import { create } from "zustand";
 
 interface MapState {
-  companies: Company[];
+  currentAddress: string;
+  companies: ICompany[];
   distanceArranged: boolean;
   latitude: number;
   longitude: number;
@@ -14,9 +16,16 @@ interface MapState {
   changeLocation: (latitude: number, longitude: number) => void;
   changeDistanceArranged: (value: boolean) => void;
   changeZoomLevel: (zoomLevel: number) => void;
+  changeCurrentAddress: (address: string) => void;
 }
 
 const useGoogleMapStore = create<MapState>((set, get) => {
+  const changeCurrentAddress = (address: string) => {
+    set(() => ({
+      currentAddress: address,
+    }));
+  };
+
   const changeLocation = (latitude: number, longitude: number) => {
     set({
       latitude,
@@ -44,6 +53,7 @@ const useGoogleMapStore = create<MapState>((set, get) => {
     }
   };
   return {
+    currentAddress: "",
     companies: [],
     distanceArranged: false,
     latitude: 38.433418,
@@ -54,6 +64,7 @@ const useGoogleMapStore = create<MapState>((set, get) => {
     changeLocation,
     changeZoomLevel,
     changeDistanceArranged,
+    changeCurrentAddress,
   };
 });
 

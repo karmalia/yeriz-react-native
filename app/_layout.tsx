@@ -1,6 +1,6 @@
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
-import React from "react";
+import { Stack, useRouter } from "expo-router";
+import React, { useState } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
@@ -19,6 +19,13 @@ import useFilterStore from "@/stores/filterStore";
 import { LinearGradient } from "expo-linear-gradient";
 import Icons from "@/components/shared/icons/icons";
 
+import useGoogleMapStore from "@/stores/googleMapStore";
+import { useGetReverseGeolocation } from "@/api/queries/geocoding/get-reverse-geocoding";
+import { retriveAdress } from "@/lib/utils/retrive-address";
+import AddressBar from "@/components/header/address-bar";
+import Constants from "expo-constants";
+import { KeyboardProvider } from "react-native-keyboard-controller";
+import { StatusBar } from "expo-status-bar";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -55,7 +62,9 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView>
       <ClientProvider>
-        <RootLayoutNav />
+        <KeyboardProvider>
+          <RootLayoutNav />
+        </KeyboardProvider>
       </ClientProvider>
     </GestureHandlerRootView>
   );
@@ -69,7 +78,7 @@ function RootLayoutNav() {
     if (data) {
       initializeFilters(data);
     }
-  }, [data]);
+  }, [isLoading]);
 
   if (isLoading || isError) {
     return (
@@ -111,7 +120,15 @@ function RootLayoutNav() {
           <Stack.Screen
             name="modals/map-modal"
             options={{
-              headerShown: false,
+              header: () => (
+                <View
+                  style={{
+                    paddingTop: Constants.statusBarHeight,
+                  }}
+                >
+                  <AddressBar />
+                </View>
+              ),
               presentation: "modal",
             }}
           />

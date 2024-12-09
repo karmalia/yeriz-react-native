@@ -11,14 +11,14 @@ import {
 import Mulish from "@/constants/font";
 import CardIcons from "../shared/icons/card.icons";
 import Icons from "../shared/icons/icons";
-import { TCompanyCard } from "./card.types";
+import { ICompany } from "@/types/api.types";
 import { useRouter } from "expo-router";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const getWidth = () => Dimensions.get("window").width * 0.9;
 const getHeight = () => 125;
 
-const CompanyCard = ({ data }: { data: TCompanyCard }) => {
+const CompanyCard = ({ data }: { data: ICompany }) => {
   const router = useRouter();
   return (
     <TouchableOpacity
@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderRadius: 12,
     backgroundColor: "white",
+    elevation: 2,
   },
   cardContent: {
     width: "100%",

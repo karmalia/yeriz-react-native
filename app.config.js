@@ -37,7 +37,17 @@ export default {
       output: "static",
       favicon: "./assets/images/icon.png",
     },
-    plugins: ["expo-router", "expo-font"],
+    plugins: [
+      "expo-router",
+      "expo-font",
+      [
+        "expo-location",
+        {
+          locationAlwaysAndWhenInUsePermission:
+            "Allow $(bizyeriz) to use your location.",
+        },
+      ],
+    ],
     experiments: {
       typedRoutes: true,
     },

@@ -4,27 +4,17 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Dimensions,
 } from "react-native";
 import React from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useGetCompanyById } from "@/api/queries/companies/get-all-company-byid";
 import AnimatedSpinner from "@/components/shared/spinner/spinner";
-import {
-  natural20,
-  natural30,
-  primaryOne,
-  secondaryThree,
-  tertiaryThree,
-} from "@/constants/colors";
+import { natural30, primaryOne, secondaryThree } from "@/constants/colors";
 import Icons from "@/components/shared/icons/icons";
 import Constants from "expo-constants";
 import ThemedText from "@/components/shared/themed-text/themed-text";
 import Mulish from "@/constants/font";
-import { Image } from "expo-image";
 import CardIcons from "@/components/shared/icons/card.icons";
-import { ScrollView } from "react-native-gesture-handler";
-import Meals from "@/components/company-modal/meals";
 import CompanyDetails from "@/components/company-modal/company-details";
 import SendComplain from "@/components/company-modal/send-complain";
 import CompanyModalOptions from "@/components/shared/action-bars/company-options";
@@ -192,7 +182,12 @@ const CompanyModal = () => {
           {modal.activeTab === "meals" ? (
             <CompanyContent companyId={params.companyId} />
           ) : modal.activeTab === "about" ? (
-            <CompanyDetails />
+            <CompanyDetails
+              mobilePhone={data.mobilePhone}
+              companyPhone={data.companyPhone}
+              address={`${data.city} / ${data.district} / ${data.street} / ${data.addressDetail}`}
+              workHours={null}
+            />
           ) : modal.activeTab === "complain" ? (
             <SendComplain />
           ) : modal.activeTab === "comments" ? (
@@ -201,12 +196,6 @@ const CompanyModal = () => {
         </View>
 
         <CompanyModalOptions modal={modal} setModal={setModal} />
-        <View
-          style={{
-            height: 40,
-            backgroundColor: "white",
-          }}
-        />
       </View>
     );
   }

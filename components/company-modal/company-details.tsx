@@ -12,9 +12,25 @@ import {
 import Icons from "../shared/icons/icons";
 import CardIcons from "../shared/icons/card.icons";
 
-type Props = {};
+type CompanyDetailsProps = {
+  mobilePhone: string | null;
+  companyPhone: string | null;
+  address: string | null;
+  workHours:
+    | {
+        day: string;
+        open: string;
+        close: string;
+      }[]
+    | null;
+};
 
-const CompanyDetails = (props: Props) => {
+const CompanyDetails = ({
+  mobilePhone,
+  companyPhone,
+  address,
+  workHours,
+}: CompanyDetailsProps) => {
   return (
     <View style={styles.container}>
       <ThemedText
@@ -38,48 +54,79 @@ const CompanyDetails = (props: Props) => {
           paddingBottom: 10,
         }}
       >
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 10,
-          }}
-        >
-          <Icons.Phone width={20} height={20} />
-          <ThemedText
+        {mobilePhone && (
+          <View
             style={{
-              fontFamily: Mulish.Regular,
-              color: natural10,
-              fontSize: 16,
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 10,
             }}
           >
-            {"null"}
-          </ThemedText>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 10,
-          }}
-        >
-          <Icons.LocationOn
-            width={22}
-            height={22}
+            <Icons.Phone width={20} height={20} />
+            <ThemedText
+              style={{
+                fontFamily: Mulish.Regular,
+                color: natural10,
+                fontSize: 16,
+              }}
+            >
+              {mobilePhone}
+            </ThemedText>
+          </View>
+        )}
+        {companyPhone && (
+          <View
             style={{
-              color: primaryOne,
-            }}
-          />
-          <ThemedText
-            style={{
-              fontFamily: Mulish.Regular,
-              color: natural10,
-              fontSize: 16,
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 10,
             }}
           >
-            {"null"}
-          </ThemedText>
-        </View>
+            <Icons.Phone
+              width={22}
+              height={22}
+              style={{
+                color: primaryOne,
+              }}
+            />
+            <ThemedText
+              style={{
+                fontFamily: Mulish.Regular,
+                color: natural10,
+                fontSize: 16,
+              }}
+            >
+              {companyPhone}
+            </ThemedText>
+          </View>
+        )}
+        {address && (
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 10,
+              paddingRight: 20,
+            }}
+          >
+            <Icons.LocationOn
+              width={22}
+              height={22}
+              style={{
+                color: primaryOne,
+              }}
+            />
+            <ThemedText
+              style={{
+                fontFamily: Mulish.Regular,
+                color: natural10,
+                fontSize: 16,
+              }}
+            >
+              {address}
+            </ThemedText>
+          </View>
+        )}
       </View>
       <ThemedText
         style={{

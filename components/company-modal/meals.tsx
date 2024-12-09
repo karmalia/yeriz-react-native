@@ -71,6 +71,7 @@ const Meals = ({ companyId }: Props) => {
       {Sections.map((section) => (
         <MealsSlider companyFood={section} />
       ))}
+      <View style={{ height: 30 }} />
     </ScrollView>
   );
 };

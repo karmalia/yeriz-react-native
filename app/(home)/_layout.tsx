@@ -18,13 +18,15 @@ import {
 import { natural30, natural40, primaryOne } from "@/constants/colors";
 import { useClientOnlyValue } from "@/lib/hooks/useClientOnlyValue";
 
-import HeaderSearch from "@/components/header/header-search";
+import AddressBar from "@/components/header/address-bar";
 import Icons from "@/components/shared/icons/icons";
 import Constants from "expo-constants";
 import { TabBars } from "@/components/shared/tabbars/tab-bars";
 import { StatusBar } from "expo-status-bar";
 import TabbarIndicator from "@/components/shared/tabbars/tabbar-indicator";
 import FilterOrderBar from "@/components/shared/action-bars/filter-order-bar";
+import ThemedText from "@/components/shared/themed-text/themed-text";
+import { styles } from "../(login)/enter-code";
 // import { TabBarsNew } from "@/components/shared/tabbars-new/tab-bars-new";
 
 type IconPos = {
@@ -75,13 +77,9 @@ export default function TabLayout() {
     <>
       <Tabs
         screenOptions={{
-          headerShown: useClientOnlyValue(false, true),
           tabBarShowLabel: false,
 
           tabBarStyle: tabStyles.tabBarStyle,
-          headerLeftContainerStyle: {
-            paddingLeft: 15,
-          },
 
           tabBarHideOnKeyboard: true,
           tabBarBackground: () => {
@@ -111,13 +109,7 @@ export default function TabLayout() {
           }}
           options={{
             title: "Ara",
-            header: () => {
-              return (
-                <View style={tabStyles.headerWrapper}>
-                  <HeaderSearch />
-                </View>
-              );
-            },
+            headerShown: true,
 
             tabBarIcon: () => {
               return (
@@ -136,13 +128,7 @@ export default function TabLayout() {
           }}
           options={{
             title: "Favoriler",
-            header: () => {
-              return (
-                <View style={tabStyles.headerWrapper}>
-                  <HeaderSearch />
-                </View>
-              );
-            },
+            headerShown: false,
 
             tabBarIcon: () => {
               return (
@@ -168,22 +154,39 @@ export default function TabLayout() {
                 <View style={tabStyles.headerWrapper}>
                   <View
                     style={{
+                      height: Constants.statusBarHeight,
+                      borderWidth: 1,
+                      backgroundColor: "red",
+                      width: "100%",
+                    }}
+                  />
+                  <View
+                    style={{
                       flexDirection: "row",
                       alignItems: "center",
                       justifyContent: "flex-start",
-                      height: 60,
+                      paddingVertical: 10,
+                      borderWidth: 1,
                       gap: 10,
-
+                      paddingHorizontal: 20,
                       backgroundColor: "white",
                       width: "100%",
                     }}
                   >
                     <Icons.KesfetLogo width={30} height={30} />
-                    <View style={tabStyles.tabIcon}>
-                      <Text style={tabStyles.tabTitle}>Hoşgeldiniz</Text>
-                    </View>
+
+                    <ThemedText
+                      style={{
+                        fontSize: 20,
+                        fontWeight: "400",
+                        color: natural30,
+                        backgroundColor: "transparent",
+                      }}
+                    >
+                      Hoşgeldiniz
+                    </ThemedText>
                   </View>
-                  <HeaderSearch />
+                  <AddressBar />
                 </View>
               );
             },
@@ -206,13 +209,7 @@ export default function TabLayout() {
           options={{
             title: "Sepet",
             tabBarAccessibilityLabel: "Sepet",
-            header: () => {
-              return (
-                <View style={tabStyles.headerWrapper}>
-                  <HeaderSearch />
-                </View>
-              );
-            },
+            headerShown: false,
 
             tabBarIcon: () => {
               return (
@@ -230,12 +227,12 @@ export default function TabLayout() {
             tabPress: () => setActiveTab("profile"),
           }}
           options={{
-            title: "Profil",
             tabBarAccessibilityLabel: "Profil",
+            headerShown: false,
             header: () => {
               return (
                 <View style={tabStyles.headerWrapper}>
-                  <HeaderSearch />
+                  <AddressBar />
                 </View>
               );
             },
@@ -268,11 +265,18 @@ const tabStyles = StyleSheet.create({
   },
   headerWrapper: {
     backgroundColor: "white",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     flexDirection: "column",
     alignItems: "flex-start",
-    paddingHorizontal: 12,
-    marginTop: Constants.statusBarHeight,
+
+    elevation: 4,
+    shadowColor: natural30,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
 
   tabTitle: {

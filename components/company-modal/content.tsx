@@ -1,11 +1,9 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Mulish from "@/constants/font";
-import { natural30, primaryOne } from "@/constants/colors";
-import Constants from "expo-constants";
+
 import ThemedText from "../shared/themed-text/themed-text";
 import Meals from "./meals";
-import { ScrollView } from "react-native-gesture-handler";
 
 const MetricsSection = () => (
   <View style={styles.metricsContainer}>
@@ -36,7 +34,7 @@ const MetricCard = ({ title, imageSrc, value }) => (
 const CompanyContent = ({ companyId }: { companyId: number | string }) => {
   return (
     <>
-      <MetricsSection />
+      {/* <MetricsSection /> */}
 
       <Meals companyId={companyId} />
     </>

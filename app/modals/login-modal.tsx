@@ -18,7 +18,7 @@ import {
 } from "@/constants/colors";
 import { useClientOnlyValue } from "@/lib/hooks/useClientOnlyValue";
 
-import HeaderSearch from "@/components/header/header-search";
+import AddressBar from "@/components/header/address-bar";
 import Icons from "@/components/shared/icons/icons";
 
 import { TabBars } from "@/components/shared/tabbars/tab-bars";

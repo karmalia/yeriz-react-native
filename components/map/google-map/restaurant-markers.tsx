@@ -5,6 +5,9 @@ import useGoogleMapStore from "@/stores/googleMapStore";
 import { useGetNearbyCompanies } from "@/api/queries/companies/get-nearby-companies";
 import { Marker } from "react-native-maps";
 import { useSearchedCompanies } from "@/api/queries/search/get-searched-companies";
+import Icons from "@/components/shared/icons/icons";
+import { primaryOne, secondaryOne } from "@/constants/colors";
+import { Image } from "expo-image";
 
 type Props = {};
 
@@ -43,11 +46,12 @@ const RestaurantMarkers = (props: Props) => {
             }}
             title={company.name}
             description={company.companyTypeName + " " + company.distance}
-            onPress={() => {
-              // Handle marker press
-              console.log(`Marker pressed: ${company.name}`);
-            }}
-          />
+          >
+            <Image
+              source={require("@/assets/images/map-marker.png")}
+              style={{ width: 30, height: 30 }}
+            />
+          </Marker>
         ))}
       </>
     );

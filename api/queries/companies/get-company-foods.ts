@@ -3,12 +3,16 @@ import api from "@/api/http";
 import { Company } from "@/types/api.types";
 import { useQuery } from "@tanstack/react-query";
 import DummyData from "./dummyCompanyFoods.json";
-import { CompanyFood } from "./companies.types";
+import { ICompanyFood } from "@/types/api.types";
 
-const fetchCompanies = async (id: string): Promise<CompanyFood[]> => {
+const fetchCompanies = async (id: string): Promise<ICompanyFood[]> => {
   //   const response = await api.get("/Companies/getall");
   //   return response.data;
-  return DummyData;
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(DummyData);
+    }, 500);
+  });
 };
 
 export const useGetCompanyFoods = (id: string) => {

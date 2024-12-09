@@ -1,12 +1,11 @@
 import { GET_SEARCH_COMPANIES } from "@/api/constants";
 import api from "@/api/http";
-import { Company } from "@/types/api.types";
+import { ICompany } from "@/types/api.types";
 import { useQuery } from "@tanstack/react-query";
 
-const fetchFilters = async (options): Promise<Company[]> => {
-  console.log("Fetching Data: Fetch Filters", options);
+const fetchFilters = async (options): Promise<ICompany[]> => {
   const response = await api.post("/Companies/filter-companies", options);
-  console.log("response", response.data);
+
   return response.data;
 };
 
@@ -26,8 +25,6 @@ export const useSearchedCompanies = (
   filterOptions: TSearchOptions,
   pageKey: string = ""
 ) => {
-  console.log("filterOptions", filterOptions);
-  console.log("pageKey", pageKey);
   if (!filterOptions.searchTerm)
     return useQuery({
       queryKey: [GET_SEARCH_COMPANIES, pageKey],

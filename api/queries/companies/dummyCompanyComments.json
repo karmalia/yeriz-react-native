@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "createdAt": "2024-03-25",
+    "starRating": 5,
+    "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque varius, enim ut congue tempor, leo magna vulputate lectus, non pharetra lacus quam eget urna. Duis maximus justo et nibh imperdiet, vitae posuere diam pellentesque. "
+  },
+  {
+    "id": 2,
+    "createdAt": "2024-03-22",
+    "starRating": 3,
+    "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque varius, enim ut congue tempor, leo magna vulputate lectus, non pharetra lacus quam eget urna. Duis maximus justo et nibh imperdiet, vitae posuere diam pellentesque. "
+  },
+  {
+    "id": 3,
+    "createdAt": "2024-03-20",
+    "starRating": 4,
+    "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque varius, enim ut congue tempor, leo magna vulputate lectus, non pharetra lacus quam eget urna. Duis maximus justo et nibh imperdiet, vitae posuere diam pellentesque. "
+  },
+  {
+    "id": 4,
+    "createdAt": "2024-03-18",
+    "starRating": 2,
+    "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque varius, enim ut congue tempor, leo magna vulputate lectus, non pharetra lacus quam eget urna. Duis maximus justo et nibh imperdiet, vitae posuere diam pellentesque. "
+  }
+]

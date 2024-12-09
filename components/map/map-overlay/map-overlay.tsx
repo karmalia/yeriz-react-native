@@ -3,16 +3,12 @@ import React from "react";
 import WrappedSvg from "@/components/shared/icons/wrapped-svg";
 import WrappedCircle from "../wrapped-circle/wrapped-circle";
 
-type Props = {
-  mapHeight: number;
-};
-
-const MapOverlay = ({ mapHeight }: Props) => {
+const MapOverlay = () => {
   return (
     <View
       style={{
-        width: Dimensions.get("window").width,
-        height: Dimensions.get("window").height,
+        width: Dimensions.get("screen").width,
+        height: "100%",
 
         position: "absolute",
         backgroundColor: "rgba(0, 0, 0, 0)",

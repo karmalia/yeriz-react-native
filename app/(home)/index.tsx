@@ -28,6 +28,7 @@ import ThemedInput from "@/components/shared/themed-input/themed-input";
 import useFilterStore, { IFilterItem } from "@/stores/filterStore";
 import CompaniesNearby from "@/components/(home)/index/companies-nearby";
 import CompaniesMostRated from "@/components/(home)/index/companies-most-rated";
+import { StatusBar } from "expo-status-bar";
 
 const SearchBar = () => {
   const router = useRouter();
@@ -115,9 +116,9 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    display: "flex",
+
     flexDirection: "column",
-    backgroundColor: contentWhite,
+    backgroundColor: "white",
   },
   titleWrapper: {
     display: "flex",

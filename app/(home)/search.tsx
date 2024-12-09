@@ -19,7 +19,7 @@ import { useSearchedCompanies } from "@/api/queries/search/get-searched-companie
 import DefualtSearchContent from "@/components/(search)/default-search-content";
 import FilteredContent from "@/components/(search)/filtered-content";
 import debounce from "@/lib/utils/bounce";
-
+import Constants from "expo-constants";
 export default function SearchPage() {
   const pathname = usePathname();
   const filterStore = useFilterStore();
@@ -47,6 +47,7 @@ export default function SearchPage() {
             backgroundColor: "white",
             width: "100%",
             elevation: 4,
+            paddingTop: Constants.statusBarHeight,
           },
         ]}
       >
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: contentWhite,
+    backgroundColor: "white",
   },
   filterModal: {
     position: "absolute",

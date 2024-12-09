@@ -1,13 +1,15 @@
 import { GET_AUTO_COMPLETE } from "@/api/constants";
 import api from "@/api/http";
-import { Company } from "@/types/api.types";
+import { ICompany, ISuggestion } from "@/types/api.types";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const fetchAutoComplete = async (
   input: string,
   sessionToken: string | null
-): Promise<Company[]> => {
+): Promise<{
+  suggestions: ISuggestion[];
+}> => {
   const url = "https://places.googleapis.com/v1/places:autocomplete";
   const apiKey = process.env.EXPO_PUBLIC_GOOGLE_PLACES_API; // Replace with your actual API key
 
@@ -37,9 +39,10 @@ const fetchAutoComplete = async (
       },
     });
     //İnput and api key needed
-    return response;
+    console.log("response", response);
+    return response.data;
   } catch (error) {
-    return error;
+    return [];
   }
 };
 

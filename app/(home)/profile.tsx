@@ -1,244 +1,109 @@
-import { Dimensions, StyleSheet, Text } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import * as React from "react";
 import { View } from "react-native";
 import { useRouter } from "expo-router";
-import ThemedButton from "@/components/shared/themed-button/themed-button";
 import ThemedText from "@/components/shared/themed-text/themed-text";
 import { LinearGradient } from "expo-linear-gradient";
-import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  natural20,
-  natural30,
-  primaryOne,
-  secondaryFour,
-  secondaryOne,
-  secondaryThree,
-  secondaryTwo,
-} from "@/constants/colors";
+import Constants from "expo-constants";
+import { primaryOne, secondaryFour } from "@/constants/colors";
 import { Image } from "expo-image";
-import Icons from "@/components/shared/icons/icons";
-import {
-  GestureHandlerRootView,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native-gesture-handler";
+
 import { StatusBar } from "expo-status-bar";
+import Mulish from "@/constants/font";
+import UserMetrics from "@/components/(profile)/user-metrics";
+import ProfileLinks from "@/components/(profile)/profile-links";
+
+const imageSize = Dimensions.get("window").height * 0.08;
 
 export default function ProfilePage() {
-  const router = useRouter();
   return (
-    <GestureHandlerRootView>
-      <StatusBar backgroundColor="white" />
-      <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
+      <StatusBar translucent />
+
+      <View
+        style={{
+          borderBottomEndRadius: 20,
+          elevation: 5,
+
+          borderBottomStartRadius: 20,
+          overflow: "hidden",
+        }}
+      >
         <LinearGradient
-          colors={["white", secondaryThree]}
+          colors={["white", secondaryFour]}
           style={styles.profile}
         >
           <View
             style={{
               display: "flex",
-              flexDirection: "row",
+              justifyContent: "center",
               alignItems: "center",
-              gap: 10,
-            }}
-          >
-            <View
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: Dimensions.get("window").height * 0.08,
-                width: Dimensions.get("window").height * 0.08,
+              height: imageSize,
+              width: imageSize,
 
-                borderRadius: 50,
-                overflow: "hidden",
-                borderColor: secondaryFour,
-              }}
-            >
-              <Image
-                source={require("@/assets/images/default-profile-photo.png")}
-                style={{ width: "100%", height: "100%" }}
-              />
-            </View>
-            <View>
-              <ThemedText
-                style={{
-                  fontSize: 14,
-                  color: natural30,
-                  fontWeight: "bold",
-                  textAlign: "left",
-                }}
-              >
-                Ad Soyad
-              </ThemedText>
-              <ThemedText
-                style={{
-                  fontSize: 14,
-                  color: natural30,
-                  fontWeight: "bold",
-                  textAlign: "left",
-                }}
-              >
-                email@mail.com
-              </ThemedText>
-            </View>
-          </View>
-          <TouchableOpacity
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              backgroundColor: "white",
-              borderRadius: 20,
-              padding: 2,
-            }}
-            onPress={() => router.navigate("/modals/login-modal")}
-          >
-            <Icons.ExitIcon />
-          </TouchableOpacity>
-        </LinearGradient>
-        <ScrollView
-          style={{
-            paddingVertical: 20,
-          }}
-          contentContainerStyle={{
-            alignItems: "center",
-            gap: 10,
-          }}
-        >
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              borderWidth: 1,
-              borderRadius: 10,
-              paddingHorizontal: 20,
-              borderColor: primaryOne,
-              width: Dimensions.get("window").width * 0.8,
-              height: 52,
+              borderRadius: 12,
+              overflow: "hidden",
+              borderColor: secondaryFour,
             }}
           >
-            <Text
-              style={{
-                color: natural20,
-                fontSize: 14,
-              }}
-            >
-              Kişisel Bilgilerim
-            </Text>
-            <Icons.ChevronRight
-              style={{
-                color: primaryOne,
-              }}
+            <Image
+              source={require("@/assets/images/default-profile-photo.png")}
+              style={{ width: "100%", height: "100%" }}
             />
           </View>
           <View
             style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              borderWidth: 1,
-              borderRadius: 10,
-              paddingHorizontal: 20,
-              borderColor: primaryOne,
-              width: Dimensions.get("window").width * 0.8,
-              height: 52,
+              flex: 1,
+              height: imageSize,
+              justifyContent: "center",
             }}
           >
             <ThemedText
               style={{
-                color: natural20,
-                fontSize: 14,
+                fontSize: 18,
+                color: primaryOne,
+                letterSpacing: 0.5,
+
+                fontFamily: Mulish.Regular,
+                fontWeight: "bold",
               }}
             >
-              Kişisel Bilgilerim
+              Jessy Pinkman
             </ThemedText>
-            <Icons.ChevronRight
+            <ThemedText
               style={{
-                color: primaryOne,
-              }}
-            />
-          </View>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              borderWidth: 1,
-              borderRadius: 10,
-              paddingHorizontal: 20,
-              borderColor: primaryOne,
-              width: Dimensions.get("window").width * 0.8,
-              height: 52,
-            }}
-          >
-            <Text
-              style={{
-                color: natural20,
                 fontSize: 14,
+                color: primaryOne,
+                letterSpacing: 0.5,
+
+                fontFamily: Mulish.Regular,
+                fontWeight: "bold",
               }}
             >
-              Kişisel Bilgilerim
-            </Text>
-            <Icons.ChevronRight
-              style={{
-                color: primaryOne,
-              }}
-            />
+              jessepinkman@abqmail.com
+            </ThemedText>
           </View>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              borderWidth: 1,
-              borderRadius: 10,
-              paddingHorizontal: 20,
-              borderColor: primaryOne,
-              width: Dimensions.get("window").width * 0.8,
-              height: 52,
-            }}
-          >
-            <Text
-              style={{
-                color: natural20,
-                fontSize: 14,
-              }}
-            >
-              Kişisel Bilgilerim
-            </Text>
-            <Icons.ChevronRight
-              style={{
-                color: primaryOne,
-              }}
-            />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </GestureHandlerRootView>
+        </LinearGradient>
+      </View>
+      <ProfileLinks />
+
+      <UserMetrics />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
     backgroundColor: "white",
   },
   profile: {
-    height: Dimensions.get("window").height * 0.15,
-    borderBottomRightRadius: 20,
-    borderBottomLeftRadius: 20,
-    width: Dimensions.get("window").width * 0.8,
-    display: "flex",
-    justifyContent: "space-between",
+    height: Dimensions.get("window").height * 0.25,
+    width: Dimensions.get("window").width,
+    paddingHorizontal: 40,
+    paddingTop: Constants.statusBarHeight,
+    gap: 10,
     alignItems: "center",
     flexDirection: "row",
-    paddingHorizontal: 12,
   },
 });

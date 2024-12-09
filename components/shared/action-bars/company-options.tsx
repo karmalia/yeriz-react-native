@@ -36,7 +36,6 @@ const CompanyModalOptions = ({
     }>
   >;
 }) => {
-  const router = useRouter();
   const [contentHeight, setContentHeight] = useState(0);
   const [actionBarHeight, setActionBarHeight] = useState(0);
   const maxActionBarHeight = Dimensions.get("window").height * 0.9;
@@ -101,7 +100,7 @@ const CompanyModalOptions = ({
         position: "absolute",
         top: 0,
         left: 0,
-        height: Dimensions.get("window").height,
+        bottom: 0,
         width: Dimensions.get("window").width,
         backgroundColor: "rgba(0,0,0,0.5)",
         display: modal.status ? "flex" : "none",
@@ -112,7 +111,7 @@ const CompanyModalOptions = ({
           style={[
             {
               position: "absolute",
-              bottom: -actionBarHeight + Constants.statusBarHeight,
+              bottom: -actionBarHeight,
               left: 0,
               height: actionBarHeight,
               borderTopRightRadius: 20,

@@ -11,52 +11,6 @@ export type TProductCard = {
   variant: "small" | "large";
 };
 
-export type TCompanyCard = {
-  averageRating: number;
-  companyTypeName: string;
-  createdDate: string;
-  deletedDate: null;
-  distance: number;
-  environmentallyFriendly: boolean;
-  id: string;
-  imageUrl: string;
-  isActive: boolean;
-  isDelete: boolean;
-  isTrustworthy: boolean;
-  lat: number;
-  long: number;
-  name: string;
-  ratingCount: number;
-  starRating: number;
-  updatedDate: null;
-};
-
-export type TCompany = {
-  addressDetail: string;
-  city: string;
-  companyPhone: string;
-  companyTypeDescription: string;
-  companyTypeImageUrl: string;
-  companyTypeName: string;
-  district: string;
-  email: string;
-  environmentallyFriendly: boolean;
-  id: string;
-  imageUrl: string;
-  isActive: boolean;
-  isDelete: boolean;
-  isTrustworthy: boolean;
-  lat: number;
-  long: number;
-  mapUrl: string;
-  mobilePhone: string;
-  name: string;
-  neighborhood: string;
-  ratingCount: number;
-  starRating: number;
-  street: string;
-};
-
 export type TNewProductCard = {
   data: TFood;
 };

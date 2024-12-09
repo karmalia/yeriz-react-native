@@ -6,68 +6,64 @@ import { KeyboardProvider } from "react-native-keyboard-controller";
 
 const Layout = () => {
   return (
-    <KeyboardProvider>
-      <RootSiblingParent>
-        <GestureHandlerRootView>
-          <Stack initialRouteName="index">
-            <Stack.Screen
-              name="index"
-              options={{
-                headerShown: true,
-                headerTitle: "",
-                headerShadowVisible: false,
-              }}
-            />
-            <Stack.Screen
-              name="email-login"
-              options={{
-                headerTitle: "Giriş Yap",
-                headerShown: true,
-                headerBlurEffect: "light",
-                headerShadowVisible: false,
-              }}
-            />
-            <Stack.Screen
-              name="register"
-              options={{
-                headerShown: true,
-                headerTitle: "Kayıt Ol",
-                headerBlurEffect: "light",
-                headerShadowVisible: false,
-              }}
-            />
-            <Stack.Screen
-              name="enter-code"
-              options={{
-                headerShown: true,
-                headerTitle: "Doğrulama Kodu",
-                headerBlurEffect: "light",
-                headerShadowVisible: false,
-              }}
-            />
-            <Stack.Screen
-              name="create-password"
-              options={{
-                headerShown: true,
-                headerTitle: "Şifre Oluştur",
-                headerBlurEffect: "light",
-                headerShadowVisible: false,
-              }}
-            />
-            <Stack.Screen name="resetPassword" />
-            <Stack.Screen
-              name="forgot-password"
-              options={{
-                headerShown: true,
-                headerTitle: "Şifremi Unuttum",
-                headerBlurEffect: "light",
-                headerShadowVisible: false,
-              }}
-            />
-          </Stack>
-        </GestureHandlerRootView>
-      </RootSiblingParent>
-    </KeyboardProvider>
+    <RootSiblingParent>
+      <Stack initialRouteName="index">
+        <Stack.Screen
+          name="index"
+          options={{
+            headerShown: true,
+            headerTitle: "",
+            headerShadowVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="email-login"
+          options={{
+            headerTitle: "Giriş Yap",
+            headerShown: true,
+            headerBlurEffect: "light",
+            headerShadowVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="register"
+          options={{
+            headerShown: true,
+            headerTitle: "Kayıt Ol",
+            headerBlurEffect: "light",
+            headerShadowVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="enter-code"
+          options={{
+            headerShown: true,
+            headerTitle: "Doğrulama Kodu",
+            headerBlurEffect: "light",
+            headerShadowVisible: false,
+          }}
+        />
+        <Stack.Screen
+          name="create-password"
+          options={{
+            headerShown: true,
+            headerTitle: "Şifre Oluştur",
+            headerBlurEffect: "light",
+            headerShadowVisible: false,
+          }}
+        />
+        <Stack.Screen name="resetPassword" />
+        <Stack.Screen
+          name="forgot-password"
+          options={{
+            headerShown: true,
+            headerTitle: "Şifremi Unuttum",
+            headerBlurEffect: "light",
+            headerShadowVisible: false,
+          }}
+        />
+      </Stack>
+    </RootSiblingParent>
   );
 };
 

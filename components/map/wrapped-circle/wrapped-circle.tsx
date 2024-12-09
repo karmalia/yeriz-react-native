@@ -10,7 +10,7 @@ const WrappedCircle = () => {
         <Defs>
           <Mask id="mask" x="0" y="0" height="100%" width="100%">
             <Rect height="100%" width="100%" fill="#fff" />
-            <Circle r={20} cx={50} cy={50} />
+            <Circle r={30} cx={50} cy={50} />
           </Mask>
         </Defs>
         <Rect

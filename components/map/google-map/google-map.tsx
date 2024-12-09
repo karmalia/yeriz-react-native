@@ -1,23 +1,16 @@
-import {
-  ActivityIndicator,
-  Dimensions,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
+import { StyleSheet, View } from "react-native";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import React, { useEffect } from "react";
 import MapOverlay from "../map-overlay/map-overlay";
 import useGoogleMapStore from "@/stores/googleMapStore";
 import RestaurantMarkers from "./restaurant-markers";
-const mapHeight = Dimensions.get("window").height;
 
 const GoogleMap = () => {
-  const { latitude, longitude, latitudeDelta, longitudeDelta } =
+  const { latitude, longitude, latitudeDelta, longitudeDelta, zoomLevel } =
     useGoogleMapStore();
 
   return (
-    <>
+    <View style={styles.map}>
       <MapView
         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
         style={styles.map}
@@ -33,8 +26,8 @@ const GoogleMap = () => {
       >
         <RestaurantMarkers />
       </MapView>
-      <MapOverlay mapHeight={mapHeight} />
-    </>
+      <MapOverlay />
+    </View>
   );
 };
 
@@ -43,5 +36,6 @@ export default GoogleMap;
 const styles = StyleSheet.create({
   map: {
     flex: 1,
+    position: "relative",
   },
 });

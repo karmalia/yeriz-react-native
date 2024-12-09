@@ -57,6 +57,7 @@ const LoginPage = () => {
             borderWidth: 2,
             borderRadius: 12,
           }}
+          onPress={() => router.navigate("/(home)/")}
         >
           <Icons.GoogleLogo
             width={Dimensions.get("window").width * 0.05}
@@ -87,6 +88,7 @@ const LoginPage = () => {
             borderWidth: 2,
             borderRadius: 12,
           }}
+          onPress={() => router.navigate("/(home)/")}
         >
           <Icons.FacebookLogo
             width={Dimensions.get("window").width * 0.05}
