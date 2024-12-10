@@ -1,4 +1,5 @@
 import {
+  natural30,
   primaryOne,
   primaryTwo,
   secondaryOne,
@@ -15,7 +16,7 @@ import { TouchableOpacity } from "react-native";
 
 type ThemedButtonProps = {
   size: "small" | "medium" | "large";
-  variant: "primary" | "secondary" | "tertiary";
+  variant: "primary" | "secondary" | "tertiary" | "disabled";
   outline?: boolean;
   style?: any;
   children: React.ReactNode;
@@ -70,6 +71,12 @@ const useStyles = (
       buttonStyles = {
         backgroundColor: !isFocused ? tertiaryOne : tertiaryTwo,
         borderColor: !isFocused ? tertiaryOne : tertiaryOne,
+      };
+      break;
+    case "disabled":
+      buttonStyles = {
+        backgroundColor: natural30,
+        borderColor: natural30,
       };
       break;
     default:

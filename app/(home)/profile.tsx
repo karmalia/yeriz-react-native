@@ -5,34 +5,39 @@ import { useRouter } from "expo-router";
 import ThemedText from "@/components/shared/themed-text/themed-text";
 import { LinearGradient } from "expo-linear-gradient";
 import Constants from "expo-constants";
-import { primaryOne, secondaryFour } from "@/constants/colors";
+import {
+  primaryFive,
+  primaryFour,
+  primaryOne,
+  secondaryFour,
+} from "@/constants/colors";
 import { Image } from "expo-image";
 
 import { StatusBar } from "expo-status-bar";
 import Mulish from "@/constants/font";
 import UserMetrics from "@/components/(profile)/user-metrics";
 import ProfileLinks from "@/components/(profile)/profile-links";
+import { ScrollView } from "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const imageSize = Dimensions.get("window").height * 0.08;
 
 export default function ProfilePage() {
   return (
-    <View style={styles.container}>
-      <StatusBar translucent />
-
+    <ScrollView
+      contentContainerStyle={styles.container}
+      style={{ backgroundColor: "white" }}
+      showsVerticalScrollIndicator={false}
+    >
       <View
         style={{
           borderBottomEndRadius: 20,
           elevation: 5,
-
           borderBottomStartRadius: 20,
           overflow: "hidden",
         }}
       >
-        <LinearGradient
-          colors={["white", secondaryFour]}
-          style={styles.profile}
-        >
+        <LinearGradient colors={["white", primaryFive]} style={styles.profile}>
           <View
             style={{
               display: "flex",
@@ -40,7 +45,6 @@ export default function ProfilePage() {
               alignItems: "center",
               height: imageSize,
               width: imageSize,
-
               borderRadius: 12,
               overflow: "hidden",
               borderColor: secondaryFour,
@@ -63,7 +67,6 @@ export default function ProfilePage() {
                 fontSize: 18,
                 color: primaryOne,
                 letterSpacing: 0.5,
-
                 fontFamily: Mulish.Regular,
                 fontWeight: "bold",
               }}
@@ -75,7 +78,6 @@ export default function ProfilePage() {
                 fontSize: 14,
                 color: primaryOne,
                 letterSpacing: 0.5,
-
                 fontFamily: Mulish.Regular,
                 fontWeight: "bold",
               }}
@@ -86,17 +88,15 @@ export default function ProfilePage() {
         </LinearGradient>
       </View>
       <ProfileLinks />
-
       <UserMetrics />
-    </View>
+      <View style={{ height: 80 }} />
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "white",
-  },
+  container: {},
+
   profile: {
     height: Dimensions.get("window").height * 0.25,
     width: Dimensions.get("window").width,

@@ -1,51 +1,59 @@
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { Ionicons } from "@expo/vector-icons";
 import {
   natural20,
-  natural30,
   natural40,
   primaryOne,
+  secondaryOne,
 } from "@/constants/colors";
-import Icons from "../shared/icons/icons";
-import ThemedText from "../shared/themed-text/themed-text";
-import { Ionicons } from "@expo/vector-icons";
+import Icons from "@/components/shared/icons/icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
-import ProfileButton from "../shared/profile/profile-button";
+import Mulish from "@/constants/font";
+import ProfileButton from "@/components/shared/profile/profile-button";
 
 type Props = {};
 
 const buttons = [
   {
-    Icon: <Ionicons name="person-outline" size={20} color={natural20} />,
-    name: "Profilim",
-    link: "/(profile)",
+    Icon: <Ionicons name="fast-food-outline" size={22} color={primaryOne} />,
+    name: "Siparişim Hakkında",
+    link: "/(help)/about-order",
   },
   {
-    Icon: <Ionicons name="help-circle-outline" size={20} color={natural20} />,
-    name: "Yardım",
-    link: "/(help)/",
-  },
-  {
-    Icon: <Ionicons name="lock-closed-outline" size={20} color={natural20} />,
-    name: "KVKK ve Gizlilik",
+    Icon: <Ionicons name="earth-outline" size={22} color={primaryOne} />,
+    name: (
+      <>
+        <Text
+          style={{
+            color: primaryOne,
+            fontFamily: Mulish.Black,
+            letterSpacing: 0.5,
+          }}
+        >
+          Bizyeriz
+        </Text>{" "}
+        Nasıl Çalışıyor?
+      </>
+    ),
     link: "/(help)/how-it-works",
   },
-  // {
-  //   Icon: <Ionicons name="storefront-outline" size={20} color={natural20} />,
-  //   name: "Bizyeriz'e katılın",
-  //   link: "/(help)/join-us",
-  // },
+  {
+    Icon: <Ionicons name="storefront-outline" size={22} color={primaryOne} />,
+    name: "Bize Katılın!",
+    link: "/(help)/join-us",
+  },
 ];
 
-const ProfileLinks = (props: Props) => {
+const Index = (props: Props) => {
   const router = useRouter();
   return (
     <View style={styles.container}>
       {buttons.map((button, i) => {
         return (
           <ProfileButton
-            key={button.name + i}
+            key={button.link + i}
             name={button.name}
             link={button.link}
             Icon={button.Icon}
@@ -57,10 +65,11 @@ const ProfileLinks = (props: Props) => {
   );
 };
 
-export default ProfileLinks;
+export default Index;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: "center",
     gap: 10,
     backgroundColor: "white",
@@ -75,7 +84,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     backgroundColor: "white",
-    elevation: 1,
+    elevation: 2,
     shadowColor: natural20,
     shadowOffset: {
       width: 0,

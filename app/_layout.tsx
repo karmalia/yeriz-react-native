@@ -1,6 +1,6 @@
 import { useFonts } from "expo-font";
-import { Stack, useRouter } from "expo-router";
-import React, { useState } from "react";
+import { router, Stack, usePathname, useRouter } from "expo-router";
+import React, { useLayoutEffect, useState } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
@@ -71,9 +71,17 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
+  const pathname = usePathname();
   const { data, isLoading, isError } = useGetAllFilters();
   const { initializeFilters } = useFilterStore();
 
+  useLayoutEffect(() => {
+    if (pathname !== "/(home)") {
+      setTimeout(() => {
+        router.navigate("/(home)");
+      }, 500);
+    }
+  }, []);
   useEffect(() => {
     if (data) {
       initializeFilters(data);
@@ -108,8 +116,11 @@ function RootLayoutNav() {
   if (data) {
     return (
       <>
-        <Stack initialRouteName="(home)/index">
+        <StatusBar style="light" />
+        <Stack initialRouteName="(home)">
           <Stack.Screen name="(login)" options={{ headerShown: false }} />
+          <Stack.Screen name="(profile)" options={{ headerShown: false }} />
+          <Stack.Screen name="(help)" options={{ headerShown: false }} />
           <Stack.Screen
             name="(home)"
             options={{

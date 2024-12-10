@@ -7,7 +7,13 @@ import {
 } from "react-native";
 import React from "react";
 import ThemedText from "../shared/themed-text/themed-text";
-import { primaryOne, primaryThree, tertiaryThree } from "@/constants/colors";
+import {
+  primaryOne,
+  primaryThree,
+  secondary,
+  secondaryOne,
+  tertiaryThree,
+} from "@/constants/colors";
 import Mulish from "@/constants/font";
 import CardIcons from "../shared/icons/card.icons";
 import Icons from "../shared/icons/icons";
@@ -52,14 +58,23 @@ const CompanyHomeCard = ({ data }: { data: TCompanyCard }) => {
         <View style={styles.cardContent}>
           <ThemedText style={styles.companyName}>{data.name}</ThemedText>
           <ThemedText>{data.companyTypeName}</ThemedText>
-          <ThemedText style={styles.distance}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "flex-start",
+              gap: 2,
+            }}
+          >
             <Icons.LocationOn
-              style={{ color: "white" }}
+              style={{ color: secondaryOne, opacity: 0.9 }}
               width={14}
               height={14}
             />
-            {(data.distance / 1000).toFixed(1)}km
-          </ThemedText>
+            <ThemedText style={styles.distance}>
+              {(data.distance / 1000).toFixed(1)}km
+            </ThemedText>
+          </View>
         </View>
 
         <View style={styles.ratingContainer}>
@@ -103,11 +118,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 8,
     borderRadius: 20,
+    gap: 2,
   },
   companyName: {
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: Mulish.SemiBold,
-    textDecorationLine: "underline",
     textAlign: "left",
   },
   category: {
@@ -118,7 +133,6 @@ const styles = StyleSheet.create({
   distance: {
     fontSize: 12,
     fontFamily: Mulish.SemiBold,
-    textDecorationLine: "underline",
     textAlign: "left",
     letterSpacing: 2,
   },

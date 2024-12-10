@@ -80,10 +80,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
     backgroundColor: "white",
     zIndex: -1,
-    paddingVertical: 20,
   },
   box: {
-    elevation: 3,
+    elevation: 2,
     backgroundColor: "white",
     flexDirection: "row",
     borderRadius: 10,

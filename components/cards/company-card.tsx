@@ -22,6 +22,7 @@ const CompanyCard = ({ data }: { data: ICompany }) => {
   const router = useRouter();
   return (
     <TouchableOpacity
+      activeOpacity={1}
       onPress={() => {
         router.push(
           `modals/company-modal?companyId=${data.id}&companyDistance=${data.distance}`
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     borderRadius: 12,
     backgroundColor: "white",
-    elevation: 2,
+    elevation: 1,
   },
   cardContent: {
     width: "100%",

@@ -15,7 +15,14 @@ import {
   View,
 } from "react-native";
 
-import { natural30, natural40, primaryOne } from "@/constants/colors";
+import {
+  natural30,
+  natural40,
+  primaryOne,
+  secondaryOne,
+  secondaryThree,
+  secondaryTwo,
+} from "@/constants/colors";
 import { useClientOnlyValue } from "@/lib/hooks/useClientOnlyValue";
 
 import AddressBar from "@/components/header/address-bar";
@@ -27,6 +34,8 @@ import TabbarIndicator from "@/components/shared/tabbars/tabbar-indicator";
 import FilterOrderBar from "@/components/shared/action-bars/filter-order-bar";
 import ThemedText from "@/components/shared/themed-text/themed-text";
 import { styles } from "../(login)/enter-code";
+import Mulish from "@/constants/font";
+import DefaultTabHeader from "@/components/shared/default-tab-header/default-tab-header";
 // import { TabBarsNew } from "@/components/shared/tabbars-new/tab-bars-new";
 
 type IconPos = {
@@ -109,7 +118,9 @@ export default function TabLayout() {
           }}
           options={{
             title: "Ara",
-            headerShown: true,
+            header: () => {
+              return <DefaultTabHeader title="Ara" />;
+            },
 
             tabBarIcon: () => {
               return (
@@ -128,7 +139,9 @@ export default function TabLayout() {
           }}
           options={{
             title: "Favoriler",
-            headerShown: false,
+            header: () => {
+              return <DefaultTabHeader title="Favoriler" />;
+            },
 
             tabBarIcon: () => {
               return (
@@ -154,19 +167,11 @@ export default function TabLayout() {
                 <View style={tabStyles.headerWrapper}>
                   <View
                     style={{
-                      height: Constants.statusBarHeight,
-                      borderWidth: 1,
-                      backgroundColor: "red",
-                      width: "100%",
-                    }}
-                  />
-                  <View
-                    style={{
                       flexDirection: "row",
                       alignItems: "center",
                       justifyContent: "flex-start",
                       paddingVertical: 10,
-                      borderWidth: 1,
+
                       gap: 10,
                       paddingHorizontal: 20,
                       backgroundColor: "white",
@@ -209,7 +214,9 @@ export default function TabLayout() {
           options={{
             title: "Sepet",
             tabBarAccessibilityLabel: "Sepet",
-            headerShown: false,
+            header: () => {
+              return <DefaultTabHeader title="Sepet" />;
+            },
 
             tabBarIcon: () => {
               return (
@@ -268,7 +275,7 @@ const tabStyles = StyleSheet.create({
     justifyContent: "space-around",
     flexDirection: "column",
     alignItems: "flex-start",
-
+    paddingTop: Constants.statusBarHeight,
     elevation: 4,
     shadowColor: natural30,
     shadowOffset: {

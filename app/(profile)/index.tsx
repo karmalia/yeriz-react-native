@@ -1,55 +1,44 @@
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import {
-  natural20,
-  natural30,
-  natural40,
-  primaryOne,
-} from "@/constants/colors";
-import Icons from "../shared/icons/icons";
-import ThemedText from "../shared/themed-text/themed-text";
 import { Ionicons } from "@expo/vector-icons";
+import { natural20, natural40 } from "@/constants/colors";
+import Icons from "@/components/shared/icons/icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useRouter } from "expo-router";
-import ProfileButton from "../shared/profile/profile-button";
+import ProfileButton from "@/components/shared/profile/profile-button";
 
 type Props = {};
 
 const buttons = [
   {
     Icon: <Ionicons name="person-outline" size={20} color={natural20} />,
-    name: "Profilim",
-    link: "/(profile)",
+    name: "Hesap Detaylarım",
+    link: "/(profile)/personal-info",
   },
   {
-    Icon: <Ionicons name="help-circle-outline" size={20} color={natural20} />,
-    name: "Yardım",
-    link: "/(help)/",
+    Icon: <Ionicons name="notifications-outline" size={22} color={natural20} />,
+    name: "Bildirimler",
+    link: "/(profile)/notifications",
   },
   {
-    Icon: <Ionicons name="lock-closed-outline" size={20} color={natural20} />,
-    name: "KVKK ve Gizlilik",
-    link: "/(help)/how-it-works",
+    Icon: <Ionicons name="card-outline" size={22} color={natural20} />,
+    name: "Ödeme Yöntemleri",
+    link: "/(profile)/payment-methods",
   },
-  // {
-  //   Icon: <Ionicons name="storefront-outline" size={20} color={natural20} />,
-  //   name: "Bizyeriz'e katılın",
-  //   link: "/(help)/join-us",
-  // },
 ];
 
-const ProfileLinks = (props: Props) => {
+const Index = (props: Props) => {
   const router = useRouter();
   return (
     <View style={styles.container}>
-      {buttons.map((button, i) => {
+      {buttons.map((button) => {
         return (
           <ProfileButton
-            key={button.name + i}
+            key={button.name}
             name={button.name}
             link={button.link}
-            Icon={button.Icon}
             push={router.push}
+            Icon={button?.Icon}
           />
         );
       })}
@@ -57,10 +46,11 @@ const ProfileLinks = (props: Props) => {
   );
 };
 
-export default ProfileLinks;
+export default Index;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: "center",
     gap: 10,
     backgroundColor: "white",

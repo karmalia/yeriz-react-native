@@ -23,7 +23,6 @@ import Constants from "expo-constants";
 export default function SearchPage() {
   const pathname = usePathname();
   const filterStore = useFilterStore();
-  const { latitude, longitude, zoomLevel } = useGoogleMapStore();
   const params = useLocalSearchParams();
   const searchBarRef = React.useRef<null | TextInput>(null);
 
@@ -43,11 +42,10 @@ export default function SearchPage() {
             alignItems: "center",
             gap: 8,
             overflow: "hidden",
-            paddingVertical: 8,
+            paddingVertical: 14,
             backgroundColor: "white",
             width: "100%",
             elevation: 4,
-            paddingTop: Constants.statusBarHeight,
           },
         ]}
       >
@@ -80,7 +78,6 @@ export default function SearchPage() {
           flex: 1,
           width: "100%",
           position: "relative",
-          paddingVertical: 8,
         }}
       >
         {/* First Phase */}

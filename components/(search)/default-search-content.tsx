@@ -40,28 +40,32 @@ const DefualtSearchContent = () => {
   }
 
   return (
-    <>
-      <KitchenSlider />
+    <View
+      style={{
+        gap: 4,
+      }}
+    >
       <FlatList
+        ListHeaderComponent={() => <KitchenSlider />}
         data={data}
         contentContainerStyle={{
-          alignItems: "center",
+          gap: 10,
         }}
         renderItem={({ item }) => {
-          return <CompanyCard data={item} />;
+          return (
+            <View
+              style={{
+                alignSelf: "center",
+              }}
+            >
+              <CompanyCard data={item} />
+            </View>
+          );
         }}
         keyExtractor={(item) => item.id + "search"}
-        ItemSeparatorComponent={() => (
-          <View
-            style={{
-              height: 12,
-              backgroundColor: "transparent",
-            }}
-          />
-        )}
         showsVerticalScrollIndicator={false}
       />
-    </>
+    </View>
   );
 };
 
