@@ -4,6 +4,7 @@ import Mulish from "@/constants/font";
 
 import ThemedText from "../shared/themed-text/themed-text";
 import Meals from "./meals";
+import { defaultShadow } from "@/constants/colors";
 
 const MetricsSection = () => (
   <View style={styles.metricsContainer}>
@@ -59,11 +60,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 12,
     padding: 10,
-    elevation: 3,
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+
+    ...defaultShadow,
   },
   metricTitle: {
     fontSize: 16,

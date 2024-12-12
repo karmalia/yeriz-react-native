@@ -15,6 +15,8 @@ export default function Favorites() {
   const [stage, setStage] = React.useState(1);
   const { basketItems } = useBasketStore();
 
+  console.log("basketItems", basketItems);
+
   return (
     <View style={styles.container}>
       <View

@@ -9,7 +9,12 @@ import Animated, {
 } from "react-native-reanimated";
 import { Slider } from "react-native-awesome-slider";
 
-import { natural40, primaryOne, secondaryOne } from "@/constants/colors";
+import {
+  buttonShadow,
+  natural40,
+  primaryOne,
+  secondaryOne,
+} from "@/constants/colors";
 import useDebounce from "@/lib/custom-hooks/useDebounce";
 import calculateDeltas from "@/lib/utils/calculateDelta";
 
@@ -60,11 +65,7 @@ const ThemedRange = ({
               height: 25,
               backgroundColor: secondaryOne,
               borderRadius: 25,
-              elevation: 5,
-              shadowColor: "black",
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
+              ...buttonShadow,
             }}
           />
         )}

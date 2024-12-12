@@ -64,3 +64,25 @@ export const Colors = {
     tabIconSelected: tintColorDark,
   },
 };
+
+export const defaultShadow = {
+  elevation: 4,
+  shadowColor: natural30,
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 3.84,
+};
+
+export const buttonShadow = {
+  elevation: 2,
+  shadowColor: natural20,
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 3.84,
+};

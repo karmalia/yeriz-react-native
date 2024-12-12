@@ -70,23 +70,21 @@ export default function RootLayout() {
   );
 }
 
+export const unstable_settings = {
+  // Ensure any route can link back to `/`
+  initialRouteName: "(home)",
+};
+
 function RootLayoutNav() {
   const pathname = usePathname();
   const { data, isLoading, isError } = useGetAllFilters();
   const { initializeFilters } = useFilterStore();
 
-  useLayoutEffect(() => {
-    if (pathname !== "/(home)") {
-      setTimeout(() => {
-        router.navigate("/(home)");
-      }, 500);
-    }
-  }, []);
   useEffect(() => {
     if (data) {
       initializeFilters(data);
     }
-  }, [isLoading]);
+  }, [data]);
 
   if (isLoading || isError) {
     return (

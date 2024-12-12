@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import React, { useEffect } from "react";
 import {
+  defaultShadow,
   natural10,
   natural20,
   natural30,
@@ -122,14 +123,7 @@ const MapHeader = () => {
                 paddingHorizontal: 10,
                 paddingVertical: 5,
                 marginTop: 5,
-                elevation: 12,
-                shadowColor: natural10,
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
+                ...defaultShadow,
               }}
             >
               {isLoading && (

@@ -16,6 +16,9 @@ import {
 } from "react-native";
 
 import {
+  defaultShadow,
+  natural10,
+  natural20,
   natural30,
   natural40,
   primaryOne,
@@ -138,9 +141,21 @@ export default function TabLayout() {
             tabPress: () => setActiveTab("favorites"),
           }}
           options={{
-            title: "Favoriler",
             header: () => {
-              return <DefaultTabHeader title="Favoriler" />;
+              return (
+                <DefaultTabHeader
+                  title="Favori Restoranlarım"
+                  style={{
+                    backgroundColor: "white",
+
+                    ...defaultShadow,
+                  }}
+                  textStyle={{
+                    color: natural10,
+                    fontFamily: Mulish.Black,
+                  }}
+                />
+              );
             },
 
             tabBarIcon: () => {
@@ -276,14 +291,7 @@ const tabStyles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "flex-start",
     paddingTop: Constants.statusBarHeight,
-    elevation: 4,
-    shadowColor: natural30,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    ...defaultShadow,
   },
 
   tabTitle: {

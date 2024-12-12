@@ -15,31 +15,14 @@ export interface ICompany {
   updatedDate: null;
 }
 
-const data = {
-  place: "places/ChIJ60jO_uLYuxQRKmMzDImLpa8",
-  placeId: "ChIJ60jO_uLYuxQRKmMzDImLpa8",
-  text: {
-    text: "Konak/İzmir, Türkiye",
-    matches: [
-      {
-        endOffset: 5,
-      },
-    ],
-  },
-  structuredFormat: {
-    mainText: {
-      text: "Konak",
-      matches: [
-        {
-          endOffset: 5,
-        },
-      ],
-    },
-    secondaryText: {
-      text: "İzmir, Türkiye",
-    },
-  },
-  types: ["administrative_area_level_2", "geocode", "political"],
+export type TAboutMyOrder = {
+  id: string | number;
+  question: string;
+  answer: string;
+  link: {
+    href: string;
+    text: string;
+  } | null;
 };
 
 export interface ISuggestion {

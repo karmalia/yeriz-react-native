@@ -1,6 +1,7 @@
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import {
+  buttonShadow,
   natural20,
   natural30,
   natural40,
@@ -75,14 +76,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     backgroundColor: "white",
-    elevation: 1,
-    shadowColor: natural20,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    ...buttonShadow,
     paddingHorizontal: 20,
     borderColor: natural40,
     width: Dimensions.get("window").width * 0.8,

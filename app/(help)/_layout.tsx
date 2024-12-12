@@ -35,7 +35,8 @@ const Layout = () => {
         initialRouteName="index"
         screenOptions={{
           animation: "slide_from_right",
-          gestureDirection: "horizontal",
+          animationDuration: 100,
+          gestureDirection: "vertical",
           gestureEnabled: true,
         }}
       >
@@ -47,8 +48,17 @@ const Layout = () => {
             },
           }}
         />
+
         <Stack.Screen
-          name="about-order"
+          name="about-order/index"
+          options={{
+            header: ({ navigation }) => {
+              return <ProfileHeader title="Siparişim Hakkında" />;
+            },
+          }}
+        />
+        <Stack.Screen
+          name="about-order/[answerId]"
           options={{
             header: ({ navigation }) => {
               return <ProfileHeader title="Siparişim Hakkında" />;

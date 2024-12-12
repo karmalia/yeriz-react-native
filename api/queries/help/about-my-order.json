@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "question": "Ürünü almaya gittiğimde işletme kapalıydı. Ne yapmalıyım?",
+    "answer": "Bizyeriz siparişleri belli bir zaman diliminde teslim almanız gerektiğini belirtir. Bu zaman diliminde işletme kapalıysa lütfen işletme ile iletişime geçin.",
+    "link": {
+      "href": "info@bizyeriz.com",
+      "text": "Bize Ulaşın"
+    }
+  },
+  {
+    "id": 2,
+    "question": "Siparişimi nasıl iptal edebilirim?",
+    "answer": "Siparişinizi iptal etmek için uygulama üzerinden 'Siparişlerim' bölümüne gidip ilgili siparişi seçerek 'İptal Et' seçeneğini kullanabilirsiniz. İşleme devam edemiyorsanız lütfen destek hattımızla iletişime geçin.",
+    "link": {
+      "href": "info@bizyeriz.com",
+      "text": "Bize Ulaşın"
+    }
+  },
+  {
+    "id": 3,
+    "question": "Siparişimi alma zamanını kaçırdım. Ne yapmalıyım?",
+    "answer": "Siparişinizi alma zamanını kaçırdıysanız, işletme ile iletişime geçerek durumu açıklayabilirsiniz. Alternatif bir çözüm için destek hattımızla da iletişime geçebilirsiniz.",
+    "link": {
+      "href": "info@bizyeriz.com",
+      "text": "Bize Ulaşın"
+    }
+  },
+  {
+    "id": 4,
+    "question": "Siparişimin onaylandığını nasıl öğrenebilirim?",
+    "answer": "Siparişinizin onaylanıp onaylanmadığını uygulama üzerinden 'Siparişlerim' bölümüne giderek kontrol edebilirsiniz. Ayrıca onaylandığında size bildirim gönderilecektir.",
+    "link": null
+  },
+  {
+    "id": 5,
+    "question": "Siparişim ile ilgili bir sorun yaşadım. Ne yapmalıyım?",
+    "answer": "Siparişinizle ilgili bir sorun yaşamanız durumunda uygulama üzerinden 'Yardım Merkezi'ne ulaşarak destek talebi oluşturabilirsiniz. Alternatif olarak müşteri hizmetleri hattımızla iletişime geçebilirsiniz.",
+    "link": {
+      "href": "info@bizyeriz.com",
+      "text": "Bize Ulaşın"
+    }
+  },
+  {
+    "id": 6,
+    "question": "Yemeğimde alerjen bir madde olduğunu fark ettim. Ne yapmalıyım?",
+    "answer": "Eğer yemeğinizde alerjen bir madde fark ettiyseniz yemeği tüketmeyin ve hemen işletme ile iletişime geçin. Ayrıca acil durumlarda bir sağlık uzmanına başvurun. Destek ekibimiz size yardımcı olmaktan mutluluk duyacaktır.",
+    "link": {
+      "href": "info@bizyeriz.com",
+      "text": "Bize Ulaşın"
+    }
+  },
+  {
+    "id": 7,
+    "question": "İşletmeye gittiğimde bana yemek kalmadığı söylendi. Ne yapmalıyım?",
+    "answer": "Eğer işletmeye gittiğinizde yemek kalmadığı söylendiyse, bu durumu hemen müşteri hizmetlerine bildirerek alternatif bir çözüm talep edebilirsiniz. Durumu daha iyi değerlendirebilmemiz için işletmenin size verdiği bilgileri de paylaşabilirsiniz.",
+    "link": {
+      "href": "info@bizyeriz.com",
+      "text": "Bize Ulaşın"
+    }
+  }
+]

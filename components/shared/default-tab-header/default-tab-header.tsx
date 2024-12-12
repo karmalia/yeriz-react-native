@@ -7,9 +7,15 @@ import Mulish from "@/constants/font";
 
 type DefaultTabHeaderProps = {
   title: string;
+  style?: any;
+  textStyle?: any;
 };
 
-const DefaultTabHeader = ({ title }: DefaultTabHeaderProps) => {
+const DefaultTabHeader = ({
+  title,
+  style,
+  textStyle,
+}: DefaultTabHeaderProps) => {
   return (
     <View
       style={{
@@ -18,6 +24,7 @@ const DefaultTabHeader = ({ title }: DefaultTabHeaderProps) => {
         height: 80,
         justifyContent: "center",
         alignItems: "center",
+        ...style,
       }}
     >
       <ThemedText
@@ -27,6 +34,7 @@ const DefaultTabHeader = ({ title }: DefaultTabHeaderProps) => {
           color: "white",
           fontFamily: Mulish.Regular,
           letterSpacing: 0.5,
+          ...textStyle,
         }}
       >
         {title}

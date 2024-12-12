@@ -4,6 +4,7 @@ import { Image } from "expo-image";
 import { blurhash, TProductCard } from "./card.types";
 import ThemedText from "../shared/themed-text/themed-text";
 import {
+  defaultShadow,
   natural10,
   natural20,
   natural30,
@@ -18,13 +19,24 @@ import { Ionicons } from "@expo/vector-icons";
 
 interface BasketProps extends TFood {
   quantity: number;
+  availableTime: string;
+  imageUrl: any;
+  id: string;
 }
 
-const BasketCard = (data: BasketProps) => {
+const BasketCard = ({
+  availableTime,
+  discountedPrice,
+  id,
+  imageUrl,
+  name,
+  originalPrice,
+  quantity,
+}: BasketProps) => {
   const { increaseItem, decreaseItem, deleteItem } = useBasketStore();
 
   return (
-    <View style={[styles.card, styles.shadow]}>
+    <View style={[styles.card, { ...defaultShadow }]}>
       <View
         style={{
           width: "33%",
@@ -35,7 +47,7 @@ const BasketCard = (data: BasketProps) => {
       >
         <Image
           //Require is not required when using local files
-          source={data.foodImage[0].imageUrl}
+          source={imageUrl}
           style={{
             width: "100%",
             borderRadius: 12,
@@ -75,22 +87,9 @@ const BasketCard = (data: BasketProps) => {
           numberOfLines={1}
           ellipsizeMode="tail"
         >
-          {data.name}
+          {name}
         </ThemedText>
-        <ThemedText
-          style={{
-            fontSize: 12,
-            height: 14,
-            fontWeight: "bold",
-            color: primaryOne,
-            textAlign: "left",
-            width: "100%",
-          }}
-          numberOfLines={1}
-          ellipsizeMode="tail"
-        >
-          {data.companyName}
-        </ThemedText>
+
         <View
           style={{
             flexDirection: "row",
@@ -114,7 +113,7 @@ const BasketCard = (data: BasketProps) => {
               height: 14,
             }}
           >
-            {data.availableFrom}:00 - {data.availableUntil}:00
+            {availableTime}
           </ThemedText>
         </View>
         <View
@@ -135,7 +134,7 @@ const BasketCard = (data: BasketProps) => {
                 fontFamily: Mulish.Medium,
               }}
             >
-              {data.originalPrice} TL
+              {originalPrice} TL
             </ThemedText>
             <ThemedText
               style={{
@@ -145,7 +144,7 @@ const BasketCard = (data: BasketProps) => {
               }}
               variant="primary"
             >
-              {data.discountedPrice} TL
+              {discountedPrice} TL
             </ThemedText>
           </View>
           <View
@@ -158,7 +157,7 @@ const BasketCard = (data: BasketProps) => {
           >
             <TouchableOpacity
               onPress={() => {
-                data.quantity > 1 ? decreaseItem(data) : deleteItem(data);
+                quantity > 1 ? decreaseItem(null) : deleteItem(null);
               }}
             >
               <CardIcons.DecreaseIcon
@@ -176,11 +175,11 @@ const BasketCard = (data: BasketProps) => {
                 fontFamily: Mulish.Bold,
               }}
             >
-              {data.quantity || 0}
+              {quantity || 0}
             </ThemedText>
             <TouchableOpacity
               onPress={() => {
-                increaseItem(data);
+                increaseItem(null);
               }}
             >
               <CardIcons.IncreaseIcon
@@ -207,5 +206,4 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     flexDirection: "row",
   },
-  shadow: {},
 });

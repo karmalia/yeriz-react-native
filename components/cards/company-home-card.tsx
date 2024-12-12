@@ -43,6 +43,7 @@ const CompanyHomeCard = ({ data }: { data: TCompanyCard }) => {
           `modals/company-modal?companyId=${data.id}&companyDistance=${data.distance}`
         );
       }}
+      activeOpacity={1}
     >
       <ImageBackground
         source={{ uri: data.imageUrl }}

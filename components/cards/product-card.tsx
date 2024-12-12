@@ -2,6 +2,7 @@ import { Dimensions, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ThemedText from "../shared/themed-text/themed-text";
 import {
+  defaultShadow,
   natural10,
   natural30,
   secondaryOne,
@@ -53,11 +54,11 @@ const ProductCard = ({
     <View
       style={[
         styles.card,
-        styles.cardShadow,
         {
           width: getWidth(variant),
           height: getHeight(variant),
         },
+        { ...defaultShadow },
       ]}
     >
       <View style={styles.cardContent}>
@@ -236,16 +237,7 @@ const styles = StyleSheet.create({
 
     // shadow
   },
-  cardShadow: {
-    shadowColor: "black",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-    elevation: 4,
-  },
+
   cardContent: {
     width: "100%",
 

@@ -5,10 +5,14 @@ import axios, {
 } from "axios";
 
 // Create an Axios instance
-var pc = "78";
-var laptop = "193";
+const LAPTOP_LOCAL = process.env.EXPO_PUBLIC_LOCAL_API_LAPTOP;
+const PC_LOCAL = process.env.EXPO_PUBLIC_LOCAL_API_PC;
+const API_PROD = process.env.EXPO_PUBLIC_API_PROD;
+
+const baseURL = process.env.NODE_ENV === "production" ? API_PROD : PC_LOCAL;
+console.log("baseURL", baseURL);
 const api = axios.create({
-  baseURL: `http://192.168.1.${pc}:8080/api`,
+  baseURL,
   headers: {
     "Content-Type": "application/json",
   },

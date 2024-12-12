@@ -5,7 +5,7 @@ type Props = {};
 
 const HowItWorks = (props: Props) => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text>HowItWorks</Text>
     </View>
   );
@@ -13,4 +13,11 @@ const HowItWorks = (props: Props) => {
 
 export default HowItWorks;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+  },
+});

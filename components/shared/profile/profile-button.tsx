@@ -1,6 +1,6 @@
 import { Dimensions, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { natural20, natural40 } from "@/constants/colors";
+import { buttonShadow, natural20, natural40 } from "@/constants/colors";
 import Icons from "../icons/icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
@@ -59,17 +59,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     backgroundColor: "white",
-    elevation: 2,
-    shadowColor: natural20,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+
     paddingHorizontal: 20,
     borderColor: natural40,
     width: Dimensions.get("window").width * 0.8,
     height: 52,
+    ...buttonShadow,
   },
 });
